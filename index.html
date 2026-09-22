@@ -10,10 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts (Inter) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- KaTeX for math rendering -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -52,6 +48,12 @@
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
+        }
+        /* Plain text preservation */
+        .plain-text-content {
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: inherit;
         }
     </style>
 </head>
@@ -204,9 +206,9 @@
                         <i class="fa-solid fa-plus"></i>
                         <span>Yeni Sınaq Yarad</span>
                     </button>
-                    <button onclick="editActiveExamTitle()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition border border-slate-200 flex items-center gap-1.5" title="Sınaq adını redaktə et">
+                    <button onclick="editActiveExamDetails()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition border border-slate-200 flex items-center gap-1.5" title="Sınaq adını və parolu redaktə et">
                         <i class="fa-solid fa-pen"></i>
-                        <span class="hidden sm:inline">Adı Dəyiş</span>
+                        <span class="hidden sm:inline">Sınaq Tənzimləmələri</span>
                     </button>
                     <button onclick="deleteActiveExam()" class="px-3 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold rounded-xl transition border border-rose-200 flex items-center gap-1.5" title="Cari sınağı sil">
                         <i class="fa-solid fa-trash"></i>
@@ -258,8 +260,8 @@
 
                         <!-- Question Text Area -->
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sualın Mətni (KaTeX dəstəklənir: $x^2 - 4 = 0$)</label>
-                            <textarea id="input-text" rows="3" placeholder="Sualın mətnini bura yazın..." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sualın Mətni (Standart Mətn / Riyazi Simvollar)</label>
+                            <textarea id="input-text" rows="3" placeholder="Sualın mətnini və ya misalı birbaşa kopyalayıb bura yapışdırın..." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
                         </div>
 
                         <!-- Options Input Grid (For Closed Questions) -->
@@ -328,10 +330,10 @@
                 <!-- Right: Config & Current Questions List (1 col) -->
                 <div class="space-y-6">
                     
-                    <!-- Exam Timer Settings Card -->
+                    <!-- Exam Timer & Password Settings Card -->
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
                         <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-sliders text-indigo-600"></i> Cari Sınaq Müddəti
+                            <i class="fa-solid fa-sliders text-indigo-600"></i> Cari Sınaq Tənzimləmələri
                         </h4>
 
                         <div>
@@ -342,9 +344,21 @@
                             </div>
                         </div>
 
-                        <!-- Password Change Box -->
+                        <!-- Exam Access Password Box -->
                         <div class="pt-3 border-t border-slate-100 space-y-2">
-                            <label class="block text-xs font-semibold text-slate-600">Giriş Şifrəsini Dəyiş</label>
+                            <label class="block text-xs font-semibold text-slate-600">Sınağa Giriş Parolu (Kilid)</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="input-exam-password" placeholder="Boş olsa parolsuz olar..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                <button onclick="updateActiveExamPassword()" class="px-3 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl transition shrink-0">
+                                    Tətbiq Et
+                                </button>
+                            </div>
+                            <p class="text-[10px] text-slate-400">Şagirdlərin sınağa girməsi üçün tələb olunan xüsusi parol.</p>
+                        </div>
+
+                        <!-- Admin Password Change Box -->
+                        <div class="pt-3 border-t border-slate-100 space-y-2">
+                            <label class="block text-xs font-semibold text-slate-600">Müəllim Paneli Şifrəsini Dəyiş</label>
                             <div class="flex gap-2">
                                 <input type="password" id="new-admin-pass" placeholder="Yeni şifrə..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
                                 <button onclick="changeAdminPassword()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition shrink-0">
@@ -419,7 +433,7 @@
                         </div>
 
                         <!-- Question Text Container -->
-                        <div id="question-text" class="text-slate-900 font-semibold text-base sm:text-lg leading-relaxed mb-6 space-y-2">
+                        <div id="question-text" class="text-slate-900 font-semibold text-base sm:text-lg leading-relaxed mb-6 space-y-2 plain-text-content">
                             <!-- Question Text dynamically injected -->
                         </div>
 
@@ -602,6 +616,34 @@
     </main>
 
     <!-- Modals Section -->
+    <!-- Student Exam Password Auth Modal -->
+    <div id="student-exam-auth-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Sınağa Giriş Məhdudiyyəti</h3>
+                <p class="text-xs text-slate-500">Bu sınaq parolla qorunur. Daxil olmaq üçün müəllimin verdiyi parolu yazın.</p>
+            </div>
+            <form onsubmit="verifyStudentExamPassword(event)" class="space-y-3">
+                <input type="hidden" id="target-exam-id" value="">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Sınaq Parolu</label>
+                    <input type="password" id="student-exam-pass-input" placeholder="Parolu yazın..." required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <p id="student-pass-error" class="text-xs text-rose-500 mt-1.5 hidden font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <span>Parol yanlışdır! Müəllimlə əlaqə saxlayın.</span>
+                    </p>
+                </div>
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeStudentExamAuthModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
+                    <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md transition">Sınağa Başla</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Admin Auth Password Modal -->
     <div id="admin-auth-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
@@ -671,7 +713,7 @@
                     <i class="fa-solid fa-folder-plus"></i>
                 </div>
                 <h3 class="text-lg font-bold text-slate-900">Yeni Sınaq Yaradın</h3>
-                <p class="text-xs text-slate-500">Sınağın adını və imtahan müddətini təyin edin.</p>
+                <p class="text-xs text-slate-500">Sınağın adını, müddətini və parolu (könüllü) təyin edin.</p>
             </div>
             <form onsubmit="handleCreateExamSubmit(event)" class="space-y-3">
                 <div>
@@ -681,6 +723,11 @@
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Müddət (Dəqiqə)</label>
                     <input type="number" id="new-exam-duration-input" min="1" max="60" value="60" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Giriş Parolu / Kilid (Könüllü)</label>
+                    <input type="text" id="new-exam-password-input" placeholder="Boş saxlaya bilərsiniz..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <p class="text-[10px] text-slate-400 mt-1">Sınağı parolla qorumaq istəyirsinizsə bura bir parol yazın.</p>
                 </div>
                 <div class="flex justify-end space-x-2 pt-2">
                     <button type="button" onclick="closeCreateExamModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
@@ -819,6 +866,7 @@
                 id: 'exam_1',
                 title: 'Sınaq İmtahanı №1 - Ümumi Biliklər',
                 duration: 60,
+                password: '',
                 questions: []
             }
         ];
@@ -903,6 +951,7 @@
             const curExam = getActiveAdminExam();
             if (curExam) {
                 document.getElementById('input-duration').value = curExam.duration || 60;
+                document.getElementById('input-exam-password').value = curExam.password || '';
             }
             resetQuestionForm();
             renderAdminQuestionsList();
@@ -913,9 +962,15 @@
             if (!selectEl) return;
             selectEl.innerHTML = exams.map(e => `
                 <option value="${e.id}" ${e.id === activeAdminExamId ? 'selected' : ''}>
-                    ${escapeHtml(e.title)} (${(e.questions || []).length} Sual)
+                    ${escapeHtml(e.title)} ${(e.password ? '🔒' : '')} (${(e.questions || []).length} Sual)
                 </option>
             `).join('');
+
+            const curExam = getActiveAdminExam();
+            if (curExam) {
+                const passInput = document.getElementById('input-exam-password');
+                if (passInput) passInput.value = curExam.password || '';
+            }
         }
 
         function renderStudentExamsGrid() {
@@ -938,12 +993,14 @@
 
             gridEl.innerHTML = exams.map((exam, idx) => {
                 const qCount = (exam.questions || []).length;
+                const isLocked = !!exam.password;
                 return `
                     <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-4 group">
                         <div class="space-y-3">
                             <div class="flex items-center justify-between">
-                                <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-lg border border-indigo-100">
-                                    Sınaq #${idx + 1}
+                                <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-lg border border-indigo-100 flex items-center gap-1.5">
+                                    <span>Sınaq #${idx + 1}</span>
+                                    ${isLocked ? '<i class="fa-solid fa-lock text-amber-500" title="Parolla qorunur"></i>' : ''}
                                 </span>
                                 <span class="text-xs font-semibold text-slate-400 flex items-center gap-1">
                                     <i class="fa-regular fa-clock text-amber-500"></i> ${exam.duration || 60} Dəq
@@ -952,19 +1009,54 @@
                             <h4 class="font-extrabold text-slate-900 text-lg leading-snug group-hover:text-indigo-600 transition-colors">
                                 ${escapeHtml(exam.title)}
                             </h4>
-                            <p class="text-xs text-slate-500 flex items-center gap-1.5">
-                                <i class="fa-solid fa-file-circle-question text-indigo-500"></i>
-                                <span>Cəmi: <strong>${qCount}</strong> Sual</span>
-                            </p>
+                            <div class="flex items-center justify-between text-xs text-slate-500">
+                                <span class="flex items-center gap-1.5">
+                                    <i class="fa-solid fa-file-circle-question text-indigo-500"></i>
+                                    <span>Cəmi: <strong>${qCount}</strong> Sual</span>
+                                </span>
+                                ${isLocked ? '<span class="text-[11px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">🔒 Parollu</span>' : ''}
+                            </div>
                         </div>
-                        <button onclick="startExam('${exam.id}')" ${qCount === 0 ? 'disabled' : ''} 
-                            class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-bold text-xs sm:text-sm rounded-2xl transition shadow-md shadow-indigo-500/20 flex items-center justify-center gap-2">
-                            <span>Sınağa Başla</span>
-                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        <button onclick="handleStudentStartExam('${exam.id}')" ${qCount === 0 ? 'disabled' : ''} 
+                            class="w-full py-3 ${isLocked ? 'bg-amber-600 hover:bg-amber-700 shadow-amber-500/20' : 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-500/20'} disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-bold text-xs sm:text-sm rounded-2xl transition shadow-md flex items-center justify-center gap-2">
+                            <span>${isLocked ? 'Sınağa Keç (Parolla)' : 'Sınağa Başla'}</span>
+                            <i class="fa-solid ${isLocked ? 'fa-key' : 'fa-arrow-right'} text-xs"></i>
                         </button>
                     </div>
                 `;
             }).join('');
+        }
+
+        function handleStudentStartExam(examId) {
+            const targetExam = exams.find(e => e.id === examId);
+            if (!targetExam) return;
+
+            if (targetExam.password) {
+                document.getElementById('target-exam-id').value = examId;
+                document.getElementById('student-exam-pass-input').value = '';
+                document.getElementById('student-pass-error').classList.add('hidden');
+                document.getElementById('student-exam-auth-modal').classList.remove('hidden');
+            } else {
+                startExam(examId);
+            }
+        }
+
+        function verifyStudentExamPassword(e) {
+            e.preventDefault();
+            const examId = document.getElementById('target-exam-id').value;
+            const inputPass = document.getElementById('student-exam-pass-input').value.trim();
+            const targetExam = exams.find(e => e.id === examId);
+
+            if (targetExam && targetExam.password === inputPass) {
+                closeStudentExamAuthModal();
+                startExam(examId);
+            } else {
+                document.getElementById('student-pass-error').classList.remove('hidden');
+            }
+        }
+
+        function closeStudentExamAuthModal() {
+            document.getElementById('student-exam-auth-modal').classList.add('hidden');
         }
 
         function renderAdminQuestionsList() {
@@ -1097,7 +1189,6 @@
             const file = e.target.files[0];
             if (!file) return;
 
-            // Avtomatik Şəkil Sıxlaşdırılması (Bulud Limitini Keçməmək Üçün)
             const reader = new FileReader();
             reader.onload = function(evt) {
                 const img = new Image();
@@ -1107,7 +1198,7 @@
                     
                     let width = img.width;
                     let height = img.height;
-                    const maxDim = 800; // Maksimum en/hündürlük 800px
+                    const maxDim = 800;
 
                     if (width > maxDim || height > maxDim) {
                         if (width > height) {
@@ -1123,7 +1214,6 @@
                     canvas.height = height;
                     ctx.drawImage(img, 0, 0, width, height);
 
-                    // JPEG 70% keyfiyyətlə sıxlaşdırılır
                     const compressedUrl = canvas.toDataURL('image/jpeg', 0.7);
                     
                     document.getElementById('input-image-url').value = compressedUrl;
@@ -1276,7 +1366,7 @@
                 imgHtml = `<div class="my-4 text-center"><img src="${q.imageUrl}" alt="Sual Şəkli" class="max-h-72 rounded-2xl shadow-sm border border-slate-200 inline-block object-contain"></div>`;
             }
 
-            textEl.innerHTML = q.text + imgHtml;
+            textEl.innerHTML = escapeHtml(q.text) + imgHtml;
 
             const optionsContainer = document.getElementById('options-container');
             const userSelected = studentAnswers[q.id];
@@ -1309,7 +1399,7 @@
                                 }">
                                     ${key}
                                 </span>
-                                <span class="text-xs sm:text-sm font-medium text-slate-800">${escapeHtml(q.options ? q.options[key] : '')}</span>
+                                <span class="text-xs sm:text-sm font-medium text-slate-800 plain-text-content">${escapeHtml(q.options ? q.options[key] : '')}</span>
                             </div>
                             <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                                 isSelected ? 'border-indigo-600 bg-indigo-600' : 'border-slate-300'
@@ -1334,10 +1424,6 @@
             } else {
                 nextBtn.innerHTML = `<span>Növbəti</span> <i class="fa-solid fa-chevron-right text-xs ms-1"></i>`;
                 nextBtn.onclick = () => navigateQuestion(1);
-            }
-
-            if (window.renderMathInElement) {
-                renderMathInElement(document.getElementById('question-text'));
             }
 
             renderQuestionGrid();
@@ -1576,7 +1662,7 @@
 
                                 return `
                                     <div class="p-3 rounded-xl border ${itemStyle} flex items-center justify-between">
-                                        <span><strong>${key})</strong>${escapeHtml(q.options ? q.options[key] : '')}</span>
+                                        <span class="plain-text-content"><strong>${key})</strong>${escapeHtml(q.options ? q.options[key] : '')}</span>
                                         ${isCorrectOpt ? '<i class="fa-solid fa-circle-check text-emerald-600 text-sm"></i>' : ''}
                                         ${isUserChoice && !isCorrectOpt ? '<i class="fa-solid fa-circle-xmark text-rose-600 text-sm"></i>' : ''}
                                     </div>
@@ -1593,8 +1679,8 @@
                             ${statusBadge}
                         </div>
 
-                        <div class="text-sm sm:text-base font-semibold text-slate-900 leading-relaxed">
-                            ${q.text}
+                        <div class="text-sm sm:text-base font-semibold text-slate-900 leading-relaxed plain-text-content">
+                            ${escapeHtml(q.text)}
                             ${imgHtml}
                         </div>
 
@@ -1605,18 +1691,14 @@
                                 <div class="font-bold text-indigo-600 flex items-center gap-1.5 mb-1">
                                     <i class="fa-solid fa-lightbulb"></i> Ətraflı İzah:
                                 </div>
-                                <div class="leading-relaxed">
-                                    ${q.explanation}
+                                <div class="leading-relaxed plain-text-content">
+                                    ${escapeHtml(q.explanation)}
                                 </div>
                             </div>
                         ` : ''}
                     </div>
                 `;
             }).join('');
-
-            if (window.renderMathInElement) {
-                renderMathInElement(container);
-            }
         }
 
         function goToHome() {
@@ -1751,6 +1833,7 @@
         function openCreateExamModal() {
             document.getElementById('new-exam-title-input').value = '';
             document.getElementById('new-exam-duration-input').value = 60;
+            document.getElementById('new-exam-password-input').value = '';
             document.getElementById('create-exam-modal').classList.remove('hidden');
         }
 
@@ -1762,6 +1845,7 @@
             e.preventDefault();
             const title = document.getElementById('new-exam-title-input').value.trim();
             const duration = parseInt(document.getElementById('new-exam-duration-input').value) || 60;
+            const password = document.getElementById('new-exam-password-input').value.trim();
 
             if (!title) return;
 
@@ -1769,6 +1853,7 @@
                 id: 'exam_' + Date.now(),
                 title: title,
                 duration: Math.min(60, Math.max(1, duration)),
+                password: password,
                 questions: []
             };
 
@@ -1785,17 +1870,37 @@
             showModal("Uğurlu", "Yeni sınaq paketı uğurla yaradıldı!", null, true);
         }
 
-        function editActiveExamTitle() {
+        function editActiveExamDetails() {
             const curExam = getActiveAdminExam();
             if (!curExam) return;
 
             const newTitle = prompt("Sınağın yeni adını yazın:", curExam.title);
-            if (newTitle && newTitle.trim()) {
+            if (newTitle !== null && newTitle.trim()) {
                 curExam.title = newTitle.trim();
-                saveExamsToStorage();
-                renderAdminExamSelector();
-                renderStudentExamsGrid();
             }
+
+            const newPass = prompt("Sınağın giriş parolunu daxil edin (Parolu silmək üçün boş buraxın):", curExam.password || '');
+            if (newPass !== null) {
+                curExam.password = newPass.trim();
+            }
+
+            saveExamsToStorage();
+            renderAdminExamSelector();
+            renderStudentExamsGrid();
+            showModal("Uğurlu", "Sınaq tənzimləmələri yeniləndi!", null, true);
+        }
+
+        function updateActiveExamPassword() {
+            const curExam = getActiveAdminExam();
+            if (!curExam) return;
+
+            const passVal = document.getElementById('input-exam-password').value.trim();
+            curExam.password = passVal;
+
+            saveExamsToStorage();
+            renderAdminExamSelector();
+            renderStudentExamsGrid();
+            showModal("Uğurlu", passVal ? "Sınağa kilit/parol tətbiq edildi!" : "Sınağın parolu ləğv edildi (Açıq sınaq)!", null, true);
         }
 
         function deleteActiveExam() {
