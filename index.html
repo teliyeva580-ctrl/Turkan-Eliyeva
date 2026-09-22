@@ -2,7 +2,7 @@
 <html lang="az" class="h-full bg-slate-50 select-none">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Türkan Əliyeva - Sınaq İmtahanı Portalı</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -34,12 +34,18 @@
         }
     </script>
     <style>
-        /* Anti-Screenshot & Copy Protection Styles */
-        body {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+        /* Strict Anti-Screenshot & Anti-Copy Rules */
+        * {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-touch-callout: none !important;
+        }
+
+        img {
+            -webkit-user-drag: none;
+            pointer-events: none;
         }
 
         @media print {
@@ -68,6 +74,13 @@
             white-space: pre-wrap;
             word-break: break-word;
             font-family: inherit;
+        }
+
+        /* Screen Blur Overlay on losing focus */
+        .blur-protection {
+            filter: blur(20px) grayscale(100%) !important;
+            opacity: 0.1 !important;
+            transition: all 0.1s ease !important;
         }
     </style>
 </head>
@@ -116,7 +129,7 @@
         </div>
     </header>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 flex flex-col justify-start">
+    <main id="main-content-area" class="flex-grow max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 flex flex-col justify-start">
 
         <!-- ================= STUDENT WELCOME LANDING VIEW ================= -->
         <div id="student-landing-view" class="space-y-6 animate-fadeIn">
@@ -124,11 +137,11 @@
                 <div class="relative z-10 max-w-3xl space-y-4">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-indigo-500/20 border border-indigo-400/30 rounded-full text-indigo-300 text-xs font-semibold">
                         <i class="fa-solid fa-star text-amber-400"></i>
-                        <span>Onlayn Sınaq Portalı</span>
+                        <span>Türkan Əliyeva ilə Onlayn Sınaq Portalı</span>
                     </div>
 
                     <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-                        Rəsmi Sınaq İmtahanlarına Xoş Gəlmisiniz!
+                        Rəsmi Sınaq İmtahanlarına Xoş Gelmisiniz!
                     </h2>
 
                     <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -873,9 +886,9 @@
         };
     </script>
 
-    <!-- Main Logic Script & Anti-Screenshot Handlers -->
+    <!-- Main Logic Script & Strict Anti-Screenshot Handlers -->
     <script>
-        // Disable PrintScreen & Copy Shortcuts
+        // Disable PrintScreen, Copy, and Inspection Shortcuts
         document.addEventListener('keydown', function(e) {
             if (e.key === 'PrintScreen' || 
                (e.ctrlKey && (e.key === 'p' || e.key === 'P' || e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U')) ||
@@ -885,16 +898,28 @@
             }
         });
 
-        // Hide screen contents when window loses focus (Anti-screenshot software)
-        window.addEventListener('blur', function() {
+        // Hide screen contents when window loses focus (Mobile notifications bar, App Switcher, Screen Recording)
+        function applyBlur() {
+            const mainArea = document.getElementById('main-content-area');
             const examView = document.getElementById('exam-view');
             if (examView && !examView.classList.contains('hidden')) {
-                document.body.style.filter = "blur(15px)";
+                if (mainArea) mainArea.classList.add('blur-protection');
             }
-        });
+        }
 
-        window.addEventListener('focus', function() {
-            document.body.style.filter = "none";
+        function removeBlur() {
+            const mainArea = document.getElementById('main-content-area');
+            if (mainArea) mainArea.classList.remove('blur-protection');
+        }
+
+        window.addEventListener('blur', applyBlur);
+        window.addEventListener('focus', removeBlur);
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                applyBlur();
+            } else {
+                removeBlur();
+            }
         });
 
         let defaultExams = [
