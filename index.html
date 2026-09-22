@@ -712,14 +712,15 @@
 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'turkan-aliyeve-sinaq-portal';
 
-        // Firebase Configuration
+        // Firebase Configuration (SİZİN ƏSL FIREBASE KODLARINIZ)
         let firebaseConfig = {
-            apiKey: "AIzaSyA8_Vercel_Turkan2025_PortalKey",
-            authDomain: "turkan-aliyeve-sinaq.firebaseapp.com",
-            projectId: "turkan-aliyeve-sinaq",
-            storageBucket: "turkan-aliyeve-sinaq.firebasestorage.app",
-            messagingSenderId: "847291038472",
-            appId: "1:847291038472:web:9876543210fedcba"
+            apiKey: "AIzaSyBtLmshnpR0x-BgTYzAOg9d9ZAe8j8xmdA",
+            authDomain: "turkan-eliyeva.firebaseapp.com",
+            projectId: "turkan-eliyeva",
+            storageBucket: "turkan-eliyeva.firebasestorage.app",
+            messagingSenderId: "977296861370",
+            appId: "1:977296861370:web:b7c35cc0c1elaa7a387a83",
+            measurementId: "G-WVGEKCV6E2"
         };
 
         if (typeof __firebase_config !== 'undefined' && __firebase_config) {
@@ -1575,7 +1576,7 @@
 
                                 return `
                                     <div class="p-3 rounded-xl border ${itemStyle} flex items-center justify-between">
-                                        <span><strong>${key})</strong> ${escapeHtml(q.options ? q.options[key] : '')}</span>
+                                        <span><strong>${key})</strong>${escapeHtml(q.options ? q.options[key] : '')}</span>
                                         ${isCorrectOpt ? '<i class="fa-solid fa-circle-check text-emerald-600 text-sm"></i>' : ''}
                                         ${isUserChoice && !isCorrectOpt ? '<i class="fa-solid fa-circle-xmark text-rose-600 text-sm"></i>' : ''}
                                     </div>
