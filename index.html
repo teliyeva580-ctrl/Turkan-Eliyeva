@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="az" class="h-full bg-slate-50">
+<html lang="az" class="h-full bg-slate-50 select-none">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,6 +34,20 @@
         }
     </script>
     <style>
+        /* Anti-Screenshot & Copy Protection Styles */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media print {
+            body {
+                display: none !important;
+            }
+        }
+
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -49,7 +63,7 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
-        /* Plain text preservation */
+
         .plain-text-content {
             white-space: pre-wrap;
             word-break: break-word;
@@ -57,7 +71,7 @@
         }
     </style>
 </head>
-<body class="h-full text-slate-800 bg-slate-50 font-sans flex flex-col justify-between antialiased selection:bg-brand-500 selection:text-white">
+<body class="h-full text-slate-800 bg-slate-50 font-sans flex flex-col justify-between antialiased selection:bg-none" oncontextmenu="return false;">
 
     <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-40 border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -110,11 +124,11 @@
                 <div class="relative z-10 max-w-3xl space-y-4">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-indigo-500/20 border border-indigo-400/30 rounded-full text-indigo-300 text-xs font-semibold">
                         <i class="fa-solid fa-star text-amber-400"></i>
-                        <span>Türkan Əliyeva ilə Onlayn Sınaq Portalı</span>
+                        <span>Onlayn Sınaq Portalı</span>
                     </div>
 
                     <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-                        Rəsmi Sınaq İmtahanlarına Xoş Gelmisiniz!
+                        Rəsmi Sınaq İmtahanlarına Xoş Gəlmisiniz!
                     </h2>
 
                     <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -859,8 +873,30 @@
         };
     </script>
 
-    <!-- Main Logic Script -->
+    <!-- Main Logic Script & Anti-Screenshot Handlers -->
     <script>
+        // Disable PrintScreen & Copy Shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'PrintScreen' || 
+               (e.ctrlKey && (e.key === 'p' || e.key === 'P' || e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U')) ||
+               (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I' || e.key === 'c' || e.key === 'C'))) {
+                e.preventDefault();
+                alert("Təhlükəsizlik səbəbindən sınaq zamanı ekran şəkli çəkmək və kopyalamaq qadağandır!");
+            }
+        });
+
+        // Hide screen contents when window loses focus (Anti-screenshot software)
+        window.addEventListener('blur', function() {
+            const examView = document.getElementById('exam-view');
+            if (examView && !examView.classList.contains('hidden')) {
+                document.body.style.filter = "blur(15px)";
+            }
+        });
+
+        window.addEventListener('focus', function() {
+            document.body.style.filter = "none";
+        });
+
         let defaultExams = [
             {
                 id: 'exam_1',
@@ -1363,7 +1399,7 @@
             
             let imgHtml = '';
             if (q.imageUrl) {
-                imgHtml = `<div class="my-4 text-center"><img src="${q.imageUrl}" alt="Sual Şəkli" class="max-h-72 rounded-2xl shadow-sm border border-slate-200 inline-block object-contain"></div>`;
+                imgHtml = `<div class="my-4 text-center"><img src="${q.imageUrl}" alt="Sual Şəkli" class="max-h-72 rounded-2xl shadow-sm border border-slate-200 inline-block object-contain pointer-events-none"></div>`;
             }
 
             textEl.innerHTML = escapeHtml(q.text) + imgHtml;
@@ -1629,7 +1665,7 @@
 
                 let imgHtml = '';
                 if (q.imageUrl) {
-                    imgHtml = `<div class="my-3 text-center"><img src="${q.imageUrl}" alt="Sual Şəkli" class="max-h-56 rounded-xl border border-slate-200 inline-block object-contain"></div>`;
+                    imgHtml = `<div class="my-3 text-center"><img src="${q.imageUrl}" alt="Sual Şəkli" class="max-h-56 rounded-xl border border-slate-200 inline-block object-contain pointer-events-none"></div>`;
                 }
 
                 let optionsDisplayHtml = '';
