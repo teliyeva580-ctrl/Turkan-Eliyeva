@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="az" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Türkan Əliyeva - Sınaq İmtahanı Portalı</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- KaTeX for math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f6ff',
+                            100: '#e0edff',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                            800: '#1e3a8a',
+                            900: '#172554',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="h-full text-slate-800 bg-slate-50 font-sans flex flex-col justify-between antialiased selection:bg-brand-500 selection:text-white">
+
+    <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-40 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="goToHome()" title="Əsas Səhifəyə keçid">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-brand-500 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-indigo-500/30">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold leading-tight flex items-center gap-2">
+                        <span>Türkan Əliyeva</span>
+                        <span class="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 text-xs rounded-md border border-indigo-500/30 font-medium">Sınaq Portalı</span>
+                    </h1>
+                    <p id="header-sub-title" class="text-xs text-slate-400 hidden sm:block">Sınaq İmtahanına Xoş Gelmisiniz</p>
+                </div>
+            </div>
+
+            <!-- Header Controls & Timer -->
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <button id="home-nav-btn" onclick="goToHome()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition border border-slate-700 flex items-center gap-1.5">
+                    <i class="fa-solid fa-house text-indigo-400"></i>
+                    <span class="hidden sm:inline">Əsas Səhifə</span>
+                </button>
+
+                <div id="header-timer-section" class="hidden items-center bg-slate-800/90 px-3.5 py-1.5 rounded-xl border border-slate-700/60 shadow-inner">
+                    <i class="fa-solid fa-clock text-amber-400 me-2 text-sm animate-pulse"></i>
+                    <div class="flex flex-col">
+                        <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Qalan Vaxt</span>
+                        <span id="timer-display" class="font-mono font-bold text-emerald-400 text-lg leading-tight">60:00</span>
+                    </div>
+                </div>
+
+                <button id="teacher-panel-btn" onclick="switchToAdminView()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition border border-slate-700 flex items-center gap-1.5">
+                    <i class="fa-solid fa-lock text-amber-400"></i>
+                    <span class="hidden sm:inline">Müəllim Paneli</span>
+                </button>
+
+                <button id="finish-exam-btn" onclick="confirmFinishExam()" class="hidden px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm rounded-xl transition shadow-md shadow-emerald-600/20 flex items-center space-x-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>İmtahanı Bitir</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 flex flex-col justify-start">
+
+        <!-- ================= STUDENT WELCOME LANDING VIEW ================= -->
+        <div id="student-landing-view" class="space-y-6 animate-fadeIn">
+            <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-12 text-white shadow-2xl border border-indigo-800/40 relative overflow-hidden text-center sm:text-left">
+                <div class="relative z-10 max-w-3xl space-y-4">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-indigo-500/20 border border-indigo-400/30 rounded-full text-indigo-300 text-xs font-semibold">
+                        <i class="fa-solid fa-star text-amber-400"></i>
+                        <span>Türkan Əliyeva ilə Onlayn Sınaq Portalı</span>
+                    </div>
+
+                    <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+                        Rəsmi Sınaq İmtahanlarına Xoş Gelmisiniz!
+                    </h2>
+
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Aşağıdakı sınaq imtahanlarından birini seçərək biliklərinizi yoxlaya və mövzuları möhkəmləndirə bilərsiniz.
+                    </p>
+
+                    <div class="pt-2 flex flex-wrap items-center gap-3">
+                        <a href="https://wa.me/994558586707" target="_blank" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                            <span>WhatsApp İlə Əlaqə</span>
+                        </a>
+                        <a href="https://www.instagram.com/informatika_riyaziyyat_dersi?stkn=MXJxbHRxM2hnbmUxZQ==" target="_blank" class="px-5 py-2.5 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-95 text-white font-bold text-xs rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-instagram text-base"></i>
+                            <span>Instagram Səhifəmiz</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Available Exams List Grid -->
+            <div class="space-y-4 pt-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-indigo-600"></i>
+                        <span>Mövcud Sınaq İmtahanları</span>
+                    </h3>
+                    <span id="total-exams-badge" class="text-xs font-bold px-3 py-1 bg-indigo-50 text-indigo-700 rounded-lg">
+                        0 Sınaq
+                    </span>
+                </div>
+
+                <div id="student-exams-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamic Exam Cards Injected Here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TEACHER / ADMIN VIEW (SUAL DAXİL ET) ================= -->
+        <div id="admin-view" class="hidden space-y-6">
+            
+            <!-- Welcome Banner for Türkan Əliyeva -->
+            <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-indigo-900/50 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-2 text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start gap-2">
+                        <span class="px-3 py-1 bg-indigo-500/20 text-indigo-300 text-xs font-semibold rounded-full border border-indigo-500/30">Müəllim İdarə Paneli</span>
+                        <span id="cloud-status-badge" class="px-3 py-1 bg-emerald-500/20 text-emerald-300 text-xs font-semibold rounded-full border border-emerald-500/30 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                            <span>Canlı Bulud Baza Aktivdir</span>
+                        </span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Türkan Əliyeva - Sınaq İdarəetməsi</h2>
+                    <p class="text-slate-300 text-xs sm:text-sm max-w-xl">
+                        Yeni sınaq paketləri yaradın, suallar və şəkillər daxil edin. Yeniliklər anında şagirdlərin cihazında görünəcək.
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <button onclick="exportExamsToFile()" class="px-4 py-3 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs rounded-2xl transition border border-emerald-600 flex items-center justify-center gap-2" title="Təhlükəsizlik üçün bütün sınaqları fayl kimi kompüterə yüklə">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Sınaqları Endir (JSON)</span>
+                    </button>
+                    <label class="px-4 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs rounded-2xl transition border border-amber-500 flex items-center justify-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-upload"></i>
+                        <span>Fayldan Yüklə</span>
+                        <input type="file" accept=".json" onchange="importExamsFromFile(event)" class="hidden">
+                    </label>
+                    <button onclick="switchToStudentLandingView()" class="px-4 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-2xl transition border border-slate-700 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-eye"></i>
+                        <span>Şagird Görünüşünə Keç</span>
+                    </button>
+                    <button onclick="logoutAdmin()" class="px-4 py-3 bg-rose-900/40 hover:bg-rose-900/60 text-rose-200 font-bold text-xs rounded-2xl transition border border-rose-800/50 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Çıxış Et</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Exam Selector & Creation Bar -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+                    <label class="text-xs font-bold text-slate-700 uppercase shrink-0">Cari Sınaq:</label>
+                    <select id="admin-exam-select" onchange="changeActiveAdminExam(this.value)" class="w-full sm:w-64 px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                        <!-- Exam options injected dynamically -->
+                    </select>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
+                    <button onclick="openCreateExamModal()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition shadow-md flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Yeni Sınaq Yarad</span>
+                    </button>
+                    <button onclick="editActiveExamTitle()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition border border-slate-200 flex items-center gap-1.5" title="Sınaq adını redaktə et">
+                        <i class="fa-solid fa-pen"></i>
+                        <span class="hidden sm:inline">Adı Dəyiş</span>
+                    </button>
+                    <button onclick="deleteActiveExam()" class="px-3 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold rounded-xl transition border border-rose-200 flex items-center gap-1.5" title="Cari sınağı sil">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Settings & Add Question Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Left: Question Entry Form (2 cols) -->
+                <div class="lg:col-span-2 bg-white rounded-2xl p-5 sm:p-7 shadow-sm border border-slate-200 space-y-5">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+                            <i class="fa-solid fa-circle-plus text-indigo-600"></i>
+                            <span id="form-title">Yeni Sual Əlavə Et</span>
+                        </h3>
+                        <span id="question-count-badge" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg">
+                            Cəmi: 0 Sual
+                        </span>
+                    </div>
+
+                    <form id="question-form" onsubmit="handleQuestionFormSubmit(event)" class="space-y-4">
+                        <input type="hidden" id="edit-q-id" value="">
+
+                        <!-- Category, Type & Image Upload -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Fənn / Kateqoriya</label>
+                                <input type="text" id="input-category" placeholder="Məs: Riyaziyyat, İnformatika..." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sual Tipi</label>
+                                <select id="input-q-type" onchange="toggleQuestionTypeFields(this.value)" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                    <option value="closed">Qapalı (Variantlı - A, B, C, D, E)</option>
+                                    <option value="open">Açıq Tipli (Yazılı / Ədəd Cavablı)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Şəkil Əlavə Et (Könüllü)</label>
+                                <input type="file" id="input-image-file" accept="image/*" onchange="handleImageUpload(event)" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                                <input type="hidden" id="input-image-url" value="">
+                                <div id="image-preview-container" class="hidden mt-2 relative inline-block">
+                                    <img id="image-preview" src="" alt="Önizləmə" class="h-16 rounded-lg border border-slate-200 object-cover">
+                                    <button type="button" onclick="removeQuestionImage()" class="absolute -top-2 -right-2 bg-rose-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shadow"><i class="fa-solid fa-xmark"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Question Text Area -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sualın Mətni (KaTeX dəstəklənir: $x^2 - 4 = 0$)</label>
+                            <textarea id="input-text" rows="3" placeholder="Sualın mətnini bura yazın..." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
+                        </div>
+
+                        <!-- Options Input Grid (For Closed Questions) -->
+                        <div id="closed-options-box">
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Variantlar və Düzgün Cavab</label>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">A</span>
+                                    <input type="text" id="opt-A" placeholder="A variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                    <input type="radio" name="correct-opt" value="A" checked title="Düzgün cavab kimi qeyd et" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">B</span>
+                                    <input type="text" id="opt-B" placeholder="B variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                    <input type="radio" name="correct-opt" value="B" title="Düzgün cavab kimi qeyd et" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">C</span>
+                                    <input type="text" id="opt-C" placeholder="C variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                    <input type="radio" name="correct-opt" value="C" title="Düzgün cavab kimi qeyd et" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">D</span>
+                                    <input type="text" id="opt-D" placeholder="D variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                    <input type="radio" name="correct-opt" value="D" title="Düzgün cavab kimi qeyd et" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">E</span>
+                                    <input type="text" id="opt-E" placeholder="E variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                    <input type="radio" name="correct-opt" value="E" title="Düzgün cavab kimi qeyd et" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Open-ended Correct Answer Box -->
+                        <div id="open-correct-box" class="hidden">
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Açıq Sualın Düzgün Cavabı</label>
+                            <input type="text" id="input-open-correct" placeholder="Məs: 25 və ya Bakı" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <p class="text-[11px] text-slate-400 mt-1">Şagird bu dəqiq cavabı (və ya ədədi) yazdıqda bal qazanacaq.</p>
+                        </div>
+
+                        <!-- Explanation Text Area -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Ətraflı İzah (Könüllü)</label>
+                            <textarea id="input-explanation" rows="2" placeholder="Şagird üçün nəticə səhifəsində görünəcək izahı yazın..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
+                        </div>
+
+                        <!-- Submit Buttons -->
+                        <div class="flex items-center justify-between pt-2">
+                            <button type="button" onclick="resetQuestionForm()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold rounded-xl transition">
+                                Təmizlə
+                            </button>
+                            <div class="flex items-center gap-2">
+                                <span id="save-status-msg" class="text-xs font-bold text-emerald-600 hidden animate-pulse">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Buluda yazıldı!
+                                </span>
+                                <button type="submit" id="save-q-btn" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm rounded-xl transition shadow-md shadow-indigo-600/20 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                    <span>Sualı Yadda Saxla</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right: Config & Current Questions List (1 col) -->
+                <div class="space-y-6">
+                    
+                    <!-- Exam Timer Settings Card -->
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-sliders text-indigo-600"></i> Cari Sınaq Müddəti
+                        </h4>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">İmtahan Müddəti (Maksimum 60 Dəqiqə)</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="number" id="input-duration" min="1" max="60" value="60" onchange="updateActiveExamDuration(this.value)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                <span class="text-xs font-bold text-slate-500">Dəqiqə</span>
+                            </div>
+                        </div>
+
+                        <!-- Password Change Box -->
+                        <div class="pt-3 border-t border-slate-100 space-y-2">
+                            <label class="block text-xs font-semibold text-slate-600">Giriş Şifrəsini Dəyiş</label>
+                            <div class="flex gap-2">
+                                <input type="password" id="new-admin-pass" placeholder="Yeni şifrə..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                <button onclick="changeAdminPassword()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition shrink-0">
+                                    Yadda Saxla
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Recovery Code Change Box -->
+                        <div class="pt-3 border-t border-slate-100 space-y-2">
+                            <label class="block text-xs font-semibold text-slate-600">Məxfi Bərpa Kodunu Dəyiş</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="new-recovery-code" placeholder="Yeni məxfi kod..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                <button onclick="changeRecoveryCode()" class="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition shrink-0">
+                                    Yadda Saxla
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 border-t border-slate-100 flex gap-2">
+                            <button onclick="clearCurrentExamQuestions()" class="w-full py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold rounded-xl transition text-center">
+                                Bu Sınağın Suallarını Sil
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Current Questions List -->
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-3">
+                        <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-list-numbered text-indigo-600"></i> Bu Sınağın Sualları
+                            </h4>
+                            <span id="saved-q-count" class="text-xs font-extrabold text-slate-500">0</span>
+                        </div>
+
+                        <div id="admin-questions-list" class="space-y-2 max-h-[380px] overflow-y-auto pr-1 custom-scrollbar">
+                            <!-- Questions dynamically listed here -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= EXAM VIEW ================= -->
+        <div id="exam-view" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6">
+            
+            <!-- Left Side: Main Question Display Card (3 cols) -->
+            <div class="lg:col-span-3 space-y-4 flex flex-col justify-between">
+                
+                <div class="bg-white rounded-2xl p-5 sm:p-8 shadow-sm border border-slate-200/80 flex flex-col justify-between min-h-[460px]">
+                    
+                    <!-- Question Top Bar -->
+                    <div>
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
+                            <div class="flex items-center space-x-3">
+                                <span id="q-number-badge" class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-extrabold rounded-lg uppercase tracking-wide border border-indigo-200/60">
+                                    Sual 1
+                                </span>
+                                <span id="q-category-tag" class="text-xs font-semibold px-2.5 py-0.5 bg-slate-100 text-slate-600 rounded-md">
+                                    Umumi
+                                </span>
+                            </div>
+
+                            <!-- Flag Bookmark Button -->
+                            <button id="flag-btn" onclick="toggleFlagCurrentQuestion()" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 hover:text-amber-600 hover:bg-amber-50 transition border border-transparent hover:border-amber-200">
+                                <i id="flag-icon" class="fa-regular fa-bookmark text-sm"></i>
+                                <span id="flag-text">Yadda saxla</span>
+                            </button>
+                        </div>
+
+                        <!-- Question Text Container -->
+                        <div id="question-text" class="text-slate-900 font-semibold text-base sm:text-lg leading-relaxed mb-6 space-y-2">
+                            <!-- Question Text dynamically injected -->
+                        </div>
+
+                        <!-- Options Container -->
+                        <div id="options-container" class="space-y-3">
+                            <!-- Options dynamically injected -->
+                        </div>
+                    </div>
+
+                    <!-- Bottom Nav Buttons -->
+                    <div class="flex items-center justify-between pt-6 border-t border-slate-100 mt-8">
+                        <button id="prev-btn" onclick="navigateQuestion(-1)" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold rounded-xl transition flex items-center space-x-2">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                            <span>Əvvəlki</span>
+                        </button>
+
+                        <div class="flex items-center space-x-2">
+                            <button onclick="confirmFinishExam()" class="sm:hidden px-3 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-xl transition">
+                                Bitir
+                            </button>
+
+                            <button id="next-btn" onclick="navigateQuestion(1)" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md shadow-indigo-500/20 transition flex items-center space-x-2">
+                                <span>Növbəti</span>
+                                <i class="fa-solid fa-chevron-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Side: Sidebar Navigation Palette (1 col) -->
+            <div class="lg:col-span-1 space-y-4">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/80 sticky top-24">
+                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+                        <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-grip text-indigo-600"></i> Suallar Paneli
+                        </h3>
+                        <span id="answered-counter" class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
+                            0 Cavablanıb
+                        </span>
+                    </div>
+
+                    <!-- Question Grid Dynamic -->
+                    <div id="question-grid" class="grid grid-cols-5 gap-2 max-h-[320px] overflow-y-auto pr-1 custom-scrollbar">
+                        <!-- Buttons generated via JavaScript -->
+                    </div>
+
+                    <!-- Legend Status -->
+                    <div class="mt-5 pt-4 border-t border-slate-100 space-y-2 text-[11px] font-medium text-slate-500">
+                        <div class="flex items-center justify-between">
+                            <span class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-indigo-600 inline-block"></span>
+                                Cari Sual
+                            </span>
+                            <span class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                                Cavablanıb
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span>
+                                Bayraqlanıb
+                            </span>
+                            <span class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-slate-200 inline-block"></span>
+                                Boş
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= RESULTS VIEW ================= -->
+        <div id="results-view" class="hidden space-y-8 animate-fadeIn">
+            
+            <!-- Result Summary Top Header -->
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-200/80 text-center relative overflow-hidden">
+                <div class="max-w-2xl mx-auto space-y-4">
+                    <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-3xl flex items-center justify-center text-3xl mx-auto shadow-inner">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Sınaq İmtahanı Başa Çatdı!</h2>
+                    <p class="text-slate-500 text-sm">Aşağıda nəticələriniz və hər bir sual üzrə detallı izahlı cavablar təqdim edilmişdir.</p>
+
+                    <div class="py-2">
+                        <div id="res-score-percent" class="text-5xl sm:text-6xl font-black text-indigo-600 tracking-tight">
+                            0%
+                        </div>
+                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mt-1">Ümumi Müvəffəqiyyət Faizi</p>
+                    </div>
+
+                    <!-- Türkan Əliyeva Xüsusi Qiymətləndirmə Mesajı -->
+                    <div id="teacher-feedback-card" class="p-4 sm:p-5 rounded-2xl border bg-gradient-to-r from-indigo-50 via-amber-50 to-emerald-50 border-indigo-200/80 text-center space-y-1 shadow-sm">
+                        <div class="text-xs uppercase font-extrabold text-indigo-700 tracking-wider flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-comment-dots text-amber-500"></i>
+                            <span>Türkan Əliyevadan Xüsusi Qeyd</span>
+                        </div>
+                        <p id="teacher-feedback-text" class="text-sm sm:text-base font-bold text-slate-800 leading-relaxed"></p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap justify-center gap-3 pt-2">
+                        <button onclick="switchToStudentLandingView()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Ana Səhifə</span>
+                        </button>
+                        <button onclick="switchToAdminView()" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold rounded-xl border border-slate-200 transition flex items-center gap-2">
+                            <i class="fa-solid fa-pen"></i>
+                            <span>Müəllim Paneli</span>
+                        </button>
+                        <button onclick="startExam(currentExam ? currentExam.id : activeAdminExamId)" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Sınağı Yenidən Başlat</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Metric Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 text-center shadow-sm">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Ümumi Sual</span>
+                    <span id="res-total" class="text-2xl sm:text-3xl font-black text-slate-800">0</span>
+                </div>
+                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-emerald-200 bg-emerald-50/40 text-center shadow-sm">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-emerald-600 uppercase tracking-wider block mb-1">Düzgün Cavab</span>
+                    <span id="res-correct" class="text-2xl sm:text-3xl font-black text-emerald-600">0</span>
+                </div>
+                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-rose-200 bg-rose-50/40 text-center shadow-sm">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-rose-600 uppercase tracking-wider block mb-1">Səhv Cavab</span>
+                    <span id="res-wrong" class="text-2xl sm:text-3xl font-black text-rose-600">0</span>
+                </div>
+                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-amber-200 bg-amber-50/40 text-center shadow-sm">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-amber-600 uppercase tracking-wider block mb-1">Boş Buraxılan</span>
+                    <span id="res-unanswered" class="text-2xl sm:text-3xl font-black text-amber-600">0</span>
+                </div>
+            </div>
+
+            <!-- Detailed Answers List -->
+            <div class="space-y-4">
+                <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-indigo-600"></i>
+                    <span>Sualların Ətraflı Təhlili və İzahı</span>
+                </h3>
+                <div id="results-details-container" class="space-y-4">
+                    <!-- Dynamic questions detailed results -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Contact & Course Info Banner -->
+        <div class="mt-8 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-brand-500 text-white flex items-center justify-center text-xl shrink-0 shadow-md">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 text-base">Türkan Əliyevanın Dərslərinə Qatılın!</h4>
+                    <p class="text-xs text-slate-500">Dərslərə və sınaqlara yazılmaq üçün bizimlə əlaqə saxlayın:</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-3 w-full md:w-auto">
+                <a href="https://wa.me/994558586707" target="_blank" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-2xl transition shadow-md flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-base"></i>
+                    <span>+994 55 858 67 07</span>
+                </a>
+                <a href="https://www.instagram.com/informatika_riyaziyyat_dersi?stkn=MXJxbHRxM2hnbmUxZQ==" target="_blank" class="px-5 py-3 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-90 text-white text-xs font-bold rounded-2xl transition shadow-md flex items-center gap-2">
+                    <i class="fa-brands fa-instagram text-base"></i>
+                    <span>@informatika_riyaziyyat_dersi</span>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modals Section -->
+    <!-- Admin Auth Password Modal -->
+    <div id="admin-auth-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
+                    <i class="fa-solid fa-user-lock"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Müəllim Panelinə Giriş</h3>
+                <p class="text-xs text-slate-500">Sualları idarə etmək üçün təyin olunmuş müraciət şifrəsini daxil edin.</p>
+            </div>
+            <form onsubmit="verifyAdminPassword(event)" class="space-y-3">
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="block text-xs font-semibold text-slate-600">Müəllim Şifrəsi</label>
+                        <button type="button" onclick="openRecoveryModal()" class="text-[11px] font-semibold text-indigo-600 hover:underline">Şifrəni unutmusunuz?</button>
+                    </div>
+                    <input type="password" id="admin-password-input" placeholder="Şifrəni yazın..." required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <p id="admin-auth-error" class="text-xs text-rose-500 mt-1.5 hidden font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <span>Şifrə yanlışdır! Təkrar cəhd edin.</span>
+                    </p>
+                </div>
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeAdminAuthModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
+                    <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md transition">Giriş Et</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Recovery Modal -->
+    <div id="admin-recovery-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Şifrəni Bərpa Et</h3>
+                <p class="text-xs text-slate-500">Məxfi bərpa kodunu və yeni şifrənizi daxil edin.</p>
+            </div>
+            <form onsubmit="verifyRecoveryCodeAndReset(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Məxfi Bərpa Kodu</label>
+                    <input type="text" id="recovery-code-input" placeholder="Məxfi kodu yazın..." required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Yeni Şifrə</label>
+                    <input type="password" id="reset-new-password-input" placeholder="Yeni şifrənizi yazın..." required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <p id="recovery-auth-error" class="text-xs text-rose-500 mt-1.5 hidden font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <span>Məxfi bərpa kodu yanlışdır!</span>
+                    </p>
+                </div>
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeRecoveryModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
+                    <button type="submit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md transition">Şifrəni Yenilə</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create New Exam Modal -->
+    <div id="create-exam-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
+                    <i class="fa-solid fa-folder-plus"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Yeni Sınaq Yaradın</h3>
+                <p class="text-xs text-slate-500">Sınağın adını və imtahan müddətini təyin edin.</p>
+            </div>
+            <form onsubmit="handleCreateExamSubmit(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Sınaq İmtahanının Adı</label>
+                    <input type="text" id="new-exam-title-input" placeholder="Məs: Sınaq İmtahanı №2" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Müddət (Dəqiqə)</label>
+                    <input type="number" id="new-exam-duration-input" min="1" max="60" value="60" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeCreateExamModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
+                    <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md transition">Sınaq Yarad</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom Modal -->
+    <div id="custom-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100">
+            <div>
+                <h3 id="modal-title" class="text-lg font-bold text-slate-900">Məlumat</h3>
+                <p id="modal-message" class="text-sm text-slate-500 mt-1">Məlumat mesajı</p>
+            </div>
+            <div class="flex justify-end space-x-3 pt-2">
+                <button id="modal-cancel-btn" onclick="closeModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold rounded-xl transition">Ləğv Et</button>
+                <button id="modal-confirm-btn" onclick="confirmModalAction()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold rounded-xl transition">Təsdiqlə</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Realtime Cloud Sync Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'turkan-aliyeve-sinaq-portal';
+
+        // Firebase Configuration
+        let firebaseConfig = {
+            apiKey: "AIzaSyA8_Vercel_Turkan2025_PortalKey",
+            authDomain: "turkan-aliyeve-sinaq.firebaseapp.com",
+            projectId: "turkan-aliyeve-sinaq",
+            storageBucket: "turkan-aliyeve-sinaq.firebasestorage.app",
+            messagingSenderId: "847291038472",
+            appId: "1:847291038472:web:9876543210fedcba"
+        };
+
+        if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+            try { 
+                const parsed = JSON.parse(__firebase_config); 
+                if (parsed && parsed.apiKey) firebaseConfig = parsed;
+            } catch(e) {}
+        }
+
+        let db = null;
+        let auth = null;
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            window.dbInstance = db;
+            window.appIdInstance = appId;
+        } catch(e) {
+            console.log("Firebase Init fallback:", e);
+        }
+
+        async function initCloudSync() {
+            if (!auth || !db) return;
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'exams_data', 'all_exams');
+
+                // Realtime Cloud Synchronization
+                onSnapshot(docRef, (snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.data();
+                        if (data && Array.isArray(data.examsList) && data.examsList.length > 0) {
+                            window.exams = data.examsList;
+                            localStorage.setItem('turkan_exams', JSON.stringify(window.exams));
+                            if (window.renderStudentExamsGrid) window.renderStudentExamsGrid();
+                            if (window.renderAdminExamSelector) window.renderAdminExamSelector();
+                            if (window.renderAdminQuestionsList) window.renderAdminQuestionsList();
+                        }
+                    }
+                }, (err) => console.log("Cloud sync status:", err));
+
+                const snap = await getDoc(docRef);
+                if (snap.exists()) {
+                    const data = snap.data();
+                    if (data && Array.isArray(data.examsList) && data.examsList.length > 0) {
+                        window.exams = data.examsList;
+                        localStorage.setItem('turkan_exams', JSON.stringify(window.exams));
+                        if (window.renderStudentExamsGrid) window.renderStudentExamsGrid();
+                        if (window.renderAdminExamSelector) window.renderAdminExamSelector();
+                        if (window.renderAdminQuestionsList) window.renderAdminQuestionsList();
+                    }
+                } else {
+                    if (window.exams && window.exams.length > 0) {
+                        await setDoc(docRef, { examsList: window.exams, lastUpdated: Date.now() });
+                    }
+                }
+
+            } catch (err) {
+                console.log("Firebase auth/sync fallback to local storage:", err);
+            }
+        }
+
+        initCloudSync();
+
+        window.syncExamsToCloud = async function(examsList) {
+            if (!db) return;
+            try {
+                if (!auth.currentUser) {
+                    await signInAnonymously(auth);
+                }
+                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'exams_data', 'all_exams');
+                await setDoc(docRef, { examsList: examsList, lastUpdated: Date.now() }, { merge: true });
+                
+                const statusMsg = document.getElementById('save-status-msg');
+                if (statusMsg) {
+                    statusMsg.classList.remove('hidden');
+                    setTimeout(() => statusMsg.classList.add('hidden'), 3000);
+                }
+                console.log("Sınaqlar canlı bulud bazasına uğurla yazıldı!");
+            } catch(e) {
+                console.error("Cloud save failed:", e);
+            }
+        };
+    </script>
+
+    <!-- Main Logic Script -->
+    <script>
+        let defaultExams = [
+            {
+                id: 'exam_1',
+                title: 'Sınaq İmtahanı №1 - Ümumi Biliklər',
+                duration: 60,
+                questions: []
+            }
+        ];
+
+        let exams = JSON.parse(localStorage.getItem('turkan_exams')) || defaultExams;
+        let activeAdminExamId = exams[0] ? exams[0].id : 'exam_1';
+
+        let currentExam = null;
+        let questions = [];
+        let currentQuestionIdx = 0;
+        let studentAnswers = {};
+        let flaggedQuestions = new Set();
+        let timerInterval = null;
+        let timeRemaining = 3600;
+        let pendingConfirmAction = null;
+
+        function saveExamsToStorage() {
+            localStorage.setItem('turkan_exams', JSON.stringify(exams));
+            if (window.syncExamsToCloud) {
+                window.syncExamsToCloud(exams);
+            }
+        }
+
+        function exportExamsToFile() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exams, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `turkan_aliyeva_sinaqlar_${Date.now()}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function importExamsFromFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedExams = JSON.parse(e.target.result);
+                    if (Array.isArray(importedExams)) {
+                        exams = importedExams;
+                        activeAdminExamId = exams[0] ? exams[0].id : 'exam_1';
+                        saveExamsToStorage();
+                        renderAdminExamSelector();
+                        renderAdminQuestionsList();
+                        renderStudentExamsGrid();
+                        showModal("Uğurlu", "Sınaqlar fayldan uğurla bərpa olundu!", null, true);
+                    } else {
+                        showModal("Xəbərdarlıq", "Fayl formatı düzgün deyil.", null, true);
+                    }
+                } catch(err) {
+                    showModal("Xəbərdarlıq", "Faylı oxumaq mümkün olmadı.", null, true);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function getAdminPass() {
+            return localStorage.getItem('turkan_admin_pass') || 'turkan2025';
+        }
+
+        function setAdminPass(pass) {
+            localStorage.setItem('turkan_admin_pass', pass);
+        }
+
+        function getRecoveryCode() {
+            return localStorage.getItem('turkan_recovery_code') || '558586707';
+        }
+
+        function setRecoveryCode(code) {
+            localStorage.setItem('turkan_recovery_code', code);
+        }
+
+        function getActiveAdminExam() {
+            return exams.find(e => e.id === activeAdminExamId) || exams[0];
+        }
+
+        function changeActiveAdminExam(examId) {
+            activeAdminExamId = examId;
+            const curExam = getActiveAdminExam();
+            if (curExam) {
+                document.getElementById('input-duration').value = curExam.duration || 60;
+            }
+            resetQuestionForm();
+            renderAdminQuestionsList();
+        }
+
+        function renderAdminExamSelector() {
+            const selectEl = document.getElementById('admin-exam-select');
+            if (!selectEl) return;
+            selectEl.innerHTML = exams.map(e => `
+                <option value="${e.id}" ${e.id === activeAdminExamId ? 'selected' : ''}>
+                    ${escapeHtml(e.title)} (${(e.questions || []).length} Sual)
+                </option>
+            `).join('');
+        }
+
+        function renderStudentExamsGrid() {
+            const gridEl = document.getElementById('student-exams-grid');
+            const badgeEl = document.getElementById('total-exams-badge');
+            if (!gridEl) return;
+
+            if (badgeEl) badgeEl.textContent = `${exams.length} Sınaq`;
+
+            if (exams.length === 0) {
+                gridEl.innerHTML = `
+                    <div class="col-span-full bg-white rounded-2xl p-8 text-center border border-slate-200">
+                        <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3 block"></i>
+                        <h4 class="font-bold text-slate-700">Hələ ki heç bir sınaq əlavə edilməyib.</h4>
+                        <p class="text-xs text-slate-400 mt-1">Müəllim Panelinə daxil olaraq yeni sınaq və suallar əlavə edə bilərsiniz.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            gridEl.innerHTML = exams.map((exam, idx) => {
+                const qCount = (exam.questions || []).length;
+                return `
+                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-4 group">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-lg border border-indigo-100">
+                                    Sınaq #${idx + 1}
+                                </span>
+                                <span class="text-xs font-semibold text-slate-400 flex items-center gap-1">
+                                    <i class="fa-regular fa-clock text-amber-500"></i> ${exam.duration || 60} Dəq
+                                </span>
+                            </div>
+                            <h4 class="font-extrabold text-slate-900 text-lg leading-snug group-hover:text-indigo-600 transition-colors">
+                                ${escapeHtml(exam.title)}
+                            </h4>
+                            <p class="text-xs text-slate-500 flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-circle-question text-indigo-500"></i>
+                                <span>Cəmi: <strong>${qCount}</strong> Sual</span>
+                            </p>
+                        </div>
+                        <button onclick="startExam('${exam.id}')" ${qCount === 0 ? 'disabled' : ''} 
+                            class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-bold text-xs sm:text-sm rounded-2xl transition shadow-md shadow-indigo-500/20 flex items-center justify-center gap-2">
+                            <span>Sınağa Başla</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderAdminQuestionsList() {
+            const listEl = document.getElementById('admin-questions-list');
+            const countEl = document.getElementById('question-count-badge');
+            const savedCountEl = document.getElementById('saved-q-count');
+            const curExam = getActiveAdminExam();
+
+            if (!curExam) return;
+            const questionsList = curExam.questions || [];
+
+            if (countEl) countEl.textContent = `Cəmi: ${questionsList.length} Sual`;
+            if (savedCountEl) savedCountEl.textContent = `${questionsList.length} Sual`;
+
+            if (!listEl) return;
+
+            if (questionsList.length === 0) {
+                listEl.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-4">Bu sınaq üçün daxil edilmiş sual yoxdur.</p>`;
+                return;
+            }
+
+            listEl.innerHTML = questionsList.map((q, idx) => `
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between text-xs space-x-2">
+                    <div class="truncate flex-grow">
+                        <span class="font-bold text-slate-800 me-1">Sual ${idx + 1}:</span>
+                        <span class="text-slate-600 truncate">${escapeHtml(q.text.substring(0, 40))}${q.text.length > 40 ? '...' : ''}</span>
+                        ${q.type === 'open' ? '<span class="ms-1 px-1.5 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-bold rounded">Açıq</span>' : ''}
+                    </div>
+                    <div class="flex items-center space-x-1 shrink-0">
+                        <button onclick="editQuestion('${q.id}')" class="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition" title="Redaktə Et"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteQuestion('${q.id}')" class="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition" title="Sil"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleQuestionTypeFields(type) {
+            const closedBox = document.getElementById('closed-options-box');
+            const openBox = document.getElementById('open-correct-box');
+            if (type === 'open') {
+                closedBox.classList.add('hidden');
+                openBox.classList.remove('hidden');
+            } else {
+                closedBox.classList.remove('hidden');
+                openBox.classList.add('hidden');
+            }
+        }
+
+        function handleQuestionFormSubmit(e) {
+            e.preventDefault();
+            const curExam = getActiveAdminExam();
+            if (!curExam) return;
+
+            const editId = document.getElementById('edit-q-id').value;
+            const category = document.getElementById('input-category').value.trim() || 'Ümumi';
+            const qType = document.getElementById('input-q-type').value;
+            const imageUrl = document.getElementById('input-image-url').value;
+            const text = document.getElementById('input-text').value.trim();
+            const explanation = document.getElementById('input-explanation').value.trim();
+
+            if (!text) {
+                showModal("Xəbərdarlıq", "Lütfən sualın mətnini daxil edin.", null, true);
+                return;
+            }
+
+            let correctOpt = '';
+            let options = {};
+
+            if (qType === 'open') {
+                correctOpt = document.getElementById('input-open-correct').value.trim();
+                if (!correctOpt) {
+                    showModal("Xəbərdarlıq", "Lütfən açıq sualın düzgün cavabını daxil edin.", null, true);
+                    return;
+                }
+            } else {
+                options = {
+                    A: document.getElementById('opt-A').value.trim(),
+                    B: document.getElementById('opt-B').value.trim(),
+                    C: document.getElementById('opt-C').value.trim(),
+                    D: document.getElementById('opt-D').value.trim(),
+                    E: document.getElementById('opt-E').value.trim()
+                };
+
+                const selectedRadio = document.querySelector('input[name="correct-opt"]:checked');
+                if (!selectedRadio) {
+                    showModal("Xəbərdarlıq", "Lütfən düzgün variantı seçin.", null, true);
+                    return;
+                }
+                correctOpt = selectedRadio.value;
+            }
+
+            if (!curExam.questions) curExam.questions = [];
+
+            if (editId) {
+                const idx = curExam.questions.findIndex(q => q.id === editId);
+                if (idx !== -1) {
+                    curExam.questions[idx] = {
+                        id: editId,
+                        type: qType,
+                        category,
+                        imageUrl,
+                        text,
+                        options,
+                        correct: correctOpt,
+                        explanation
+                    };
+                }
+            } else {
+                const newObj = {
+                    id: 'q_' + Date.now(),
+                    type: qType,
+                    category,
+                    imageUrl,
+                    text,
+                    options,
+                    correct: correctOpt,
+                    explanation
+                };
+                curExam.questions.push(newObj);
+            }
+
+            saveExamsToStorage();
+            resetQuestionForm();
+            renderAdminQuestionsList();
+            renderAdminExamSelector();
+            showModal("Uğurlu", "Sual uğurla saxlanıldı!", null, true);
+        }
+
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // Avtomatik Şəkil Sıxlaşdırılması (Bulud Limitini Keçməmək Üçün)
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    let width = img.width;
+                    let height = img.height;
+                    const maxDim = 800; // Maksimum en/hündürlük 800px
+
+                    if (width > maxDim || height > maxDim) {
+                        if (width > height) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // JPEG 70% keyfiyyətlə sıxlaşdırılır
+                    const compressedUrl = canvas.toDataURL('image/jpeg', 0.7);
+                    
+                    document.getElementById('input-image-url').value = compressedUrl;
+                    document.getElementById('image-preview').src = compressedUrl;
+                    document.getElementById('image-preview-container').classList.remove('hidden');
+                };
+                img.src = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeQuestionImage() {
+            document.getElementById('input-image-file').value = '';
+            document.getElementById('input-image-url').value = '';
+            document.getElementById('image-preview').src = '';
+            document.getElementById('image-preview-container').classList.add('hidden');
+        }
+
+        function resetQuestionForm() {
+            document.getElementById('question-form').reset();
+            document.getElementById('edit-q-id').value = '';
+            document.getElementById('input-q-type').value = 'closed';
+            toggleQuestionTypeFields('closed');
+            removeQuestionImage();
+            document.getElementById('form-title').textContent = 'Yeni Sual Əlavə Et';
+            document.getElementById('save-q-btn').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> <span>Sualı Yadda Saxla</span>`;
+        }
+
+        function editQuestion(qId) {
+            const curExam = getActiveAdminExam();
+            if (!curExam) return;
+            const q = curExam.questions.find(item => item.id === qId);
+            if (!q) return;
+
+            document.getElementById('edit-q-id').value = q.id;
+            document.getElementById('input-category').value = q.category || '';
+            const qType = q.type || 'closed';
+            document.getElementById('input-q-type').value = qType;
+            toggleQuestionTypeFields(qType);
+
+            if (q.imageUrl) {
+                document.getElementById('input-image-url').value = q.imageUrl;
+                document.getElementById('image-preview').src = q.imageUrl;
+                document.getElementById('image-preview-container').classList.remove('hidden');
+            } else {
+                removeQuestionImage();
+            }
+
+            document.getElementById('input-text').value = q.text || '';
+            if (qType === 'open') {
+                document.getElementById('input-open-correct').value = q.correct || '';
+            } else {
+                document.getElementById('opt-A').value = q.options?.A || '';
+                document.getElementById('opt-B').value = q.options?.B || '';
+                document.getElementById('opt-C').value = q.options?.C || '';
+                document.getElementById('opt-D').value = q.options?.D || '';
+                document.getElementById('opt-E').value = q.options?.E || '';
+                const radio = document.querySelector(`input[name="correct-opt"][value="${q.correct}"]`);
+                if (radio) radio.checked = true;
+            }
+
+            document.getElementById('input-explanation').value = q.explanation || '';
+            document.getElementById('form-title').textContent = 'Sualı Redaktə Et';
+            document.getElementById('save-q-btn').innerHTML = `<i class="fa-solid fa-check"></i> <span>Dəyişikliyi Yadda Saxla</span>`;
+        }
+
+        function deleteQuestion(qId) {
+            showModal("Sualı Sil", "Bu sualı silmək istədiyinizdən əminsiniz?", function() {
+                const curExam = getActiveAdminExam();
+                if (!curExam) return;
+                curExam.questions = curExam.questions.filter(q => q.id !== qId);
+                saveExamsToStorage();
+                renderAdminQuestionsList();
+                renderAdminExamSelector();
+            });
+        }
+
+        function startExam(examId) {
+            const targetExam = exams.find(e => e.id === examId);
+            if (!targetExam || !targetExam.questions || targetExam.questions.length === 0) {
+                showModal("Xəbərdarlıq", "Bu sınaqda hələ ki heç bir sual yoxdur.", null, true);
+                return;
+            }
+
+            currentExam = targetExam;
+            questions = targetExam.questions;
+            currentQuestionIdx = 0;
+            studentAnswers = {};
+            flaggedQuestions.clear();
+
+            timeRemaining = (currentExam.duration || 60) * 60;
+
+            document.getElementById('student-landing-view').classList.add('hidden');
+            document.getElementById('admin-view').classList.add('hidden');
+            document.getElementById('results-view').classList.add('hidden');
+            document.getElementById('exam-view').classList.remove('hidden');
+
+            document.getElementById('header-timer-section').classList.remove('hidden');
+            document.getElementById('header-timer-section').classList.add('flex');
+            document.getElementById('finish-exam-btn').classList.remove('hidden');
+            document.getElementById('header-sub-title').textContent = currentExam.title;
+
+            startTimer();
+            renderCurrentQuestion();
+        }
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    finishExam(true);
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const display = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            const timerEl = document.getElementById('timer-display');
+            if (timerEl) {
+                timerEl.textContent = display;
+                if (timeRemaining <= 300) {
+                    timerEl.classList.remove('text-emerald-400');
+                    timerEl.classList.add('text-rose-400');
+                } else {
+                    timerEl.classList.remove('text-rose-400');
+                    timerEl.classList.add('text-emerald-400');
+                }
+            }
+        }
+
+        function renderCurrentQuestion() {
+            if (!questions || questions.length === 0) return;
+            const q = questions[currentQuestionIdx];
+
+            document.getElementById('q-number-badge').textContent = `Sual ${currentQuestionIdx + 1} / ${questions.length}`;
+            document.getElementById('q-category-tag').textContent = (q.category || 'Ümumi') + (q.type === 'open' ? ' • Açıq Sual' : '');
+
+            const textEl = document.getElementById('question-text');
+            
+            let imgHtml = '';
+            if (q.imageUrl) {
+                imgHtml = `<div class="my-4 text-center"><img src="${q.imageUrl}" alt="Sual Şəkli" class="max-h-72 rounded-2xl shadow-sm border border-slate-200 inline-block object-contain"></div>`;
+            }
+
+            textEl.innerHTML = q.text + imgHtml;
+
+            const optionsContainer = document.getElementById('options-container');
+            const userSelected = studentAnswers[q.id];
+
+            if (q.type === 'open') {
+                optionsContainer.innerHTML = `
+                    <div class="p-4 rounded-2xl border-2 border-indigo-200 bg-indigo-50/40 space-y-2">
+                        <label class="block text-xs font-bold text-slate-700 uppercase">Cavabınızı daxil edin:</label>
+                        <input type="text" id="open-answer-input" value="${userSelected || ''}" 
+                            oninput="selectOpenOption('${q.id}', this.value)" 
+                            placeholder="Cavabınızı bura yazın..." 
+                            class="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm">
+                    </div>
+                `;
+            } else {
+                optionsContainer.innerHTML = ['A', 'B', 'C', 'D', 'E'].map(key => {
+                    const isSelected = userSelected === key;
+                    return `
+                        <div onclick="selectOption('${q.id}', '${key}')" 
+                            class="p-4 rounded-xl border-2 cursor-pointer transition flex items-center justify-between group ${
+                                isSelected 
+                                    ? 'border-indigo-600 bg-indigo-50/60 shadow-sm' 
+                                    : 'border-slate-200 hover:border-slate-300 bg-white'
+                            }">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition ${
+                                    isSelected 
+                                        ? 'bg-indigo-600 text-white shadow' 
+                                        : 'bg-slate-100 text-slate-600 group-hover:bg-slate-200'
+                                }">
+                                    ${key}
+                                </span>
+                                <span class="text-xs sm:text-sm font-medium text-slate-800">${escapeHtml(q.options ? q.options[key] : '')}</span>
+                            </div>
+                            <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                isSelected ? 'border-indigo-600 bg-indigo-600' : 'border-slate-300'
+                            }">
+                                ${isSelected ? '<i class="fa-solid fa-check text-[10px] text-white"></i>' : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            updateFlagButtonState();
+
+            document.getElementById('prev-btn').disabled = currentQuestionIdx === 0;
+            document.getElementById('prev-btn').classList.toggle('opacity-50', currentQuestionIdx === 0);
+
+            const isLast = currentQuestionIdx === questions.length - 1;
+            const nextBtn = document.getElementById('next-btn');
+            if (isLast) {
+                nextBtn.innerHTML = `<span>Sınağı Bitir</span> <i class="fa-solid fa-flag-checkered text-xs ms-1"></i>`;
+                nextBtn.onclick = confirmFinishExam;
+            } else {
+                nextBtn.innerHTML = `<span>Növbəti</span> <i class="fa-solid fa-chevron-right text-xs ms-1"></i>`;
+                nextBtn.onclick = () => navigateQuestion(1);
+            }
+
+            if (window.renderMathInElement) {
+                renderMathInElement(document.getElementById('question-text'));
+            }
+
+            renderQuestionGrid();
+        }
+
+        function selectOption(qId, optionKey) {
+            studentAnswers[qId] = optionKey;
+            renderCurrentQuestion();
+            updateAnsweredCounter();
+        }
+
+        function selectOpenOption(qId, val) {
+            val = val.trim();
+            if (val) {
+                studentAnswers[qId] = val;
+            } else {
+                delete studentAnswers[qId];
+            }
+            updateAnsweredCounter();
+            renderQuestionGrid();
+        }
+
+        function toggleFlagCurrentQuestion() {
+            if (!questions || questions.length === 0) return;
+            const qId = questions[currentQuestionIdx].id;
+
+            if (flaggedQuestions.has(qId)) {
+                flaggedQuestions.delete(qId);
+            } else {
+                flaggedQuestions.add(qId);
+            }
+
+            updateFlagButtonState();
+            renderQuestionGrid();
+        }
+
+        function updateFlagButtonState() {
+            if (!questions || questions.length === 0) return;
+            const qId = questions[currentQuestionIdx].id;
+            const isFlagged = flaggedQuestions.has(qId);
+
+            const flagIcon = document.getElementById('flag-icon');
+            const flagText = document.getElementById('flag-text');
+
+            if (isFlagged) {
+                flagIcon.className = 'fa-solid fa-bookmark text-amber-500 text-sm';
+                flagText.textContent = 'Bayraqlanıb';
+            } else {
+                flagIcon.className = 'fa-regular fa-bookmark text-sm';
+                flagText.textContent = 'Yadda saxla';
+            }
+        }
+
+        function updateAnsweredCounter() {
+            const count = Object.keys(studentAnswers).length;
+            const counterEl = document.getElementById('answered-counter');
+            if (counterEl) {
+                counterEl.textContent = `${count} Cavablanıb`;
+            }
+        }
+
+        function renderQuestionGrid() {
+            const gridContainer = document.getElementById('question-grid');
+            if (!gridContainer || !questions) return;
+
+            gridContainer.innerHTML = questions.map((q, idx) => {
+                const isCurrent = idx === currentQuestionIdx;
+                const isAnswered = studentAnswers[q.id] !== undefined && String(studentAnswers[q.id]).trim() !== '';
+                const isFlagged = flaggedQuestions.has(q.id);
+
+                let btnStyle = 'bg-slate-100 text-slate-700 hover:bg-slate-200 border-slate-200';
+
+                if (isCurrent) {
+                    btnStyle = 'bg-indigo-600 text-white font-black shadow-md border-indigo-700';
+                } else if (isAnswered) {
+                    btnStyle = 'bg-emerald-500 text-white font-bold border-emerald-600';
+                } else if (isFlagged) {
+                    btnStyle = 'bg-amber-400 text-slate-900 font-bold border-amber-500';
+                }
+
+                return `
+                    <button onclick="jumpToQuestion(${idx})" 
+                        class="w-full h-10 rounded-xl text-xs flex items-center justify-center transition border ${btnStyle}">
+                        ${idx + 1}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function jumpToQuestion(idx) {
+            currentQuestionIdx = idx;
+            renderCurrentQuestion();
+        }
+
+        function navigateQuestion(direction) {
+            const newIdx = currentQuestionIdx + direction;
+            if (newIdx >= 0 && newIdx < questions.length) {
+                currentQuestionIdx = newIdx;
+                renderCurrentQuestion();
+            }
+        }
+
+        function confirmFinishExam() {
+            showModal(
+                "Sınağı Bitir",
+                "Sınağı bitirmək istədiyinizdən əminsiniz? Cavablarınız təhlil ediləcək.",
+                function() {
+                    finishExam(false);
+                },
+                false,
+                "Təsdiqlə",
+                "Ləğv Et"
+            );
+        }
+
+        function finishExam(isTimeout = false) {
+            if (timerInterval) clearInterval(timerInterval);
+
+            let correctCount = 0;
+            let wrongCount = 0;
+            let unansweredCount = 0;
+
+            questions.forEach(q => {
+                const ans = studentAnswers[q.id];
+                if (ans === undefined || String(ans).trim() === '') {
+                    unansweredCount++;
+                } else if (q.type === 'open') {
+                    if (String(ans).trim().toLowerCase() === String(q.correct).trim().toLowerCase()) {
+                        correctCount++;
+                    } else {
+                        wrongCount++;
+                    }
+                } else if (ans === q.correct) {
+                    correctCount++;
+                } else {
+                    wrongCount++;
+                }
+            });
+
+            const scorePercent = questions.length > 0 ? Math.round((correctCount / questions.length) * 100) : 0;
+
+            document.getElementById('exam-view').classList.add('hidden');
+            document.getElementById('results-view').classList.remove('hidden');
+
+            document.getElementById('res-score-percent').textContent = `${scorePercent}%`;
+            document.getElementById('res-total').textContent = questions.length;
+            document.getElementById('res-correct').textContent = correctCount;
+            document.getElementById('res-wrong').textContent = wrongCount;
+            document.getElementById('res-unanswered').textContent = unansweredCount;
+
+            let feedbackMsg = "";
+            if (scorePercent >= 90) {
+                feedbackMsg = "Halaldı sənə! Səni yüksək yerlərdə görəcəyimə əminəm! 🌟";
+            } else if (scorePercent >= 50) {
+                feedbackMsg = "Üzərində çox çalış, mən sənə inanıram, sənin potensialın var! 💪";
+            } else if (scorePercent >= 20) {
+                feedbackMsg = "Mən sənə inanıram axı, belə adi səhvliklərin səni ruhdan salmasına icazə vermə! ❤️";
+            } else {
+                feedbackMsg = "Çox çalış, bu nəticəni sənə yaraşdırmıram! 📚";
+            }
+
+            const feedbackEl = document.getElementById('teacher-feedback-text');
+            if (feedbackEl) {
+                feedbackEl.textContent = feedbackMsg;
+            }
+
+            renderDetailedResults();
+
+            if (isTimeout) {
+                showModal("Vaxt Bitti!", "Müəyyən olunmuş sınaq müddəti başa çatdı. Nəticələriniz avtomatik hesablandı.", null, true);
+            }
+        }
+
+        function renderDetailedResults() {
+            const container = document.getElementById('results-details-container');
+
+            container.innerHTML = questions.map((q, idx) => {
+                const userAns = studentAnswers[q.id];
+                const isUnanswered = userAns === undefined || String(userAns).trim() === '';
+                
+                let isCorrect = false;
+                if (!isUnanswered) {
+                    if (q.type === 'open') {
+                        isCorrect = String(userAns).trim().toLowerCase() === String(q.correct).trim().toLowerCase();
+                    } else {
+                        isCorrect = userAns === q.correct;
+                    }
+                }
+
+                let statusBadge = '';
+                let borderClass = '';
+
+                if (isUnanswered) {
+                    statusBadge = `<span class="px-2.5 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-lg"><i class="fa-solid fa-minus me-1"></i> Cavabsız</span>`;
+                    borderClass = 'border-amber-200/80 bg-amber-50/20';
+                } else if (isCorrect) {
+                    statusBadge = `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-lg"><i class="fa-solid fa-check me-1"></i> Düzgün</span>`;
+                    borderClass = 'border-emerald-200/80 bg-emerald-50/20';
+                } else {
+                    statusBadge = `<span class="px-2.5 py-1 bg-rose-100 text-rose-700 text-xs font-bold rounded-lg"><i class="fa-solid fa-xmark me-1"></i> Səhv</span>`;
+                    borderClass = 'border-rose-200/80 bg-rose-50/20';
+                }
+
+                let imgHtml = '';
+                if (q.imageUrl) {
+                    imgHtml = `<div class="my-3 text-center"><img src="${q.imageUrl}" alt="Sual Şəkli" class="max-h-56 rounded-xl border border-slate-200 inline-block object-contain"></div>`;
+                }
+
+                let optionsDisplayHtml = '';
+                if (q.type === 'open') {
+                    optionsDisplayHtml = `
+                        <div class="p-4 rounded-xl bg-white border border-slate-200 space-y-2 text-xs">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-slate-500">Sizin cavabınız:</span>
+                                <span class="font-black ${isCorrect ? 'text-emerald-600' : 'text-rose-600'}">${escapeHtml(userAns || 'Cavablandırılmayıb')}</span>
+                            </div>
+                            <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                                <span class="font-bold text-slate-500">Düzgün cavab:</span>
+                                <span class="font-black text-emerald-600">${escapeHtml(q.correct)}</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    optionsDisplayHtml = `
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 text-xs">
+                            ${['A', 'B', 'C', 'D', 'E'].map(key => {
+                                const isUserChoice = userAns === key;
+                                const isCorrectOpt = q.correct === key;
+
+                                let itemStyle = 'bg-white border-slate-200 text-slate-600';
+                                if (isCorrectOpt) {
+                                    itemStyle = 'bg-emerald-100/80 border-emerald-300 text-emerald-900 font-bold';
+                                } else if (isUserChoice && !isCorrectOpt) {
+                                    itemStyle = 'bg-rose-100/80 border-rose-300 text-rose-900 font-bold';
+                                }
+
+                                return `
+                                    <div class="p-3 rounded-xl border ${itemStyle} flex items-center justify-between">
+                                        <span><strong>${key})</strong> ${escapeHtml(q.options ? q.options[key] : '')}</span>
+                                        ${isCorrectOpt ? '<i class="fa-solid fa-circle-check text-emerald-600 text-sm"></i>' : ''}
+                                        ${isUserChoice && !isCorrectOpt ? '<i class="fa-solid fa-circle-xmark text-rose-600 text-sm"></i>' : ''}
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="p-5 sm:p-6 rounded-2xl border ${borderClass} space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <span class="font-bold text-xs text-slate-500 uppercase tracking-wider">Sual ${idx + 1} • ${escapeHtml(q.category)}${q.type === 'open' ? ' • Açıq Sual' : ''}</span>
+                            ${statusBadge}
+                        </div>
+
+                        <div class="text-sm sm:text-base font-semibold text-slate-900 leading-relaxed">
+                            ${q.text}
+                            ${imgHtml}
+                        </div>
+
+                        ${optionsDisplayHtml}
+
+                        ${q.explanation ? `
+                            <div class="mt-3 p-4 bg-white rounded-xl border border-slate-200/80 text-xs text-slate-700 space-y-1">
+                                <div class="font-bold text-indigo-600 flex items-center gap-1.5 mb-1">
+                                    <i class="fa-solid fa-lightbulb"></i> Ətraflı İzah:
+                                </div>
+                                <div class="leading-relaxed">
+                                    ${q.explanation}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+
+            if (window.renderMathInElement) {
+                renderMathInElement(container);
+            }
+        }
+
+        function goToHome() {
+            if (currentExam) {
+                showModal(
+                    "Sınaqdan Çıxış",
+                    "Sınaqdan çıxmaq istəyirsiniz? Qeyd edək ki, sınaq nəticəniz ləğv ediləcək.",
+                    function() {
+                        confirmGoToHome();
+                    },
+                    false,
+                    "Bəli",
+                    "Xeyr"
+                );
+            } else {
+                confirmGoToHome();
+            }
+        }
+
+        function confirmGoToHome() {
+            if (timerInterval) clearInterval(timerInterval);
+            currentExam = null;
+            questions = [];
+            studentAnswers = {};
+            flaggedQuestions.clear();
+
+            document.getElementById('header-timer-section').classList.add('hidden');
+            document.getElementById('finish-exam-btn').classList.add('hidden');
+
+            document.getElementById('student-landing-view').classList.remove('hidden');
+            document.getElementById('admin-view').classList.add('hidden');
+            document.getElementById('exam-view').classList.add('hidden');
+            document.getElementById('results-view').classList.add('hidden');
+
+            document.getElementById('header-sub-title').textContent = "Sınaq İmtahanına Xoş Gelmisiniz";
+            renderStudentExamsGrid();
+        }
+
+        function switchToAdminView() {
+            document.getElementById('admin-password-input').value = '';
+            document.getElementById('admin-auth-error').classList.add('hidden');
+            document.getElementById('admin-auth-modal').classList.remove('hidden');
+        }
+
+        function verifyAdminPassword(e) {
+            e.preventDefault();
+            const inputPass = document.getElementById('admin-password-input').value;
+            if (inputPass === getAdminPass()) {
+                document.getElementById('admin-auth-modal').classList.add('hidden');
+                
+                if (timerInterval) clearInterval(timerInterval);
+                currentExam = null;
+
+                document.getElementById('student-landing-view').classList.add('hidden');
+                document.getElementById('exam-view').classList.add('hidden');
+                document.getElementById('results-view').classList.add('hidden');
+                document.getElementById('admin-view').classList.remove('hidden');
+
+                document.getElementById('header-timer-section').classList.add('hidden');
+                document.getElementById('finish-exam-btn').classList.add('hidden');
+                document.getElementById('header-sub-title').textContent = "Müəllim Paneli - Sualları İdarə Et";
+
+                renderAdminExamSelector();
+                renderAdminQuestionsList();
+            } else {
+                document.getElementById('admin-auth-error').classList.remove('hidden');
+            }
+        }
+
+        function closeAdminAuthModal() {
+            document.getElementById('admin-auth-modal').classList.add('hidden');
+        }
+
+        function logoutAdmin() {
+            confirmGoToHome();
+        }
+
+        function openRecoveryModal() {
+            closeAdminAuthModal();
+            document.getElementById('recovery-code-input').value = '';
+            document.getElementById('reset-new-password-input').value = '';
+            document.getElementById('recovery-auth-error').classList.add('hidden');
+            document.getElementById('admin-recovery-modal').classList.remove('hidden');
+        }
+
+        function closeRecoveryModal() {
+            document.getElementById('admin-recovery-modal').classList.add('hidden');
+        }
+
+        function verifyRecoveryCodeAndReset(e) {
+            e.preventDefault();
+            const inputCode = document.getElementById('recovery-code-input').value.trim();
+            const newPass = document.getElementById('reset-new-password-input').value.trim();
+
+            if (inputCode === getRecoveryCode()) {
+                if (!newPass) {
+                    showModal("Xəbərdarlıq", "Lütfən yeni şifrənizi daxil edin.", null, true);
+                    return;
+                }
+                setAdminPass(newPass);
+                closeRecoveryModal();
+                showModal("Uğurlu!", "Giriş şifrəniz yeniləndi. İndi yeni şifrənizlə daxil ola bilərsiniz.", function() {
+                    switchToAdminView();
+                }, true);
+            } else {
+                document.getElementById('recovery-auth-error').classList.remove('hidden');
+            }
+        }
+
+        function changeAdminPassword() {
+            const newPass = document.getElementById('new-admin-pass').value.trim();
+            if (!newPass) {
+                showModal("Xəbərdarlıq", "Lütfən yeni şifrəni yazın.", null, true);
+                return;
+            }
+            setAdminPass(newPass);
+            document.getElementById('new-admin-pass').value = '';
+            showModal("Uğurlu", "Müəllim şifrəsi uğurla yeniləndi!", null, true);
+        }
+
+        function changeRecoveryCode() {
+            const newCode = document.getElementById('new-recovery-code').value.trim();
+            if (!newCode) {
+                showModal("Xəbərdarlıq", "Lütfən yeni məxfi bərpa kodunu yazın.", null, true);
+                return;
+            }
+            setRecoveryCode(newCode);
+            document.getElementById('new-recovery-code').value = '';
+            showModal("Uğurlu", "Məxfi bərpa kodu uğurla yeniləndi!", null, true);
+        }
+
+        function openCreateExamModal() {
+            document.getElementById('new-exam-title-input').value = '';
+            document.getElementById('new-exam-duration-input').value = 60;
+            document.getElementById('create-exam-modal').classList.remove('hidden');
+        }
+
+        function closeCreateExamModal() {
+            document.getElementById('create-exam-modal').classList.add('hidden');
+        }
+
+        function handleCreateExamSubmit(e) {
+            e.preventDefault();
+            const title = document.getElementById('new-exam-title-input').value.trim();
+            const duration = parseInt(document.getElementById('new-exam-duration-input').value) || 60;
+
+            if (!title) return;
+
+            const newExam = {
+                id: 'exam_' + Date.now(),
+                title: title,
+                duration: Math.min(60, Math.max(1, duration)),
+                questions: []
+            };
+
+            exams.push(newExam);
+            activeAdminExamId = newExam.id;
+
+            saveExamsToStorage();
+            closeCreateExamModal();
+
+            renderAdminExamSelector();
+            renderAdminQuestionsList();
+            renderStudentExamsGrid();
+
+            showModal("Uğurlu", "Yeni sınaq paketı uğurla yaradıldı!", null, true);
+        }
+
+        function editActiveExamTitle() {
+            const curExam = getActiveAdminExam();
+            if (!curExam) return;
+
+            const newTitle = prompt("Sınağın yeni adını yazın:", curExam.title);
+            if (newTitle && newTitle.trim()) {
+                curExam.title = newTitle.trim();
+                saveExamsToStorage();
+                renderAdminExamSelector();
+                renderStudentExamsGrid();
+            }
+        }
+
+        function deleteActiveExam() {
+            if (exams.length <= 1) {
+                showModal("Diqqət", "Sistemdə ən azı 1 sınaq paketi qalmalıdır.", null, true);
+                return;
+            }
+
+            const curExam = getActiveAdminExam();
+            showModal("Sınağı Sil", `"${curExam.title}" sınağını silmək istədiyinizdən əminsiniz?`, function() {
+                exams = exams.filter(e => e.id !== curExam.id);
+                activeAdminExamId = exams[0].id;
+                saveExamsToStorage();
+                renderAdminExamSelector();
+                renderAdminQuestionsList();
+                renderStudentExamsGrid();
+            });
+        }
+
+        function updateActiveExamDuration(val) {
+            const curExam = getActiveAdminExam();
+            if (curExam) {
+                curExam.duration = Math.min(60, Math.max(1, parseInt(val) || 60));
+                saveExamsToStorage();
+            }
+        }
+
+        function clearCurrentExamQuestions() {
+            const curExam = getActiveAdminExam();
+            if (!curExam) return;
+
+            showModal("Sualları Sil", `"${curExam.title}" sınağındakı bütün sualları silmək istədiyinizdən əminsiniz?`, function() {
+                curExam.questions = [];
+                saveExamsToStorage();
+                renderAdminQuestionsList();
+                renderAdminExamSelector();
+            });
+        }
+
+        function switchToStudentLandingView() {
+            confirmGoToHome();
+        }
+
+        function showModal(title, message, onConfirm = null, alertOnly = false, confirmText = "Təsdiqlə", cancelText = "Ləğv Et") {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            pendingConfirmAction = onConfirm;
+
+            const confirmBtn = document.getElementById('modal-confirm-btn');
+            const cancelBtn = document.getElementById('modal-cancel-btn');
+
+            if (confirmBtn) confirmBtn.textContent = confirmText;
+            if (cancelBtn) cancelBtn.textContent = cancelText;
+
+            if (alertOnly) {
+                cancelBtn.classList.add('hidden');
+            } else {
+                cancelBtn.classList.remove('hidden');
+            }
+
+            const modal = document.getElementById('custom-modal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+            pendingConfirmAction = null;
+        }
+
+        function confirmModalAction() {
+            if (pendingConfirmAction) {
+                pendingConfirmAction();
+            }
+            closeModal();
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        window.onload = function() {
+            renderStudentExamsGrid();
+            renderAdminExamSelector();
+        };
+    </script>
+</body>
+</html>
