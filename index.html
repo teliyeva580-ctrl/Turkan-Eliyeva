@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Türkan Əliyeva - Sınaq İmtahanı Portalı</title>
+    <title>Türkan Əliyeva & Əsma Abbasova - Sınaq İmtahanı Portalı</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -34,7 +34,7 @@
         }
     </script>
     <style>
-        /* Strict Anti-Screenshot & Anti-Copy Rules */
+        /* Strict Anti-Screenshot Rules */
         * {
             -webkit-user-select: none !important;
             -moz-user-select: none !important;
@@ -43,7 +43,7 @@
             -webkit-touch-callout: none !important;
         }
 
-        img {
+        img, canvas {
             -webkit-user-drag: none;
             pointer-events: none;
         }
@@ -76,15 +76,29 @@
             font-family: inherit;
         }
 
-        /* Screen Blur Overlay on losing focus */
+        /* Screen Protection Overlay */
+        #secure-screen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 99999;
+            background: rgba(0, 0, 0, 0.001);
+        }
+
         .blur-protection {
-            filter: blur(20px) grayscale(100%) !important;
-            opacity: 0.1 !important;
-            transition: all 0.1s ease !important;
+            filter: blur(35px) grayscale(100%) opacity(0) !important;
+            background: #000 !important;
+            transition: all 0.05s ease !important;
         }
     </style>
 </head>
 <body class="h-full text-slate-800 bg-slate-50 font-sans flex flex-col justify-between antialiased selection:bg-none" oncontextmenu="return false;">
+
+    <!-- Anti-Screenshot Active Shield Overlay -->
+    <div id="secure-screen-overlay"></div>
 
     <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-40 border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -94,10 +108,10 @@
                 </div>
                 <div>
                     <h1 class="text-base sm:text-lg font-bold leading-tight flex items-center gap-2">
-                        <span>Türkan Əliyeva</span>
+                        <span>Türkan Əliyeva & Əsma Abbasova</span>
                         <span class="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 text-xs rounded-md border border-indigo-500/30 font-medium">Sınaq Portalı</span>
                     </h1>
-                    <p id="header-sub-title" class="text-xs text-slate-400 hidden sm:block">Sınaq İmtahanına Xoş Gelmisiniz</p>
+                    <p id="header-sub-title" class="text-xs text-slate-400 hidden sm:block">Onlayn Sınaq İmtahanları Portalı</p>
                 </div>
             </div>
 
@@ -137,7 +151,7 @@
                 <div class="relative z-10 max-w-3xl space-y-4">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-indigo-500/20 border border-indigo-400/30 rounded-full text-indigo-300 text-xs font-semibold">
                         <i class="fa-solid fa-star text-amber-400"></i>
-                        <span>Türkan Əliyeva ilə Onlayn Sınaq Portalı</span>
+                        <span>Türkan Əliyeva & Əsma Abbasova ilə Onlayn Sınaq Portalı</span>
                     </div>
 
                     <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
@@ -182,7 +196,7 @@
         <!-- ================= TEACHER / ADMIN VIEW (SUAL DAXİL ET) ================= -->
         <div id="admin-view" class="hidden space-y-6">
             
-            <!-- Welcome Banner for Türkan Əliyeva -->
+            <!-- Welcome Banner for Teachers -->
             <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-indigo-900/50 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="space-y-2 text-center md:text-left">
                     <div class="flex items-center justify-center md:justify-start gap-2">
@@ -192,9 +206,9 @@
                             <span>Canlı Bulud Baza Aktivdir</span>
                         </span>
                     </div>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Türkan Əliyeva - Sınaq İdarəetməsi</h2>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Türkan Əliyeva & Əsma Abbasova - Sınaq İdarəetməsi</h2>
                     <p class="text-slate-300 text-xs sm:text-sm max-w-xl">
-                        Yeni sınaq paketləri yaradın, suallar və şəkillər daxil edin. Yeniliklər anında şagirdlərin cihazında görünəcək.
+                        Yeni sınaq paketləri yaradın, öz adınızı seçin, suallar və şəkillər daxil edin. Yeniliklər anında şagirdlərin cihazında görünəcək.
                     </p>
                 </div>
 
@@ -233,7 +247,7 @@
                         <i class="fa-solid fa-plus"></i>
                         <span>Yeni Sınaq Yarad</span>
                     </button>
-                    <button onclick="editActiveExamDetails()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition border border-slate-200 flex items-center gap-1.5" title="Sınaq adını və parolu redaktə et">
+                    <button onclick="editActiveExamDetails()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition border border-slate-200 flex items-center gap-1.5" title="Sınaq adını, müəllimini və parolu redaktə et">
                         <i class="fa-solid fa-pen"></i>
                         <span class="hidden sm:inline">Sınaq Tənzimləmələri</span>
                     </button>
@@ -364,6 +378,14 @@
                         </h4>
 
                         <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">İmtahanı Tərtib Edən Müəllim</label>
+                            <select id="input-exam-author" onchange="updateActiveExamAuthor(this.value)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                <option value="Türkan Əliyeva">Türkan Əliyeva</option>
+                                <option value="Əsma Abbasova">Əsma Abbasova</option>
+                            </select>
+                        </div>
+
+                        <div>
                             <label class="block text-xs font-semibold text-slate-600 mb-1">İmtahan Müddəti (Maksimum 60 Dəqiqə)</label>
                             <div class="flex items-center space-x-2">
                                 <input type="number" id="input-duration" min="1" max="60" value="60" onchange="updateActiveExamDuration(this.value)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
@@ -438,14 +460,23 @@
             <!-- Left Side: Main Question Display Card (3 cols) -->
             <div class="lg:col-span-3 space-y-4 flex flex-col justify-between">
                 
-                <div class="bg-white rounded-2xl p-5 sm:p-8 shadow-sm border border-slate-200/80 flex flex-col justify-between min-h-[460px]">
+                <div class="bg-white rounded-2xl p-5 sm:p-8 shadow-sm border border-slate-200/80 flex flex-col justify-between min-h-[460px] relative overflow-hidden">
                     
+                    <!-- Dynamic Anti-Copy Watermark -->
+                    <div id="watermark-text" class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.03] rotate-[-25deg] text-3xl sm:text-5xl font-black text-slate-900 select-none z-0">
+                        TÜRKAN ƏLİYEVA & ƏSMA ABBASOVA
+                    </div>
+
                     <!-- Question Top Bar -->
-                    <div>
+                    <div class="relative z-10">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
-                            <div class="flex items-center space-x-3">
+                            <div class="flex items-center space-x-2 sm:space-x-3 flex-wrap gap-y-1">
                                 <span id="q-number-badge" class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-extrabold rounded-lg uppercase tracking-wide border border-indigo-200/60">
                                     Sual 1
+                                </span>
+                                <span id="q-author-badge" class="px-2.5 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-lg border border-purple-200/60 flex items-center gap-1">
+                                    <i class="fa-solid fa-chalkboard-user"></i>
+                                    <span id="q-author-name">Türkan Əliyeva</span>
                                 </span>
                                 <span id="q-category-tag" class="text-xs font-semibold px-2.5 py-0.5 bg-slate-100 text-slate-600 rounded-md">
                                     Umumi
@@ -471,7 +502,7 @@
                     </div>
 
                     <!-- Bottom Nav Buttons -->
-                    <div class="flex items-center justify-between pt-6 border-t border-slate-100 mt-8">
+                    <div class="flex items-center justify-between pt-6 border-t border-slate-100 mt-8 relative z-10">
                         <button id="prev-btn" onclick="navigateQuestion(-1)" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold rounded-xl transition flex items-center space-x-2">
                             <i class="fa-solid fa-chevron-left text-xs"></i>
                             <span>Əvvəlki</span>
@@ -557,11 +588,11 @@
                         <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mt-1">Ümumi Müvəffəqiyyət Faizi</p>
                     </div>
 
-                    <!-- Türkan Əliyeva Xüsusi Qiymətləndirmə Mesajı -->
+                    <!-- Teacher Specific Feedback Card -->
                     <div id="teacher-feedback-card" class="p-4 sm:p-5 rounded-2xl border bg-gradient-to-r from-indigo-50 via-amber-50 to-emerald-50 border-indigo-200/80 text-center space-y-1 shadow-sm">
                         <div class="text-xs uppercase font-extrabold text-indigo-700 tracking-wider flex items-center justify-center gap-2">
                             <i class="fa-solid fa-comment-dots text-amber-500"></i>
-                            <span>Türkan Əliyevadan Xüsusi Qeyd</span>
+                            <span id="teacher-feedback-header">Müəllimdən Xüsusi Qeyd</span>
                         </div>
                         <p id="teacher-feedback-text" class="text-sm sm:text-base font-bold text-slate-800 leading-relaxed"></p>
                     </div>
@@ -624,8 +655,8 @@
                     <i class="fa-solid fa-headset"></i>
                 </div>
                 <div>
-                    <h4 class="font-bold text-slate-900 text-base">Türkan Əliyevanın Dərslərinə Qatılın!</h4>
-                    <p class="text-xs text-slate-500">Dərslərə və sınaqlara yazılmaq üçün bizimlə əlaqə saxlayın:</p>
+                    <h4 class="font-bold text-slate-900 text-base">Dərslərimizə Qatılın!</h4>
+                    <p class="text-xs text-slate-500">Türkan Əliyeva və Əsma Abbasova ilə dərslərə və sınaqlara yazılmaq üçün əlaqə saxlayın:</p>
                 </div>
             </div>
             <div class="flex flex-wrap items-center justify-center gap-3 w-full md:w-auto">
@@ -740,12 +771,19 @@
                     <i class="fa-solid fa-folder-plus"></i>
                 </div>
                 <h3 class="text-lg font-bold text-slate-900">Yeni Sınaq Yaradın</h3>
-                <p class="text-xs text-slate-500">Sınağın adını, müddətini və parolu (könüllü) təyin edin.</p>
+                <p class="text-xs text-slate-500">Sınağın adını, müəllimini, müddətini və parolu (könüllü) təyin edin.</p>
             </div>
             <form onsubmit="handleCreateExamSubmit(event)" class="space-y-3">
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Sınaq İmtahanının Adı</label>
                     <input type="text" id="new-exam-title-input" placeholder="Məs: Sınaq İmtahanı №2" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Hazırlayan Müəllim</label>
+                    <select id="new-exam-author-input" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                        <option value="Türkan Əliyeva">Türkan Əliyeva</option>
+                        <option value="Əsma Abbasova">Əsma Abbasova</option>
+                    </select>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Müddət (Dəqiqə)</label>
@@ -886,9 +924,21 @@
         };
     </script>
 
-    <!-- Main Logic Script & Strict Anti-Screenshot Handlers -->
+    <!-- Main Logic Script & Anti-Screenshot Handlers -->
     <script>
-        // Disable PrintScreen, Copy, and Inspection Shortcuts
+        // Active Shield Protection against Hardware Screenshots
+        let overlayElem = document.getElementById('secure-screen-overlay');
+        let isProtected = true;
+
+        function animateShield() {
+            if (overlayElem && isProtected) {
+                overlayElem.style.backgroundColor = (Math.random() > 0.5) ? "rgba(0,0,0,0.001)" : "rgba(255,255,255,0.001)";
+            }
+            requestAnimationFrame(animateShield);
+        }
+        requestAnimationFrame(animateShield);
+
+        // Disable Shortcuts & Keys
         document.addEventListener('keydown', function(e) {
             if (e.key === 'PrintScreen' || 
                (e.ctrlKey && (e.key === 'p' || e.key === 'P' || e.key === 's' || e.key === 'S' || e.key === 'u' || e.key === 'U')) ||
@@ -898,7 +948,7 @@
             }
         });
 
-        // Hide screen contents when window loses focus (Mobile notifications bar, App Switcher, Screen Recording)
+        // Hide screen contents when window loses focus
         function applyBlur() {
             const mainArea = document.getElementById('main-content-area');
             const examView = document.getElementById('exam-view');
@@ -926,6 +976,7 @@
             {
                 id: 'exam_1',
                 title: 'Sınaq İmtahanı №1 - Ümumi Biliklər',
+                author: 'Türkan Əliyeva',
                 duration: 60,
                 password: '',
                 questions: []
@@ -955,7 +1006,7 @@
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exams, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `turkan_aliyeva_sinaqlar_${Date.now()}.json`);
+            downloadAnchor.setAttribute("download", `sinaqlar_baza_${Date.now()}.json`);
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
@@ -1013,6 +1064,7 @@
             if (curExam) {
                 document.getElementById('input-duration').value = curExam.duration || 60;
                 document.getElementById('input-exam-password').value = curExam.password || '';
+                document.getElementById('input-exam-author').value = curExam.author || 'Türkan Əliyeva';
             }
             resetQuestionForm();
             renderAdminQuestionsList();
@@ -1023,14 +1075,16 @@
             if (!selectEl) return;
             selectEl.innerHTML = exams.map(e => `
                 <option value="${e.id}" ${e.id === activeAdminExamId ? 'selected' : ''}>
-                    ${escapeHtml(e.title)} ${(e.password ? '🔒' : '')} (${(e.questions || []).length} Sual)
+                    ${escapeHtml(e.title)} (${escapeHtml(e.author || 'Türkan Əliyeva')}) ${(e.password ? '🔒' : '')} (${(e.questions || []).length} Sual)
                 </option>
             `).join('');
 
             const curExam = getActiveAdminExam();
             if (curExam) {
                 const passInput = document.getElementById('input-exam-password');
+                const authorInput = document.getElementById('input-exam-author');
                 if (passInput) passInput.value = curExam.password || '';
+                if (authorInput) authorInput.value = curExam.author || 'Türkan Əliyeva';
             }
         }
 
@@ -1055,6 +1109,7 @@
             gridEl.innerHTML = exams.map((exam, idx) => {
                 const qCount = (exam.questions || []).length;
                 const isLocked = !!exam.password;
+                const authorName = exam.author || 'Türkan Əliyeva';
                 return `
                     <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-4 group">
                         <div class="space-y-3">
@@ -1067,10 +1122,18 @@
                                     <i class="fa-regular fa-clock text-amber-500"></i> ${exam.duration || 60} Dəq
                                 </span>
                             </div>
+
                             <h4 class="font-extrabold text-slate-900 text-lg leading-snug group-hover:text-indigo-600 transition-colors">
                                 ${escapeHtml(exam.title)}
                             </h4>
-                            <div class="flex items-center justify-between text-xs text-slate-500">
+
+                            <!-- Teacher Badge -->
+                            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-lg border border-purple-100">
+                                <i class="fa-solid fa-chalkboard-user"></i>
+                                <span>Müəllim: ${escapeHtml(authorName)}</span>
+                            </div>
+
+                            <div class="flex items-center justify-between text-xs text-slate-500 pt-1">
                                 <span class="flex items-center gap-1.5">
                                     <i class="fa-solid fa-file-circle-question text-indigo-500"></i>
                                     <span>Cəmi: <strong>${qCount}</strong> Sual</span>
@@ -1377,6 +1440,10 @@
             document.getElementById('finish-exam-btn').classList.remove('hidden');
             document.getElementById('header-sub-title').textContent = currentExam.title;
 
+            // Update Exam Top Header Badges
+            document.getElementById('q-author-name').textContent = currentExam.author || 'Türkan Əliyeva';
+            document.getElementById('watermark-text').textContent = (currentExam.author || 'TÜRKAN ƏLİYEVA').toUpperCase();
+
             startTimer();
             renderCurrentQuestion();
         }
@@ -1635,15 +1702,18 @@
             document.getElementById('res-wrong').textContent = wrongCount;
             document.getElementById('res-unanswered').textContent = unansweredCount;
 
+            const authorName = currentExam ? (currentExam.author || 'Türkan Əliyeva') : 'Türkan Əliyeva';
+            document.getElementById('teacher-feedback-header').textContent = `${authorName} Müəllimdən Xüsusi Qeyd`;
+
             let feedbackMsg = "";
             if (scorePercent >= 90) {
-                feedbackMsg = "Halaldı sənə! Səni yüksək yerlərdə görəcəyimə əminəm! 🌟";
+                feedbackMsg = `Halaldı sənə! Səni yüksək yerlərdə görəcəyimə əminəm! 🌟 - ${authorName}`;
             } else if (scorePercent >= 50) {
-                feedbackMsg = "Üzərində çox çalış, mən sənə inanıram, sənin potensialın var! 💪";
+                feedbackMsg = `Üzərində çox çalış, mən sənə inanıram, sənin potensialın var! 💪 - ${authorName}`;
             } else if (scorePercent >= 20) {
-                feedbackMsg = "Mən sənə inanıram axı, belə adi səhvliklərin səni ruhdan salmasına icazə vermə! ❤️";
+                feedbackMsg = `Mən sənə inanıram axı, belə adi səhvliklərin səni ruhdan salmasına icazə vermə! ❤️ - ${authorName}`;
             } else {
-                feedbackMsg = "Çox çalış, bu nəticəni sənə yaraşdırmıram! 📚";
+                feedbackMsg = `Çox çalış, bu nəticəni sənə yaraşdırmıram! 📚 - ${authorName}`;
             }
 
             const feedbackEl = document.getElementById('teacher-feedback-text');
@@ -1723,7 +1793,7 @@
 
                                 return `
                                     <div class="p-3 rounded-xl border ${itemStyle} flex items-center justify-between">
-                                        <span class="plain-text-content"><strong>${key})</strong>${escapeHtml(q.options ? q.options[key] : '')}</span>
+                                        <span class="plain-text-content"><strong>${key})</strong> ${escapeHtml(q.options ? q.options[key] : '')}</span>
                                         ${isCorrectOpt ? '<i class="fa-solid fa-circle-check text-emerald-600 text-sm"></i>' : ''}
                                         ${isUserChoice && !isCorrectOpt ? '<i class="fa-solid fa-circle-xmark text-rose-600 text-sm"></i>' : ''}
                                     </div>
@@ -1794,7 +1864,7 @@
             document.getElementById('exam-view').classList.add('hidden');
             document.getElementById('results-view').classList.add('hidden');
 
-            document.getElementById('header-sub-title').textContent = "Sınaq İmtahanına Xoş Gelmisiniz";
+            document.getElementById('header-sub-title').textContent = "Onlayn Sınaq İmtahanları Portalı";
             renderStudentExamsGrid();
         }
 
@@ -1893,6 +1963,7 @@
 
         function openCreateExamModal() {
             document.getElementById('new-exam-title-input').value = '';
+            document.getElementById('new-exam-author-input').value = 'Türkan Əliyeva';
             document.getElementById('new-exam-duration-input').value = 60;
             document.getElementById('new-exam-password-input').value = '';
             document.getElementById('create-exam-modal').classList.remove('hidden');
@@ -1905,6 +1976,7 @@
         function handleCreateExamSubmit(e) {
             e.preventDefault();
             const title = document.getElementById('new-exam-title-input').value.trim();
+            const author = document.getElementById('new-exam-author-input').value;
             const duration = parseInt(document.getElementById('new-exam-duration-input').value) || 60;
             const password = document.getElementById('new-exam-password-input').value.trim();
 
@@ -1913,6 +1985,7 @@
             const newExam = {
                 id: 'exam_' + Date.now(),
                 title: title,
+                author: author,
                 duration: Math.min(60, Math.max(1, duration)),
                 password: password,
                 questions: []
@@ -1949,6 +2022,16 @@
             renderAdminExamSelector();
             renderStudentExamsGrid();
             showModal("Uğurlu", "Sınaq tənzimləmələri yeniləndi!", null, true);
+        }
+
+        function updateActiveExamAuthor(authorName) {
+            const curExam = getActiveAdminExam();
+            if (curExam) {
+                curExam.author = authorName;
+                saveExamsToStorage();
+                renderAdminExamSelector();
+                renderStudentExamsGrid();
+            }
         }
 
         function updateActiveExamPassword() {
