@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Türkan Əliyeva & Əsma Abbasova - Sınaq İmtahanı Portalı</title>
-    <!-- Tailwind CSS -->
+    <title>Onlayn Sınaq Akademiyası - Türkan Əliyeva & Əsma Abbasova</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts (Inter) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <script>
@@ -97,25 +94,20 @@
 </head>
 <body class="h-full text-slate-800 bg-slate-50 font-sans flex flex-col justify-between antialiased selection:bg-none" oncontextmenu="return false;">
 
-    <!-- Anti-Screenshot Active Shield Overlay -->
     <div id="secure-screen-overlay"></div>
 
     <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-40 border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="goToHome()" title="Əsas Səhifəyə keçid">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-brand-500 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-indigo-500/30">
-                    <i class="fa-solid fa-user-graduate"></i>
-                </div>
+                <img src="353338.jpg" alt="Logo" class="w-11 h-11 rounded-xl object-cover border border-slate-700 shadow-md">
                 <div>
                     <h1 class="text-base sm:text-lg font-bold leading-tight flex items-center gap-2">
-                        <span>Türkan Əliyeva & Əsma Abbasova</span>
-                        <span class="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 text-xs rounded-md border border-indigo-500/30 font-medium">Sınaq Portalı</span>
+                        <span>Onlayn Sınaq Akademiyası</span>
                     </h1>
-                    <p id="header-sub-title" class="text-xs text-slate-400 hidden sm:block">Onlayn Sınaq İmtahanları Portalı</p>
+                    <p id="header-sub-title" class="text-xs text-indigo-300 font-medium">Türkan Əliyeva & Əsma Abbasova</p>
                 </div>
             </div>
 
-            <!-- Header Controls & Timer -->
             <div class="flex items-center space-x-2 sm:space-x-3">
                 <button id="home-nav-btn" onclick="goToHome()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition border border-slate-700 flex items-center gap-1.5">
                     <i class="fa-solid fa-house text-indigo-400"></i>
@@ -145,13 +137,12 @@
 
     <main id="main-content-area" class="flex-grow max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 flex flex-col justify-start">
 
-        <!-- ================= STUDENT WELCOME LANDING VIEW ================= -->
         <div id="student-landing-view" class="space-y-6 animate-fadeIn">
             <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-12 text-white shadow-2xl border border-indigo-800/40 relative overflow-hidden text-center sm:text-left">
                 <div class="relative z-10 max-w-3xl space-y-4">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-indigo-500/20 border border-indigo-400/30 rounded-full text-indigo-300 text-xs font-semibold">
-                        <i class="fa-solid fa-star text-amber-400"></i>
-                        <span>Türkan Əliyeva & Əsma Abbasova ilə Onlayn Sınaq Portalı</span>
+                        <i class="fa-solid fa-graduation-cap text-amber-400"></i>
+                        <span>Onlayn Sınaq Akademiyası - Türkan Əliyeva & Əsma Abbasova</span>
                     </div>
 
                     <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
@@ -175,7 +166,6 @@
                 </div>
             </div>
 
-            <!-- Available Exams List Grid -->
             <div class="space-y-4 pt-4">
                 <div class="flex items-center justify-between">
                     <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -188,15 +178,12 @@
                 </div>
 
                 <div id="student-exams-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Dynamic Exam Cards Injected Here -->
-                </div>
+                    </div>
             </div>
         </div>
 
-        <!-- ================= TEACHER / ADMIN VIEW (SUAL DAXİL ET) ================= -->
         <div id="admin-view" class="hidden space-y-6">
             
-            <!-- Welcome Banner for Teachers -->
             <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-indigo-900/50 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="space-y-2 text-center md:text-left">
                     <div class="flex items-center justify-center md:justify-start gap-2">
@@ -206,9 +193,9 @@
                             <span>Canlı Bulud Baza Aktivdir</span>
                         </span>
                     </div>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Türkan Əliyeva & Əsma Abbasova - Sınaq İdarəetməsi</h2>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Onlayn Sınaq Akademiyası - İdarəetmə</h2>
                     <p class="text-slate-300 text-xs sm:text-sm max-w-xl">
-                        Yeni sınaq paketləri yaradın, öz adınızı seçin, suallar və şəkillər daxil edin. Yeniliklər anında şagirdlərin cihazında görünəcək.
+                        Türkan Əliyeva və Əsma Abbasova üçün xüsusi sınaq paneli. Yeni sınaq yaradın, müəllim seçin və sualları daxil edin.
                     </p>
                 </div>
 
@@ -233,13 +220,11 @@
                 </div>
             </div>
 
-            <!-- Exam Selector & Creation Bar -->
             <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
                     <label class="text-xs font-bold text-slate-700 uppercase shrink-0">Cari Sınaq:</label>
                     <select id="admin-exam-select" onchange="changeActiveAdminExam(this.value)" class="w-full sm:w-64 px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                        <!-- Exam options injected dynamically -->
-                    </select>
+                        </select>
                 </div>
 
                 <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
@@ -257,10 +242,8 @@
                 </div>
             </div>
 
-            <!-- Settings & Add Question Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
-                <!-- Left: Question Entry Form (2 cols) -->
                 <div class="lg:col-span-2 bg-white rounded-2xl p-5 sm:p-7 shadow-sm border border-slate-200 space-y-5">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                         <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
@@ -275,7 +258,6 @@
                     <form id="question-form" onsubmit="handleQuestionFormSubmit(event)" class="space-y-4">
                         <input type="hidden" id="edit-q-id" value="">
 
-                        <!-- Category, Type & Image Upload -->
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Fənn / Kateqoriya</label>
@@ -299,13 +281,11 @@
                             </div>
                         </div>
 
-                        <!-- Question Text Area -->
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sualın Mətni (Standart Mətn / Riyazi Simvollar)</label>
                             <textarea id="input-text" rows="3" placeholder="Sualın mətnini və ya misalı birbaşa kopyalayıb bura yapışdırın..." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
                         </div>
 
-                        <!-- Options Input Grid (For Closed Questions) -->
                         <div id="closed-options-box">
                             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Variantlar və Düzgün Cavab</label>
                             <div class="space-y-2">
@@ -337,20 +317,17 @@
                             </div>
                         </div>
 
-                        <!-- Open-ended Correct Answer Box -->
                         <div id="open-correct-box" class="hidden">
                             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Açıq Sualın Düzgün Cavabı</label>
                             <input type="text" id="input-open-correct" placeholder="Məs: 25 və ya Bakı" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
                             <p class="text-[11px] text-slate-400 mt-1">Şagird bu dəqiq cavabı (və ya ədədi) yazdıqda bal qazanacaq.</p>
                         </div>
 
-                        <!-- Explanation Text Area -->
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Ətraflı İzah (Könüllü)</label>
                             <textarea id="input-explanation" rows="2" placeholder="Şagird üçün nəticə səhifəsində görünəcək izahı yazın..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
                         </div>
 
-                        <!-- Submit Buttons -->
                         <div class="flex items-center justify-between pt-2">
                             <button type="button" onclick="resetQuestionForm()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold rounded-xl transition">
                                 Təmizlə
@@ -368,10 +345,8 @@
                     </form>
                 </div>
 
-                <!-- Right: Config & Current Questions List (1 col) -->
                 <div class="space-y-6">
                     
-                    <!-- Exam Timer & Password Settings Card -->
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
                         <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
                             <i class="fa-solid fa-sliders text-indigo-600"></i> Cari Sınaq Tənzimləmələri
@@ -393,7 +368,6 @@
                             </div>
                         </div>
 
-                        <!-- Exam Access Password Box -->
                         <div class="pt-3 border-t border-slate-100 space-y-2">
                             <label class="block text-xs font-semibold text-slate-600">Sınağa Giriş Parolu (Kilid)</label>
                             <div class="flex gap-2">
@@ -405,7 +379,6 @@
                             <p class="text-[10px] text-slate-400">Şagirdlərin sınağa girməsi üçün tələb olunan xüsusi parol.</p>
                         </div>
 
-                        <!-- Admin Password Change Box -->
                         <div class="pt-3 border-t border-slate-100 space-y-2">
                             <label class="block text-xs font-semibold text-slate-600">Müəllim Paneli Şifrəsini Dəyiş</label>
                             <div class="flex gap-2">
@@ -416,7 +389,6 @@
                             </div>
                         </div>
 
-                        <!-- Recovery Code Change Box -->
                         <div class="pt-3 border-t border-slate-100 space-y-2">
                             <label class="block text-xs font-semibold text-slate-600">Məxfi Bərpa Kodunu Dəyiş</label>
                             <div class="flex gap-2">
@@ -434,7 +406,6 @@
                         </div>
                     </div>
 
-                    <!-- Current Questions List -->
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-3">
                         <div class="flex items-center justify-between pb-2 border-b border-slate-100">
                             <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
@@ -444,8 +415,7 @@
                         </div>
 
                         <div id="admin-questions-list" class="space-y-2 max-h-[380px] overflow-y-auto pr-1 custom-scrollbar">
-                            <!-- Questions dynamically listed here -->
-                        </div>
+                            </div>
                     </div>
 
                 </div>
@@ -454,20 +424,16 @@
 
         </div>
 
-        <!-- ================= EXAM VIEW ================= -->
         <div id="exam-view" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6">
             
-            <!-- Left Side: Main Question Display Card (3 cols) -->
             <div class="lg:col-span-3 space-y-4 flex flex-col justify-between">
                 
                 <div class="bg-white rounded-2xl p-5 sm:p-8 shadow-sm border border-slate-200/80 flex flex-col justify-between min-h-[460px] relative overflow-hidden">
                     
-                    <!-- Dynamic Anti-Copy Watermark -->
                     <div id="watermark-text" class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.03] rotate-[-25deg] text-3xl sm:text-5xl font-black text-slate-900 select-none z-0">
-                        TÜRKAN ƏLİYEVA & ƏSMA ABBASOVA
+                        ONLAYN SİNAQ AKADEMİYASI
                     </div>
 
-                    <!-- Question Top Bar -->
                     <div class="relative z-10">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
                             <div class="flex items-center space-x-2 sm:space-x-3 flex-wrap gap-y-1">
@@ -483,25 +449,19 @@
                                 </span>
                             </div>
 
-                            <!-- Flag Bookmark Button -->
                             <button id="flag-btn" onclick="toggleFlagCurrentQuestion()" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-500 hover:text-amber-600 hover:bg-amber-50 transition border border-transparent hover:border-amber-200">
                                 <i id="flag-icon" class="fa-regular fa-bookmark text-sm"></i>
                                 <span id="flag-text">Yadda saxla</span>
                             </button>
                         </div>
 
-                        <!-- Question Text Container -->
                         <div id="question-text" class="text-slate-900 font-semibold text-base sm:text-lg leading-relaxed mb-6 space-y-2 plain-text-content">
-                            <!-- Question Text dynamically injected -->
-                        </div>
+                            </div>
 
-                        <!-- Options Container -->
                         <div id="options-container" class="space-y-3">
-                            <!-- Options dynamically injected -->
-                        </div>
+                            </div>
                     </div>
 
-                    <!-- Bottom Nav Buttons -->
                     <div class="flex items-center justify-between pt-6 border-t border-slate-100 mt-8 relative z-10">
                         <button id="prev-btn" onclick="navigateQuestion(-1)" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold rounded-xl transition flex items-center space-x-2">
                             <i class="fa-solid fa-chevron-left text-xs"></i>
@@ -523,7 +483,6 @@
 
             </div>
 
-            <!-- Right Side: Sidebar Navigation Palette (1 col) -->
             <div class="lg:col-span-1 space-y-4">
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/80 sticky top-24">
                     <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
@@ -535,12 +494,9 @@
                         </span>
                     </div>
 
-                    <!-- Question Grid Dynamic -->
                     <div id="question-grid" class="grid grid-cols-5 gap-2 max-h-[320px] overflow-y-auto pr-1 custom-scrollbar">
-                        <!-- Buttons generated via JavaScript -->
-                    </div>
+                        </div>
 
-                    <!-- Legend Status -->
                     <div class="mt-5 pt-4 border-t border-slate-100 space-y-2 text-[11px] font-medium text-slate-500">
                         <div class="flex items-center justify-between">
                             <span class="flex items-center gap-2">
@@ -568,10 +524,8 @@
 
         </div>
 
-        <!-- ================= RESULTS VIEW ================= -->
         <div id="results-view" class="hidden space-y-8 animate-fadeIn">
             
-            <!-- Result Summary Top Header -->
             <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-200/80 text-center relative overflow-hidden">
                 <div class="max-w-2xl mx-auto space-y-4">
                     <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-3xl flex items-center justify-center text-3xl mx-auto shadow-inner">
@@ -588,7 +542,6 @@
                         <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mt-1">Ümumi Müvəffəqiyyət Faizi</p>
                     </div>
 
-                    <!-- Teacher Specific Feedback Card -->
                     <div id="teacher-feedback-card" class="p-4 sm:p-5 rounded-2xl border bg-gradient-to-r from-indigo-50 via-amber-50 to-emerald-50 border-indigo-200/80 text-center space-y-1 shadow-sm">
                         <div class="text-xs uppercase font-extrabold text-indigo-700 tracking-wider flex items-center justify-center gap-2">
                             <i class="fa-solid fa-comment-dots text-amber-500"></i>
@@ -597,7 +550,6 @@
                         <p id="teacher-feedback-text" class="text-sm sm:text-base font-bold text-slate-800 leading-relaxed"></p>
                     </div>
 
-                    <!-- Action Buttons -->
                     <div class="flex flex-wrap justify-center gap-3 pt-2">
                         <button onclick="switchToStudentLandingView()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition flex items-center gap-2">
                             <i class="fa-solid fa-house"></i>
@@ -615,7 +567,6 @@
                 </div>
             </div>
 
-            <!-- Stats Metric Cards -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 text-center shadow-sm">
                     <span class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Ümumi Sual</span>
@@ -635,20 +586,17 @@
                 </div>
             </div>
 
-            <!-- Detailed Answers List -->
             <div class="space-y-4">
                 <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
                     <i class="fa-solid fa-list-check text-indigo-600"></i>
                     <span>Sualların Ətraflı Təhlili və İzahı</span>
                 </h3>
                 <div id="results-details-container" class="space-y-4">
-                    <!-- Dynamic questions detailed results -->
-                </div>
+                    </div>
             </div>
 
         </div>
 
-        <!-- Contact & Course Info Banner -->
         <div class="mt-8 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="flex items-center space-x-4">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-brand-500 text-white flex items-center justify-center text-xl shrink-0 shadow-md">
@@ -673,8 +621,6 @@
 
     </main>
 
-    <!-- Modals Section -->
-    <!-- Student Exam Password Auth Modal -->
     <div id="student-exam-auth-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
             <div class="text-center space-y-2">
@@ -702,7 +648,6 @@
         </div>
     </div>
 
-    <!-- Admin Auth Password Modal -->
     <div id="admin-auth-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
             <div class="text-center space-y-2">
@@ -732,7 +677,6 @@
         </div>
     </div>
 
-    <!-- Admin Recovery Modal -->
     <div id="admin-recovery-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
             <div class="text-center space-y-2">
@@ -763,7 +707,6 @@
         </div>
     </div>
 
-    <!-- Create New Exam Modal -->
     <div id="create-exam-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
             <div class="text-center space-y-2">
@@ -802,7 +745,6 @@
         </div>
     </div>
 
-    <!-- Custom Modal -->
     <div id="custom-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100">
             <div>
@@ -816,7 +758,6 @@
         </div>
     </div>
 
-    <!-- Firebase Realtime Cloud Sync Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -924,7 +865,6 @@
         };
     </script>
 
-    <!-- Main Logic Script & Anti-Screenshot Handlers -->
     <script>
         // Active Shield Protection against Hardware Screenshots
         let overlayElem = document.getElementById('secure-screen-overlay');
@@ -1127,7 +1067,6 @@
                                 ${escapeHtml(exam.title)}
                             </h4>
 
-                            <!-- Teacher Badge -->
                             <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-lg border border-purple-100">
                                 <i class="fa-solid fa-chalkboard-user"></i>
                                 <span>Müəllim: ${escapeHtml(authorName)}</span>
@@ -1442,7 +1381,6 @@
 
             // Update Exam Top Header Badges
             document.getElementById('q-author-name').textContent = currentExam.author || 'Türkan Əliyeva';
-            document.getElementById('watermark-text').textContent = (currentExam.author || 'TÜRKAN ƏLİYEVA').toUpperCase();
 
             startTimer();
             renderCurrentQuestion();
@@ -1793,7 +1731,7 @@
 
                                 return `
                                     <div class="p-3 rounded-xl border ${itemStyle} flex items-center justify-between">
-                                        <span class="plain-text-content"><strong>${key})</strong> ${escapeHtml(q.options ? q.options[key] : '')}</span>
+                                        <span class="plain-text-content"><strong>${key})</strong>${escapeHtml(q.options ? q.options[key] : '')}</span>
                                         ${isCorrectOpt ? '<i class="fa-solid fa-circle-check text-emerald-600 text-sm"></i>' : ''}
                                         ${isUserChoice && !isCorrectOpt ? '<i class="fa-solid fa-circle-xmark text-rose-600 text-sm"></i>' : ''}
                                     </div>
@@ -1864,7 +1802,7 @@
             document.getElementById('exam-view').classList.add('hidden');
             document.getElementById('results-view').classList.add('hidden');
 
-            document.getElementById('header-sub-title').textContent = "Onlayn Sınaq İmtahanları Portalı";
+            document.getElementById('header-sub-title').textContent = "Türkan Əliyeva & Əsma Abbasova";
             renderStudentExamsGrid();
         }
 
