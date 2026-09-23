@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -97,7 +98,7 @@
     <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-40 border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="goToHome()" title="Əsas Səhifəyə keçid">
-                <img src="353338.jpg" alt="Logo" class="w-11 h-11 rounded-xl object-cover border border-slate-700 shadow-md">
+                <img src="image_15529a.jpg" onerror="this.onerror=null; this.src='353338.jpg';" alt="Logo" class="w-11 h-11 rounded-xl object-cover border border-slate-700 shadow-md">
                 <div>
                     <h1 class="text-base sm:text-lg font-bold leading-tight flex items-center gap-2">
                         <span>Onlayn Sınaq Akademiyası</span>
@@ -116,7 +117,7 @@
                     <i class="fa-solid fa-clock text-amber-400 me-2 text-sm animate-pulse"></i>
                     <div class="flex flex-col">
                         <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Qalan Vaxt</span>
-                        <span id="timer-display" class="font-mono font-bold text-emerald-400 text-lg leading-tight">60:00</span>
+                        <span id="timer-display" class="font-mono font-bold text-emerald-400 text-lg leading-tight">180:00</span>
                     </div>
                 </div>
 
@@ -176,7 +177,7 @@
                 </div>
 
                 <div id="student-exams-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    </div>
+                </div>
             </div>
         </div>
 
@@ -193,14 +194,18 @@
                     </div>
                     <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Onlayn Sınaq Akademiyası - İdarəetmə</h2>
                     <p class="text-slate-300 text-xs sm:text-sm max-w-xl">
-                        Türkan Əliyeva və Əsma Abbasova üçün xüsusi sınaq paneli. Sınaqlara girən şagirdlərin nəticələrini canlı izləyin.
+                        Müəllim paneli üzərindən sınaqları idarə edin, fənləri bölün, PDF kimi endirin və şagird nəticələrini izləyin.
                     </p>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <button onclick="downloadExamPDF()" class="px-4 py-3 bg-rose-700 hover:bg-rose-600 text-white font-bold text-xs rounded-2xl transition border border-rose-600 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-pdf text-base"></i>
+                        <span>Sınağı PDF İlə Yüklə</span>
+                    </button>
                     <button onclick="exportExamsToFile()" class="px-4 py-3 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs rounded-2xl transition border border-emerald-600 flex items-center justify-center gap-2">
                         <i class="fa-solid fa-download"></i>
-                        <span>Sınaqları Endir (JSON)</span>
+                        <span>Baza (JSON) Endir</span>
                     </button>
                     <label class="px-4 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs rounded-2xl transition border border-amber-500 flex items-center justify-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-upload"></i>
@@ -209,11 +214,7 @@
                     </label>
                     <button onclick="switchToStudentLandingView()" class="px-4 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-2xl transition border border-slate-700 flex items-center justify-center gap-2">
                         <i class="fa-solid fa-eye"></i>
-                        <span>Şagird Görünüşünə Keç</span>
-                    </button>
-                    <button onclick="logoutAdmin()" class="px-4 py-3 bg-rose-900/40 hover:bg-rose-900/60 text-rose-200 font-bold text-xs rounded-2xl transition border border-rose-800/50 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span>Çıxış Et</span>
+                        <span>Şagird Rejimi</span>
                     </button>
                 </div>
             </div>
@@ -266,7 +267,7 @@
                             </tr>
                         </thead>
                         <tbody id="student-results-table-body">
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -289,8 +290,9 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Fənn / Kateqoriya</label>
-                                <input type="text" id="input-category" placeholder="Məs: Riyaziyyat, İnformatika..." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Fənn / Bölmə Seçimi</label>
+                                <select id="input-category" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                </select>
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sual Tipi</label>
@@ -312,7 +314,7 @@
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sualın Mətni (Standart Mətn / Riyazi Simvollar)</label>
-                            <textarea id="input-text" rows="3" placeholder="Sualın mətnini və ya misalı birbaşa kopyalayıb bura yapışdırın..." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
+                            <textarea id="input-text" rows="3" placeholder="Sualın mətnini daxil edin..." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
                         </div>
 
                         <div id="closed-options-box">
@@ -388,9 +390,9 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1">İmtahan Müddəti (Maksimum 60 Dəqiqə)</label>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">İmtahan Müddəti (Maksimum 180 Dəqiqə)</label>
                             <div class="flex items-center space-x-2">
-                                <input type="number" id="input-duration" min="1" max="60" value="60" onchange="updateActiveExamDuration(this.value)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                <input type="number" id="input-duration" min="1" max="180" value="180" onchange="updateActiveExamDuration(this.value)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
                                 <span class="text-xs font-bold text-slate-500">Dəqiqə</span>
                             </div>
                         </div>
@@ -464,8 +466,8 @@
                                     <i class="fa-solid fa-chalkboard-user"></i>
                                     <span id="q-author-name">Türkan Əliyeva</span>
                                 </span>
-                                <span id="q-category-tag" class="text-xs font-semibold px-2.5 py-0.5 bg-slate-100 text-slate-600 rounded-md">
-                                    Umumi
+                                <span id="q-category-tag" class="text-xs font-bold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-md border border-emerald-200">
+                                    Fənn: Ümumi
                                 </span>
                             </div>
 
@@ -613,6 +615,24 @@
             </div>
         </div>
 
+        <div id="pdf-export-container" class="hidden p-8 bg-white text-slate-900 font-sans space-y-6">
+            <div class="flex items-center justify-between border-b-2 border-slate-900 pb-4">
+                <div class="flex items-center gap-3">
+                    <img src="image_15529a.jpg" onerror="this.onerror=null; this.src='353338.jpg';" class="w-16 h-16 rounded-xl object-cover">
+                    <div>
+                        <h1 class="text-xl font-black uppercase tracking-tight">Onlayn Sınaq Akademiyası</h1>
+                        <p class="text-sm font-bold text-indigo-700">Türkan Əliyeva & Əsma Abbasova</p>
+                    </div>
+                </div>
+                <div class="text-right space-y-1">
+                    <h2 id="pdf-exam-title" class="text-lg font-extrabold text-slate-800">Sınaq İmtahanı</h2>
+                    <p id="pdf-exam-info" class="text-xs font-semibold text-slate-500">Müddət: 180 Dəqiqə</p>
+                </div>
+            </div>
+            <div id="pdf-questions-list" class="space-y-6">
+            </div>
+        </div>
+
         <div class="mt-8 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="flex items-center space-x-4">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-brand-500 text-white flex items-center justify-center text-xl shrink-0 shadow-md">
@@ -731,19 +751,27 @@
     </div>
 
     <div id="create-exam-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div class="text-center space-y-2">
                 <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
                     <i class="fa-solid fa-folder-plus"></i>
                 </div>
                 <h3 class="text-lg font-bold text-slate-900">Yeni Sınaq Yaradın</h3>
-                <p class="text-xs text-slate-500">Sınağın adını, müəllimini, müddətini və parolu (könüllü) təyin edin.</p>
+                <p class="text-xs text-slate-500">Sınağın adını, 1-3 fənn adını və müddətini (maks 180 dəq) daxil edin.</p>
             </div>
             <form onsubmit="handleCreateExamSubmit(event)" class="space-y-3">
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Sınaq İmtahanının Adı</label>
-                    <input type="text" id="new-exam-title-input" placeholder="Məs: Sınaq İmtahanı №2" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <input type="text" id="new-exam-title-input" placeholder="Məs: Buraxılış Sınaq İmtahanı №1" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
+
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-indigo-700 uppercase">Fənlər (Maksimum 3 Fənn)</label>
+                    <input type="text" id="new-exam-subject-1" placeholder="1-ci Fənn (Məs: Azərbaycan dili)" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800">
+                    <input type="text" id="new-exam-subject-2" placeholder="2-ci Fənn (Məs: Riyaziyyat) - Könüllü" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800">
+                    <input type="text" id="new-exam-subject-3" placeholder="3-cü Fənn (Məs: İngilis dili) - Könüllü" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800">
+                </div>
+
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Hazırlayan Müəllim</label>
                     <select id="new-exam-author-input" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
@@ -752,8 +780,8 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Müddət (Dəqiqə)</label>
-                    <input type="number" id="new-exam-duration-input" min="1" max="60" value="60" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Müddət (Maksimum 180 Dəqiqə)</label>
+                    <input type="number" id="new-exam-duration-input" min="1" max="180" value="180" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Giriş Parolu / Kilid (Könüllü)</label>
@@ -932,7 +960,8 @@
                 id: 'exam_1',
                 title: 'Sınaq İmtahanı №1 - Ümumi Biliklər',
                 author: 'Türkan Əliyeva',
-                duration: 60,
+                subjects: ['Azərbaycan dili', 'Riyaziyyat', 'İngilis dili'],
+                duration: 180,
                 password: '',
                 questions: [],
                 results: []
@@ -949,7 +978,7 @@
         let studentAnswers = {};
         let flaggedQuestions = new Set();
         let timerInterval = null;
-        let timeRemaining = 3600;
+        let timeRemaining = 10800;
         let pendingConfirmAction = null;
 
         function saveExamsToStorage() {
@@ -994,6 +1023,65 @@
             reader.readAsText(file);
         }
 
+        // PDF GENERATION METHOD
+        function downloadExamPDF() {
+            const curExam = getActiveAdminExam();
+            if (!curExam || !curExam.questions || curExam.questions.length === 0) {
+                showModal("Xəbərdarlıq", "PDF yükləmək üçün sınaqda sual olmalıdır.", null, true);
+                return;
+            }
+
+            document.getElementById('pdf-exam-title').textContent = curExam.title;
+            document.getElementById('pdf-exam-info').textContent = `Müəllim: ${curExam.author || 'Türkan Əliyeva'} • Müddət: ${curExam.duration || 180} Dəqiqə`;
+
+            const pdfList = document.getElementById('pdf-questions-list');
+            pdfList.innerHTML = curExam.questions.map((q, idx) => {
+                let imgHtml = '';
+                if (q.imageUrl) {
+                    imgHtml = `<div class="my-2"><img src="${q.imageUrl}" class="max-h-48 rounded border border-slate-200"></div>`;
+                }
+
+                let optionsHtml = '';
+                if (q.type === 'closed') {
+                    optionsHtml = `
+                        <div class="grid grid-cols-2 gap-2 mt-2 text-xs font-medium">
+                            <div><strong>A)</strong> ${escapeHtml(q.options?.A || '')}</div>
+                            <div><strong>B)</strong> ${escapeHtml(q.options?.B || '')}</div>
+                            <div><strong>C)</strong> ${escapeHtml(q.options?.C || '')}</div>
+                            <div><strong>D)</strong> ${escapeHtml(q.options?.D || '')}</div>
+                            <div><strong>E)</strong> ${escapeHtml(q.options?.E || '')}</div>
+                        </div>
+                    `;
+                } else {
+                    optionsHtml = `<div class="mt-2 text-xs italic text-slate-500">[Açıq Tipli Sual]</div>`;
+                }
+
+                return `
+                    <div class="p-4 border border-slate-200 rounded-lg space-y-1 page-break-inside-avoid">
+                        <div class="text-xs font-bold text-indigo-700">Sual ${idx + 1} (${escapeHtml(q.category || 'Ümumi')})</div>
+                        <div class="text-sm font-semibold leading-relaxed plain-text-content">${escapeHtml(q.text)}</div>
+                        ${imgHtml}
+                        ${optionsHtml}
+                    </div>
+                `;
+            }).join('');
+
+            const element = document.getElementById('pdf-export-container');
+            element.classList.remove('hidden');
+
+            const opt = {
+                margin:       0.4,
+                filename:     `${curExam.title}_Sinaq.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                element.classList.add('hidden');
+            });
+        }
+
         function getAdminPass() {
             return localStorage.getItem('turkan_admin_pass') || 'turkan2025';
         }
@@ -1018,13 +1106,21 @@
             activeAdminExamId = examId;
             const curExam = getActiveAdminExam();
             if (curExam) {
-                document.getElementById('input-duration').value = curExam.duration || 60;
+                document.getElementById('input-duration').value = curExam.duration || 180;
                 document.getElementById('input-exam-password').value = curExam.password || '';
                 document.getElementById('input-exam-author').value = curExam.author || 'Türkan Əliyeva';
+                updateCategorySelectOptions(curExam);
             }
             resetQuestionForm();
             renderAdminQuestionsList();
             renderStudentResultsTable();
+        }
+
+        function updateCategorySelectOptions(exam) {
+            const selectEl = document.getElementById('input-category');
+            if (!selectEl) return;
+            const subjects = (exam && exam.subjects && exam.subjects.length > 0) ? exam.subjects : ['Ümumi'];
+            selectEl.innerHTML = subjects.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
         }
 
         function renderAdminExamSelector() {
@@ -1042,6 +1138,7 @@
                 const authorInput = document.getElementById('input-exam-author');
                 if (passInput) passInput.value = curExam.password || '';
                 if (authorInput) authorInput.value = curExam.author || 'Türkan Əliyeva';
+                updateCategorySelectOptions(curExam);
             }
         }
 
@@ -1062,6 +1159,7 @@
                 const isLocked = !!exam.password;
                 const authorName = exam.author || 'Türkan Əliyeva';
                 const participantsCount = (exam.results || []).length;
+                const subjectsText = (exam.subjects && exam.subjects.length > 0) ? exam.subjects.join(' • ') : 'Ümumi';
 
                 return `
                     <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-4 group">
@@ -1072,13 +1170,17 @@
                                     ${isLocked ? '<i class="fa-solid fa-lock text-amber-500" title="Parolla qorunur"></i>' : ''}
                                 </span>
                                 <span class="text-xs font-semibold text-slate-400 flex items-center gap-1">
-                                    <i class="fa-regular fa-clock text-amber-500"></i> ${exam.duration || 60} Dəq
+                                    <i class="fa-regular fa-clock text-amber-500"></i> ${exam.duration || 180} Dəq
                                 </span>
                             </div>
 
                             <h4 class="font-extrabold text-slate-900 text-lg leading-snug group-hover:text-indigo-600 transition-colors">
                                 ${escapeHtml(exam.title)}
                             </h4>
+
+                            <div class="text-xs font-bold text-indigo-600 bg-indigo-50/50 p-2 rounded-xl border border-indigo-100">
+                                Fənlər: ${escapeHtml(subjectsText)}
+                            </div>
 
                             <div class="flex items-center justify-between gap-2 flex-wrap">
                                 <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-lg border border-purple-100">
@@ -1158,7 +1260,6 @@
             document.getElementById('student-exam-auth-modal').classList.add('hidden');
         }
 
-        // Render Student Results in Admin View Table
         function renderStudentResultsTable() {
             const tableBody = document.getElementById('student-results-table-body');
             const badge = document.getElementById('student-results-count-badge');
@@ -1215,8 +1316,9 @@
             listEl.innerHTML = questionsList.map((q, idx) => `
                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between text-xs space-x-2">
                     <div class="truncate flex-grow">
+                        <span class="font-bold text-indigo-600 me-1">[${escapeHtml(q.category || 'Ümumi')}]</span>
                         <span class="font-bold text-slate-800 me-1">Sual ${idx + 1}:</span>
-                        <span class="text-slate-600 truncate">${escapeHtml(q.text.substring(0, 40))}${q.text.length > 40 ? '...' : ''}</span>
+                        <span class="text-slate-600 truncate">${escapeHtml(q.text.substring(0, 35))}${q.text.length > 35 ? '...' : ''}</span>
                         ${q.type === 'open' ? '<span class="ms-1 px-1.5 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-bold rounded">Açıq</span>' : ''}
                     </div>
                     <div class="flex items-center space-x-1 shrink-0">
@@ -1245,7 +1347,7 @@
             if (!curExam) return;
 
             const editId = document.getElementById('edit-q-id').value;
-            const category = document.getElementById('input-category').value.trim() || 'Ümumi';
+            const category = document.getElementById('input-category').value || 'Ümumi';
             const qType = document.getElementById('input-q-type').value;
             const imageUrl = document.getElementById('input-image-url').value;
             const text = document.getElementById('input-text').value.trim();
@@ -1438,7 +1540,7 @@
             studentAnswers = {};
             flaggedQuestions.clear();
 
-            timeRemaining = (currentExam.duration || 60) * 60;
+            timeRemaining = (currentExam.duration || 180) * 60;
 
             document.getElementById('student-landing-view').classList.add('hidden');
             document.getElementById('admin-view').classList.add('hidden');
@@ -1472,9 +1574,17 @@
         }
 
         function updateTimerDisplay() {
-            const minutes = Math.floor(timeRemaining / 60);
+            const hours = Math.floor(timeRemaining / 3600);
+            const minutes = Math.floor((timeRemaining % 3600) / 60);
             const seconds = timeRemaining % 60;
-            const display = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            
+            let display = "";
+            if (hours > 0) {
+                display = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            } else {
+                display = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+
             const timerEl = document.getElementById('timer-display');
             if (timerEl) {
                 timerEl.textContent = display;
@@ -1493,7 +1603,7 @@
             const q = questions[currentQuestionIdx];
 
             document.getElementById('q-number-badge').textContent = `Sual ${currentQuestionIdx + 1} / ${questions.length}`;
-            document.getElementById('q-category-tag').textContent = (q.category || 'Ümumi') + (q.type === 'open' ? ' • Açıq Sual' : '');
+            document.getElementById('q-category-tag').textContent = `Fənn: ${q.category || 'Ümumi'}` + (q.type === 'open' ? ' • Açıq Sual' : '');
 
             const textEl = document.getElementById('question-text');
             
@@ -1701,7 +1811,6 @@
 
             const scorePercent = questions.length > 0 ? Math.round((correctCount / questions.length) * 100) : 0;
 
-            // Save Student Result to Cloud Database
             if (currentExam) {
                 if (!currentExam.results) currentExam.results = [];
                 const now = new Date();
@@ -1820,7 +1929,7 @@
 
                                 return `
                                     <div class="p-3 rounded-xl border ${itemStyle} flex items-center justify-between">
-                                        <span class="plain-text-content"><strong>${key})</strong> ${escapeHtml(q.options ? q.options[key] : '')}</span>
+                                        <span class="plain-text-content"><strong>${key})</strong>${escapeHtml(q.options ? q.options[key] : '')}</span>
                                         ${isCorrectOpt ? '<i class="fa-solid fa-circle-check text-emerald-600 text-sm"></i>' : ''}
                                         ${isUserChoice && !isCorrectOpt ? '<i class="fa-solid fa-circle-xmark text-rose-600 text-sm"></i>' : ''}
                                     </div>
@@ -1833,7 +1942,7 @@
                 return `
                     <div class="p-5 sm:p-6 rounded-2xl border ${borderClass} space-y-4">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                            <span class="font-bold text-xs text-slate-500 uppercase tracking-wider">Sual ${idx + 1} • ${escapeHtml(q.category)}${q.type === 'open' ? ' • Açıq Sual' : ''}</span>
+                            <span class="font-bold text-xs text-slate-500 uppercase tracking-wider">Sual ${idx + 1} • ${escapeHtml(q.category || 'Ümumi')}${q.type === 'open' ? ' • Açıq Sual' : ''}</span>
                             ${statusBadge}
                         </div>
 
@@ -1991,8 +2100,11 @@
 
         function openCreateExamModal() {
             document.getElementById('new-exam-title-input').value = '';
+            document.getElementById('new-exam-subject-1').value = '';
+            document.getElementById('new-exam-subject-2').value = '';
+            document.getElementById('new-exam-subject-3').value = '';
             document.getElementById('new-exam-author-input').value = 'Türkan Əliyeva';
-            document.getElementById('new-exam-duration-input').value = 60;
+            document.getElementById('new-exam-duration-input').value = 180;
             document.getElementById('new-exam-password-input').value = '';
             document.getElementById('create-exam-modal').classList.remove('hidden');
         }
@@ -2004,8 +2116,23 @@
         function handleCreateExamSubmit(e) {
             e.preventDefault();
             const title = document.getElementById('new-exam-title-input').value.trim();
+            
+            const sub1 = document.getElementById('new-exam-subject-1').value.trim();
+            const sub2 = document.getElementById('new-exam-subject-2').value.trim();
+            const sub3 = document.getElementById('new-exam-subject-3').value.trim();
+            
+            let subjectsList = [];
+            if (sub1) subjectsList.push(sub1);
+            if (sub2) subjectsList.push(sub2);
+            if (sub3) subjectsList.push(sub3);
+
+            if (subjectsList.length === 0) {
+                alert("Ən azı 1 fənn daxil edin!");
+                return;
+            }
+
             const author = document.getElementById('new-exam-author-input').value;
-            const duration = parseInt(document.getElementById('new-exam-duration-input').value) || 60;
+            const duration = parseInt(document.getElementById('new-exam-duration-input').value) || 180;
             const password = document.getElementById('new-exam-password-input').value.trim();
 
             if (!title) return;
@@ -2014,7 +2141,8 @@
                 id: 'exam_' + Date.now(),
                 title: title,
                 author: author,
-                duration: Math.min(60, Math.max(1, duration)),
+                subjects: subjectsList,
+                duration: Math.min(180, Math.max(1, duration)),
                 password: password,
                 questions: [],
                 results: []
@@ -2031,7 +2159,7 @@
             renderStudentExamsGrid();
             renderStudentResultsTable();
 
-            showModal("Uğurlu", "Yeni sınaq paketı uğurla yaradıldı!", null, true);
+            showModal("Uğurlu", "Yeni sınaq paketi uğurla yaradıldı!", null, true);
         }
 
         function editActiveExamDetails() {
@@ -2098,7 +2226,7 @@
         function updateActiveExamDuration(val) {
             const curExam = getActiveAdminExam();
             if (curExam) {
-                curExam.duration = Math.min(60, Math.max(1, parseInt(val) || 60));
+                curExam.duration = Math.min(180, Math.max(1, parseInt(val) || 180));
                 saveExamsToStorage();
             }
         }
