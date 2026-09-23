@@ -229,7 +229,7 @@
                 <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
                     <button onclick="openCreateExamModal()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition shadow-md flex items-center gap-2">
                         <i class="fa-solid fa-plus"></i>
-                        <span>Yeni Sınaq Yarat</span>
+                        <span>Yeni Sınaq Yarad</span>
                     </button>
                     <button onclick="editActiveExamDetails()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition border border-slate-200 flex items-center gap-1.5">
                         <i class="fa-solid fa-pen"></i>
@@ -239,9 +239,7 @@
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+            </div><div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
                     <div>
                         <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
@@ -467,125 +465,7 @@
                                     <span id="q-author-name">Türkan Əliyeva</span>
                                 </span>
                                 <span id="q-category-tag" class="text-xs font-bold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-md border border-emerald-200">
-                                    // Müəllimin sınaq yaradarkən daxil etdiyi fənləri birbaşa formaya gətirən funksiya
-function updateCategorySelectOptions(exam) {
-    const selectEl = document.getElementById('input-category');
-    if (!selectEl) return;
-    
-    // Əgər müəllim fənn daxil edibsə, həmin fənləri siyahıya yazır
-    let subjects = (exam && exam.subjects && exam.subjects.length > 0) 
-        ? exam.subjects.filter(s => s.trim() !== '') 
-        : [];
-
-    // Əgər heç bir fənn yazılmayıbsa, standart olaraq Fənn 1 qoyur
-    if (subjects.length === 0) {
-        subjects = ['Fənn 1'];
-    }
-    
-    selectEl.innerHTML = subjects.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
-}
-
-// Seçilən sınaq dəyişdikdə müəllimin daxil etdiyi fənləri yeniləyir
-function changeActiveAdminExam(examId) {
-    activeAdminExamId = examId;
-    const curExam = getActiveAdminExam();
-    if (curExam) {
-        document.getElementById('input-duration').value = curExam.duration || 180;
-        document.getElementById('input-exam-password').value = curExam.password || '';
-        document.getElementById('input-exam-author').value = curExam.author || 'Türkan Əliyeva';
-        
-        // Müəllimin bu sınaq üçün təyin etdiyi fənlər açılan siyahıya yazılır
-        updateCategorySelectOptions(curExam);
-    }
-    resetQuestionForm();
-    renderAdminQuestionsList();
-    renderStudentResultsTable();
-}
-
-// Sual əlavə edərkən müəllimin seçdiyi fənni yadda saxlayır
-function handleQuestionFormSubmit(e) {
-    e.preventDefault();
-    const curExam = getActiveAdminExam();
-    if (!curExam) return;
-
-    const editId = document.getElementById('edit-q-id').value;
-    
-    // Müəllimin daxil etdiyi fənlərdən seçdiyini götürür
-    const categorySelect = document.getElementById('input-category');
-    const category = categorySelect ? categorySelect.value : (curExam.subjects[0] || 'Fənn 1');
-    
-    const qType = document.getElementById('input-q-type').value;
-    const imageUrl = document.getElementById('input-image-url').value;
-    const text = document.getElementById('input-text').value.trim();
-    const explanation = document.getElementById('input-explanation').value.trim();
-
-    if (!text) {
-        showModal("Xəbərdarlıq", "Lütfən sualın mətnini daxil edin.", null, true);
-        return;
-    }
-
-    let correctOpt = '';
-    let options = {};
-
-    if (qType === 'open') {
-        correctOpt = document.getElementById('input-open-correct').value.trim();
-        if (!correctOpt) {
-            showModal("Xəbərdarlıq", "Lütfən açıq sualın düzgün cavabını daxil edin.", null, true);
-            return;
-        }
-    } else {
-        options = {
-            A: document.getElementById('opt-A').value.trim(),
-            B: document.getElementById('opt-B').value.trim(),
-            C: document.getElementById('opt-C').value.trim(),
-            D: document.getElementById('opt-D').value.trim(),
-            E: document.getElementById('opt-E').value.trim()
-        };
-
-        const selectedRadio = document.querySelector('input[name="correct-opt"]:checked');
-        if (!selectedRadio) {
-            showModal("Xəbərdarlıq", "Lütfən düzgün variantı seçin.", null, true);
-            return;
-        }
-        correctOpt = selectedRadio.value;
-    }
-
-    if (!curExam.questions) curExam.questions = [];
-
-    if (editId) {
-        const idx = curExam.questions.findIndex(q => q.id === editId);
-        if (idx !== -1) {
-            curExam.questions[idx] = {
-                id: editId,
-                type: qType,
-                category: category,
-                imageUrl,
-                text,
-                options,
-                correct: correctOpt,
-                explanation
-            };
-        }
-    } else {
-        const newObj = {
-            id: 'q_' + Date.now(),
-            type: qType,
-            category: category,
-            imageUrl,
-            text,
-            options,
-            correct: correctOpt,
-            explanation
-        };
-        curExam.questions.push(newObj);
-    }
-
-    saveExamsToStorage();
-    resetQuestionForm();
-    renderAdminQuestionsList();
-    renderAdminExamSelector();
-    showModal("Uğurlu", `Sual "${category}" fənni üzrə saxlanıldı!`, null, true);
-}
+                                    Fənn: Seçilməyib
                                 </span>
                             </div>
 
@@ -884,10 +764,10 @@ function handleQuestionFormSubmit(e) {
                 </div>
 
                 <div class="space-y-2">
-                    <label class="block text-xs font-bold text-indigo-700 uppercase">Fənlər (Maksimum 3 Fənn)</label>
-                    <input type="text" id="new-exam-subject-1" placeholder="1-ci Fənn (Məs: Azərbaycan dili)" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800">
+                    <label class="block text-xs font-bold text-indigo-700 uppercase">Fənlər (Maksimum 3 Fənn Yaza Bilərsiniz)</label>
+                    <input type="text" id="new-exam-subject-1" placeholder="1-ci Fənn (Məs: İnformatika)" required class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800">
                     <input type="text" id="new-exam-subject-2" placeholder="2-ci Fənn (Məs: Riyaziyyat) - Könüllü" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800">
-                    <input type="text" id="new-exam-subject-3" placeholder="3-cü Fənn (Məs: İngilis dili) - Könüllü" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800">
+                    <input type="text" id="new-exam-subject-3" placeholder="3-cü Fənn (Məs: Məntiq) - Könüllü" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800">
                 </div>
 
                 <div>
@@ -1076,9 +956,9 @@ function handleQuestionFormSubmit(e) {
         let defaultExams = [
             {
                 id: 'exam_1',
-                title: 'Sınaq İmtahanı №1 - Ümumi Biliklər',
+                title: 'Sınaq İmtahanı №1',
                 author: 'Türkan Əliyeva',
-                subjects: ['Azərbaycan dili', 'Riyaziyyat', 'İngilis dili'],
+                subjects: ['İnformatika', 'Riyaziyyat', 'Məntiq'],
                 duration: 180,
                 password: '',
                 questions: [],
@@ -1176,7 +1056,7 @@ function handleQuestionFormSubmit(e) {
 
                 return `
                     <div class="p-4 border border-slate-200 rounded-lg space-y-1 page-break-inside-avoid">
-                        <div class="text-xs font-bold text-indigo-700">Sual ${idx + 1} (${escapeHtml(q.category || 'Ümumi')})</div>
+                        <div class="text-xs font-bold text-indigo-700">Sual ${idx + 1} (${escapeHtml(q.category || 'Fənn')})</div>
                         <div class="text-sm font-semibold leading-relaxed plain-text-content">${escapeHtml(q.text)}</div>
                         ${imgHtml}
                         ${optionsHtml}
@@ -1220,6 +1100,22 @@ function handleQuestionFormSubmit(e) {
             return exams.find(e => e.id === activeAdminExamId) || exams[0];
         }
 
+        // MÜƏLLİMİN DAXİL ETDİYİ FƏNLƏRİ SİYAHIYA ÇIXARAN DİNAMİK FUNKSİYA
+        function updateCategorySelectOptions(exam) {
+            const selectEl = document.getElementById('input-category');
+            if (!selectEl) return;
+            
+            let subjects = (exam && exam.subjects && exam.subjects.length > 0) 
+                ? exam.subjects.filter(s => s && s.trim() !== '') 
+                : [];
+
+            if (subjects.length === 0) {
+                subjects = ['Sınaq Fənni'];
+            }
+            
+            selectEl.innerHTML = subjects.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
+        }
+
         function changeActiveAdminExam(examId) {
             activeAdminExamId = examId;
             const curExam = getActiveAdminExam();
@@ -1232,13 +1128,6 @@ function handleQuestionFormSubmit(e) {
             resetQuestionForm();
             renderAdminQuestionsList();
             renderStudentResultsTable();
-        }
-
-        function updateCategorySelectOptions(exam) {
-            const selectEl = document.getElementById('input-category');
-            if (!selectEl) return;
-            const subjects = (exam && exam.subjects && exam.subjects.length > 0) ? exam.subjects : ['Ümumi'];
-            selectEl.innerHTML = subjects.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
         }
 
         function renderAdminExamSelector() {
@@ -1277,7 +1166,7 @@ function handleQuestionFormSubmit(e) {
                 const isLocked = !!exam.password;
                 const authorName = exam.author || 'Türkan Əliyeva';
                 const participantsCount = (exam.results || []).length;
-                const subjectsText = (exam.subjects && exam.subjects.length > 0) ? exam.subjects.join(' • ') : 'Ümumi';
+                const subjectsText = (exam.subjects && exam.subjects.length > 0) ? exam.subjects.join(' • ') : 'Sınaq Fənni';
 
                 return `
                     <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-4 group">
@@ -1434,7 +1323,7 @@ function handleQuestionFormSubmit(e) {
             listEl.innerHTML = questionsList.map((q, idx) => `
                 <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between text-xs space-x-2">
                     <div class="truncate flex-grow">
-                        <span class="font-bold text-indigo-600 me-1">[${escapeHtml(q.category || 'Ümumi')}]</span>
+                        <span class="font-bold text-indigo-600 me-1">[${escapeHtml(q.category || 'Fənn')}]</span>
                         <span class="font-bold text-slate-800 me-1">Sual ${idx + 1}:</span>
                         <span class="text-slate-600 truncate">${escapeHtml(q.text.substring(0, 35))}${q.text.length > 35 ? '...' : ''}</span>
                         ${q.type === 'open' ? '<span class="ms-1 px-1.5 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-bold rounded">Açıq</span>' : ''}
@@ -1459,13 +1348,17 @@ function handleQuestionFormSubmit(e) {
             }
         }
 
+        // SUAL YADDA SAXLANILARKƏN MÜƏLLİMİN SEÇDİYİ DAXİLİ FƏNNİ DƏQİQ YAZAN FUNKSİYA
         function handleQuestionFormSubmit(e) {
             e.preventDefault();
             const curExam = getActiveAdminExam();
             if (!curExam) return;
 
             const editId = document.getElementById('edit-q-id').value;
-            const category = document.getElementById('input-category').value || 'Ümumi';
+            
+            const categorySelect = document.getElementById('input-category');
+            const category = categorySelect ? categorySelect.value : (curExam.subjects[0] || 'Sınaq Fənni');
+            
             const qType = document.getElementById('input-q-type').value;
             const imageUrl = document.getElementById('input-image-url').value;
             const text = document.getElementById('input-text').value.trim();
@@ -1510,7 +1403,7 @@ function handleQuestionFormSubmit(e) {
                     curExam.questions[idx] = {
                         id: editId,
                         type: qType,
-                        category,
+                        category: category,
                         imageUrl,
                         text,
                         options,
@@ -1522,7 +1415,7 @@ function handleQuestionFormSubmit(e) {
                 const newObj = {
                     id: 'q_' + Date.now(),
                     type: qType,
-                    category,
+                    category: category,
                     imageUrl,
                     text,
                     options,
@@ -1536,7 +1429,7 @@ function handleQuestionFormSubmit(e) {
             resetQuestionForm();
             renderAdminQuestionsList();
             renderAdminExamSelector();
-            showModal("Uğurlu", "Sual uğurla saxlanıldı!", null, true);
+            showModal("Uğurlu", `Sual "${category}" fənni üzrə saxlanıldı!`, null, true);
         }
 
         function handleImageUpload(e) {
@@ -1721,7 +1614,7 @@ function handleQuestionFormSubmit(e) {
             const q = questions[currentQuestionIdx];
 
             document.getElementById('q-number-badge').textContent = `Sual ${currentQuestionIdx + 1} / ${questions.length}`;
-            document.getElementById('q-category-tag').textContent = `Fənn: ${q.category || 'Ümumi'}` + (q.type === 'open' ? ' • Açıq Sual' : '');
+            document.getElementById('q-category-tag').textContent = `Fənn: ${q.category || 'Sınaq Fənni'}` + (q.type === 'open' ? ' • Açıq Sual' : '');
 
             const textEl = document.getElementById('question-text');
             
@@ -2060,7 +1953,7 @@ function handleQuestionFormSubmit(e) {
                 return `
                     <div class="p-5 sm:p-6 rounded-2xl border ${borderClass} space-y-4">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                            <span class="font-bold text-xs text-slate-500 uppercase tracking-wider">Sual ${idx + 1} • ${escapeHtml(q.category || 'Ümumi')}${q.type === 'open' ? ' • Açıq Sual' : ''}</span>
+                            <span class="font-bold text-xs text-slate-500 uppercase tracking-wider">Sual ${idx + 1} • ${escapeHtml(q.category || 'Sınaq Fənni')}${q.type === 'open' ? ' • Açıq Sual' : ''}</span>
                             ${statusBadge}
                         </div>
 
@@ -2231,6 +2124,7 @@ function handleQuestionFormSubmit(e) {
             document.getElementById('create-exam-modal').classList.add('hidden');
         }
 
+        // MÜƏLLİMİN YAZDIĞI MÜXTƏLİF FƏNN ADLARINI BİRBAŞA YADDA SAXLAYAN FUNKSİYA
         function handleCreateExamSubmit(e) {
             e.preventDefault();
             const title = document.getElementById('new-exam-title-input').value.trim();
@@ -2245,7 +2139,7 @@ function handleQuestionFormSubmit(e) {
             if (sub3) subjectsList.push(sub3);
 
             if (subjectsList.length === 0) {
-                alert("Ən azı 1 fənn daxil edin!");
+                alert("Ən azı 1 fənn adı daxil etməlisiniz!");
                 return;
             }
 
