@@ -114,7 +114,7 @@
 
             <!-- Header Controls & Timer -->
             <div class="flex items-center space-x-2 sm:space-x-3">
-                <button id="home-nav-btn" onclick="goToHome()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition border border-slate-700 flex items-center gap-1.5">
+                <button id="home-nav-btn" onclick="goToHome()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition border border-slate-700 flex items-center gap-1.5">
                     <i class="fa-solid fa-house text-indigo-400"></i>
                     <span class="hidden sm:inline">Əsas Səhifə</span>
                 </button>
@@ -132,6 +132,11 @@
                     <span id="logged-teacher-name">Türkan Əliyeva</span>
                     <button onclick="logoutTeacher()" class="ms-1 text-rose-400 hover:text-rose-300" title="Hesabdan çıxış"><i class="fa-solid fa-right-from-bracket"></i></button>
                 </div>
+
+                <button id="teacher-reg-btn-header" onclick="openTeacherRegisterModal()" class="px-3.5 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-xl transition shadow-md flex items-center gap-1.5">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span>Müəllim Qeydiyyatı</span>
+                </button>
 
                 <button id="teacher-panel-btn" onclick="switchToAdminView()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition border border-slate-700 flex items-center gap-1.5">
                     <i class="fa-solid fa-lock text-amber-400"></i>
@@ -166,11 +171,16 @@
                     </p>
 
                     <div class="pt-2 flex flex-wrap items-center gap-3">
-                        <a href="https://wa.me/994558586707" target="_blank" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+                        <button onclick="handleCreateExamClick()" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs sm:text-sm rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-folder-plus text-base"></i>
+                            <span>Sınaq Yarat / Müəllim Kimi Qeydiyyat</span>
+                        </button>
+
+                        <a href="https://wa.me/994558586707" target="_blank" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-lg flex items-center justify-center gap-2">
                             <i class="fa-brands fa-whatsapp text-base"></i>
                             <span>WhatsApp İlə Əlaqə</span>
                         </a>
-                        <a href="https://www.instagram.com/informatika_riyaziyyat_dersi?stkn=MXJxbHRxM2hnbmUxZQ==" target="_blank" class="px-5 py-2.5 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-95 text-white font-bold text-xs rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+                        <a href="https://www.instagram.com/informatika_riyaziyyat_dersi?stkn=MXJxbHRxM2hnbmUxZQ==" target="_blank" class="px-5 py-3 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-95 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-lg flex items-center justify-center gap-2">
                             <i class="fa-brands fa-instagram text-base"></i>
                             <span>Instagram Səhifəmiz</span>
                         </a>
@@ -193,9 +203,7 @@
                 <div id="student-exams-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 </div>
             </div>
-        </div>
-
-        <!-- ================= TEACHER / ADMIN VIEW ================= -->
+        </div><!-- ================= TEACHER / ADMIN VIEW ================= -->
         <div id="admin-view" class="hidden space-y-6">
             
             <!-- Welcome Banner for Teachers -->
@@ -286,7 +294,9 @@
                         </tbody>
                     </table>
                 </div>
-            </div><!-- Exam Selector Bar -->
+            </div>
+
+            <!-- Exam Selector Bar -->
             <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
                     <label class="text-xs font-bold text-slate-700 uppercase shrink-0">Cari Sınaq:</label>
@@ -340,9 +350,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-
-            <!-- Settings & Add Question Grid -->
+            </div><!-- Settings & Add Question Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
                 <!-- Left: Question Entry Form (2 cols) -->
@@ -514,7 +522,9 @@
                     </div>
                 </div>
             </div>
-        </div><!-- ================= EXAM VIEW ================= -->
+        </div>
+
+        <!-- ================= EXAM VIEW ================= -->
         <div id="exam-view" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6">
             <div class="lg:col-span-3 space-y-4 flex flex-col justify-between">
                 <div class="bg-white rounded-2xl p-5 sm:p-8 shadow-sm border border-slate-200/80 flex flex-col justify-between min-h-[460px] relative overflow-hidden">
@@ -611,9 +621,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- ================= RESULTS VIEW ================= -->
+        </div><!-- ================= RESULTS VIEW ================= -->
         <div id="results-view" class="hidden space-y-8 animate-fadeIn">
             <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-200/80 text-center relative overflow-hidden">
                 <div class="max-w-2xl mx-auto space-y-4">
@@ -739,7 +747,9 @@
                 <span>Saytın qurucusu: <strong class="text-white font-black tracking-wide">Türkan Əliyeva</strong></span>
             </div>
         </div>
-    </footer><!-- Modals Section -->
+    </footer>
+
+    <!-- Modals Section -->
     <!-- Student Registration & Payment Modal -->
     <div id="student-exam-auth-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto custom-scrollbar">
@@ -790,271 +800,186 @@
                 </div>
             </form>
         </div>
-    </div>
-
-    <!-- Teacher Registration Modal (Sınaq yarat kliklənəndə qeydiyyatsız müəllimlər üçün) -->
-    <div id="teacher-register-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100">
-            <div class="text-center space-y-2">
-                <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
-                    <i class="fa-solid fa-user-graduate"></i>
-                </div>
-                <h3 class="text-lg font-bold text-slate-900">Müəllim Kimi Qeydiyyat</h3>
-                <p class="text-xs text-slate-500">Məlumatları doldurun. Təsdiq sorğusu avtomatik WhatsApp-a göndəriləcək.</p>
-            </div>
-            <form onsubmit="handleTeacherRegisterSubmit(event)" class="space-y-3">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Adınız və Soyadınız *</label>
-                    <input type="text" id="reg-teacher-name" placeholder="Məs: Aysel Həsənova" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Telefon Nömrəniz *</label>
-                    <input type="text" id="reg-teacher-phone" placeholder="0551234567" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">İxtisas Fənniniz *</label>
-                    <input type="text" id="reg-teacher-subject" placeholder="Məs: Riyaziyyat / İnformatika" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Təyin Etmək İstədiyiniz Şifrə *</label>
-                    <input type="password" id="reg-teacher-pass" placeholder="Şifrənizi yazın..." required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-                <div class="flex justify-end space-x-2 pt-2">
-                    <button type="button" onclick="closeTeacherRegisterModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
-                    <button type="submit" class="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-xl shadow-md transition">Qeydiyyatı Göndər</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Admin & Teacher Auth Modal (Şəxsi Hesabla Giriş) -->
-    <div id="admin-auth-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
-            <div class="text-center space-y-2">
-                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
-                    <i class="fa-solid fa-user-lock"></i>
-                </div>
-                <h3 class="text-lg font-bold text-slate-900">Müəllim Panelinə Giriş</h3>
-                <p class="text-xs text-slate-500">Müəllim adınızı seçin və şəxsi şifrənizi daxil edin.</p>
-            </div>
-            <form onsubmit="verifyTeacherLogin(event)" class="space-y-3">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Müəllim Adı</label>
-                    <select id="login-teacher-select" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    </select>
-                </div>
-                <div>
-                    <div class="flex justify-between items-center mb-1">
-                        <label class="block text-xs font-semibold text-slate-600">Şəxsi Giriş Şifrəniz</label>
+    </div><!-- ================= RESULTS VIEW ================= -->
+        <div id="results-view" class="hidden space-y-8 animate-fadeIn">
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-200/80 text-center relative overflow-hidden">
+                <div class="max-w-2xl mx-auto space-y-4">
+                    <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-3xl flex items-center justify-center text-3xl mx-auto shadow-inner">
+                        <i class="fa-solid fa-award"></i>
                     </div>
-                    <input type="password" id="teacher-password-input" placeholder="Şifrənizi yazın..." required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    <p id="admin-auth-error" class="text-xs text-rose-500 mt-1.5 hidden font-semibold flex items-center gap-1">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        <span>Şifrə yanlışdır və ya hesabınız hələ təsdiqlənməyib!</span>
-                    </p>
-                </div>
-                <div class="flex justify-end space-x-2 pt-2">
-                    <button type="button" onclick="closeAdminAuthModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
-                    <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md transition">Daxil Ol</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <!-- Super Admin: Add New Teacher Modal -->
-    <div id="add-teacher-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
-            <div class="text-center space-y-2">
-                <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
-                    <i class="fa-solid fa-user-plus"></i>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Sınaq İmtahanı Başa Çatdı!</h2>
+                    <p id="student-name-result-display" class="text-indigo-600 font-bold text-base"></p>
+
+                    <div class="py-2">
+                        <div id="res-score-percent" class="text-5xl sm:text-6xl font-black text-indigo-600 tracking-tight">
+                            0%
+                        </div>
+                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mt-1">Ümumi Müvəffəqiyyət Faizi</p>
+                    </div>
+
+                    <div id="teacher-feedback-card" class="p-4 sm:p-5 rounded-2xl border bg-gradient-to-r from-indigo-50 via-amber-50 to-emerald-50 border-indigo-200/80 text-center space-y-1 shadow-sm">
+                        <div class="text-xs uppercase font-extrabold text-indigo-700 tracking-wider flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-comment-dots text-amber-500"></i>
+                            <span id="teacher-feedback-header">Müəllimdən Xüsusi Qeyd</span>
+                        </div>
+                        <p id="teacher-feedback-text" class="text-sm sm:text-base font-bold text-slate-800 leading-relaxed"></p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-3 pt-2">
+                        <button onclick="switchToStudentLandingView()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Ana Səhifə</span>
+                        </button>
+                        <button onclick="switchToAdminView()" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold rounded-xl border border-slate-200 transition flex items-center gap-2">
+                            <i class="fa-solid fa-pen"></i>
+                            <span>Müəllim Paneli</span>
+                        </button>
+                        <button onclick="startExam(currentExam ? currentExam.id : activeAdminExamId)" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Sınağı Yenidən Başlat</span>
+                        </button>
+                    </div>
                 </div>
-                <h3 class="text-lg font-bold text-slate-900">Yeni Müəllim Əlavə Et</h3>
-                <p class="text-xs text-slate-500">Müəllimin adını və ona təyin edəcəyiniz giriş şifrəsini yazın.</p>
             </div>
-            <form onsubmit="handleAddNewTeacherSubmit(event)" class="space-y-3">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Müəllimin Adı və Soyadı</label>
-                    <input type="text" id="new-teacher-name-input" placeholder="Məs: Nərmin Əliyeva" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Telefon Nömrəsi</label>
-                    <input type="text" id="new-teacher-phone-input" placeholder="0551234567" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">İxtisas Fənni</label>
-                    <input type="text" id="new-teacher-subject-input" placeholder="Məs: Riyaziyyat" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Təyin Olunan Şifrə</label>
-                    <input type="text" id="new-teacher-pass-input" placeholder="Məs: nermin2026" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-                <div class="flex justify-end space-x-2 pt-2">
-                    <button type="button" onclick="closeAddTeacherModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
-                    <button type="submit" class="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl shadow-md transition">Əlavə Et</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <!-- Create New Exam Modal -->
-    <div id="create-exam-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 text-center shadow-sm">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Ümumi Sual</span>
+                    <span id="res-total" class="text-2xl sm:text-3xl font-black text-slate-800">0</span>
+                </div>
+                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-emerald-200 bg-emerald-50/40 text-center shadow-sm">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-emerald-600 uppercase tracking-wider block mb-1">Düzgün Cavab</span>
+                    <span id="res-correct" class="text-2xl sm:text-3xl font-black text-emerald-600">0</span>
+                </div>
+                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-rose-200 bg-rose-50/40 text-center shadow-sm">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-rose-600 uppercase tracking-wider block mb-1">Səhv Cavab</span>
+                    <span id="res-wrong" class="text-2xl sm:text-3xl font-black text-rose-600">0</span>
+                </div>
+                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-amber-200 bg-amber-50/40 text-center shadow-sm">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-amber-600 uppercase tracking-wider block mb-1">Boş Buraxılan</span>
+                    <span id="res-unanswered" class="text-2xl sm:text-3xl font-black text-amber-600">0</span>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-indigo-600"></i>
+                    <span>Sualların Ətraflı Təhlili və İzahı</span>
+                </h3>
+                <div id="results-details-container" class="space-y-4">
+                </div>
+            </div>
+        </div>
+
+        <!-- HIDDEN CONTAINER FOR PDF GENERATION -->
+        <div id="pdf-export-container" class="hidden p-8 bg-white text-slate-900 font-sans space-y-6">
+            <div class="flex items-center justify-between border-b-2 border-slate-900 pb-4">
+                <div class="flex items-center gap-3">
+                    <img src="image_15529a.jpg" onerror="this.onerror=null; this.src='353338.jpg';" class="w-16 h-16 rounded-xl object-cover">
+                    <div>
+                        <h1 class="text-xl font-black uppercase tracking-tight">Onlayn Sınaq Akademiyası</h1>
+                        <p class="text-sm font-bold text-indigo-700">Türkan Əliyeva & Əsma Abbasova</p>
+                    </div>
+                </div>
+                <div class="text-right space-y-1">
+                    <h2 id="pdf-exam-title" class="text-lg font-extrabold text-slate-800">Sınaq İmtahanı</h2>
+                    <p id="pdf-exam-info" class="text-xs font-semibold text-slate-500">Müddət: 180 Dəqiqə</p>
+                </div>
+            </div>
+            <div id="pdf-questions-list" class="space-y-6">
+            </div>
+        </div>
+
+        <div class="mt-8 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-brand-500 text-white flex items-center justify-center text-xl shrink-0 shadow-md">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 text-base">Dərslərimizə Qatılın!</h4>
+                    <p class="text-xs text-slate-500">Türkan Əliyeva və Əsma Abbasova ilə dərslərə və sınaqlara yazılmaq üçün əlaqə saxlayın:</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-3 w-full md:w-auto">
+                <a href="https://wa.me/994558586707" target="_blank" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-2xl transition shadow-md flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-base"></i>
+                    <span>+994 55 858 67 07</span>
+                </a>
+                <a href="https://www.instagram.com/informatika_riyaziyyat_dersi?stkn=MXJxbHRxM2hnbmUxZQ==" target="_blank" class="px-5 py-3 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-90 text-white text-xs font-bold rounded-2xl transition shadow-md flex items-center gap-2">
+                    <i class="fa-brands fa-instagram text-base"></i>
+                    <span>@informatika_riyaziyyat_dersi</span>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- SAYTIN ƏN ALT HİSSƏSİ (FOOTER) - QURUCU VURĞUSU -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="text-xs sm:text-sm font-semibold text-slate-300">
+                &copy; 2026 Onlayn Sınaq Akademiyası. Bütün hüquqlar qorunur.
+            </p>
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-950/80 rounded-full border border-indigo-700/60 text-indigo-300 text-xs font-extrabold shadow-inner">
+                <i class="fa-solid fa-code text-amber-400"></i>
+                <span>Saytın qurucusu: <strong class="text-white font-black tracking-wide">Türkan Əliyeva</strong></span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals Section -->
+    <!-- Student Registration & Payment Modal -->
+    <div id="student-exam-auth-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div class="text-center space-y-2">
                 <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
-                    <i class="fa-solid fa-folder-plus"></i>
+                    <i class="fa-solid fa-credit-card"></i>
                 </div>
-                <h3 class="text-lg font-bold text-slate-900">Yeni Sınaq Yaradın</h3>
-                <p class="text-xs text-slate-500">Sınağın adını, qiymətini və tənzimləmələrini daxil edin.</p>
+                <h3 class="text-lg font-bold text-slate-900">Sınağa Giriş və Ödəniş</h3>
+                <p class="text-xs text-slate-500">Sınağa daxil olmaq üçün qeydiyyatdan keçin və ödəniş çəkini daxil edin.</p>
             </div>
-            <form onsubmit="handleCreateExamSubmit(event)" class="space-y-3">
+            <form onsubmit="verifyStudentRegistration(event)" class="space-y-3">
+                <input type="hidden" id="target-exam-id" value="">
+                
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Sınaq İmtahanının Adı</label>
-                    <input type="text" id="new-exam-title-input" placeholder="Məs: Buraxılış Sınaq İmtahanı №1" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Adınız və Soyadınız *</label>
+                    <input type="text" id="student-fullname-input" placeholder="Məs: Əli Məmmədov" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Qiyməti (AZN)</label>
-                        <input type="number" id="new-exam-price-input" min="0" step="0.5" value="5" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-indigo-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+
+                <div id="payment-info-box" class="p-3.5 bg-amber-50 rounded-xl border border-amber-200 space-y-2">
+                    <div class="flex justify-between items-center text-xs font-bold text-amber-900">
+                        <span>Sınağın Qiyməti:</span>
+                        <span id="modal-exam-price-display" class="text-sm font-black text-amber-700">0 AZN</span>
                     </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Müddət (Dəqiqə)</label>
-                        <input type="number" id="new-exam-duration-input" min="1" max="180" value="180" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <div id="payment-card-details" class="text-[11px] text-amber-800 border-t border-amber-200/80 pt-2 space-y-1">
+                        <p class="font-semibold"><i class="fa-solid fa-building-columns me-1"></i> Mərkəzi Ödəniş Kartı (BirBank/Leobank/m10):</p>
+                        <p id="display-admin-card-number" class="font-mono font-bold text-xs bg-white px-2 py-1 rounded border border-amber-300 select-all text-center">4127 2000 0000 0000</p>
+                        <p class="italic text-[10px] text-amber-700">* Ödənişi etdikdən sonra qəbzin şəklini aşağıdan yükləyin.</p>
                     </div>
                 </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Giriş Parolu / Kilid (Könüllü)</label>
-                    <input type="text" id="new-exam-password-input" placeholder="Boş saxlaya bilərsiniz..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+
+                <div id="receipt-upload-box">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Ödəniş Çeki / Qəbz Şəkli *</label>
+                    <input type="file" id="student-receipt-file" accept="image/*" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
                 </div>
+
+                <div id="student-pass-container" class="hidden">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Sınaq Parolu (Varsa)</label>
+                    <input type="password" id="student-exam-pass-input" placeholder="Parolu daxil edin..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <p id="student-pass-error" class="text-xs text-rose-500 mt-1.5 hidden font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <span>Parol yanlışdır!</span>
+                    </p>
+                </div>
+
                 <div class="flex justify-end space-x-2 pt-2">
-                    <button type="button" onclick="closeCreateExamModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
-                    <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md transition">Sınaq Yarad</button>
+                    <button type="button" onclick="closeStudentExamAuthModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
+                    <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md transition">Təsdiqlə və Başla</button>
                 </div>
             </form>
         </div>
-    </div>
-
-    <!-- Custom Modal -->
-    <div id="custom-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100">
-            <div>
-                <h3 id="modal-title" class="text-lg font-bold text-slate-900">Məlumat</h3>
-                <p id="modal-message" class="text-sm text-slate-500 mt-1">Məlumat mesajı</p>
-            </div>
-            <div class="flex justify-end space-x-3 pt-2">
-                <button id="modal-cancel-btn" onclick="closeModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold rounded-xl transition">Ləğv Et</button>
-                <button id="modal-confirm-btn" onclick="confirmModalAction()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold rounded-xl transition">Təsdiqlə</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Firebase Realtime Cloud Sync Script -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        const appId = 'turkan-aliyeve-sinaq-portal';
-
-        let firebaseConfig = {
-            apiKey: "AIzaSyBtLmshnpR0x-BgTYzAOg9d9ZAe8j8xmdA",
-            authDomain: "turkan-eliyeva.firebaseapp.com",
-            projectId: "turkan-eliyeva",
-            storageBucket: "turkan-eliyeva.firebasestorage.app",
-            messagingSenderId: "977296861370",
-            appId: "1:977296861370:web:b7c35cc0c1elaa7a387a83",
-            measurementId: "G-WVGEKCV6E2"
-        };
-
-        if (typeof __firebase_config !== 'undefined' && __firebase_config) {
-            try { 
-                const parsed = JSON.parse(__firebase_config); 
-                if (parsed && parsed.apiKey) firebaseConfig = parsed;
-            } catch(e) {}
-        }
-
-        let db = null;
-        let auth = null;
-
-        try {
-            const app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
-            window.dbInstance = db;
-            window.appIdInstance = appId;
-        } catch(e) {
-            console.log("Firebase Init fallback:", e);
-        }
-
-        async function initCloudSync() {
-            if (!auth || !db) return;
-            try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-
-                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'exams_data', 'all_exams');
-
-                onSnapshot(docRef, (snapshot) => {
-                    if (snapshot.exists()) {
-                        const data = snapshot.data();
-                        if (data && Array.isArray(data.examsList) && data.examsList.length > 0) {
-                            window.exams = data.examsList;
-                            localStorage.setItem('turkan_exams', JSON.stringify(window.exams));
-                            if (window.renderStudentExamsGrid) window.renderStudentExamsGrid();
-                            if (window.renderAdminExamSelector) window.renderAdminExamSelector();
-                            if (window.renderAdminQuestionsList) window.renderAdminQuestionsList();
-                            if (window.renderStudentResultsTable) window.renderStudentResultsTable();
-                            if (window.renderSuperAdminDashboard) window.renderSuperAdminDashboard();
-                        }
-                    }
-                }, (err) => console.log("Cloud sync status:", err));
-
-                const snap = await getDoc(docRef);
-                if (snap.exists()) {
-                    const data = snap.data();
-                    if (data && Array.isArray(data.examsList) && data.examsList.length > 0) {
-                        window.exams = data.examsList;
-                        localStorage.setItem('turkan_exams', JSON.stringify(window.exams));
-                        if (window.renderStudentExamsGrid) window.renderStudentExamsGrid();
-                        if (window.renderAdminExamSelector) window.renderAdminExamSelector();
-                        if (window.renderAdminQuestionsList) window.renderAdminQuestionsList();
-                        if (window.renderStudentResultsTable) window.renderStudentResultsTable();
-                        if (window.renderSuperAdminDashboard) window.renderSuperAdminDashboard();
-                    }
-                } else {
-                    if (window.exams && window.exams.length > 0) {
-                        await setDoc(docRef, { examsList: window.exams, lastUpdated: Date.now() });
-                    }
-                }
-
-            } catch (err) {
-                console.log("Firebase auth/sync fallback to local storage:", err);
-            }
-        }
-
-        initCloudSync();
-
-        window.syncExamsToCloud = async function(examsList) {
-            if (!db) return;
-            try {
-                if (!auth.currentUser) {
-                    await signInAnonymously(auth);
-                }
-                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'exams_data', 'all_exams');
-                await setDoc(docRef, { examsList: examsList, lastUpdated: Date.now() }, { merge: true });
-                
-                const statusMsg = document.getElementById('save-status-msg');
-                if (statusMsg) {
-                    statusMsg.classList.remove('hidden');
-                    setTimeout(() => statusMsg.classList.add('hidden'), 3000);
-                }
-            } catch(e) {
-                console.error("Cloud save failed:", e);
-            }
-        };
-    </script><!-- Main Logic Script -->
+    </div><!-- Main Logic Script -->
     <script>
         let overlayElem = document.getElementById('secure-screen-overlay');
         let isProtected = true;
@@ -1149,7 +1074,7 @@
                 password: '',
                 questions: [],
                 results: [],
-                allowedUsers: [] // İcazə verilən istifadəçilər
+                allowedUsers: []
             }
         ];
 
@@ -1255,7 +1180,7 @@
         function getFilteredExamsForCurrentTeacher() {
             if (!currentLoggedTeacher) return [];
             if (currentLoggedTeacher.isSuperAdmin) {
-                return exams; // Türkan Əliyeva bütün sınaqları görür
+                return exams;
             }
             return exams.filter(e => e.author === currentLoggedTeacher.name);
         }
@@ -1411,18 +1336,17 @@
                 subject: subject,
                 pass: pass,
                 isSuperAdmin: false,
-                isApproved: false // Təsdiq gözləyir
+                isApproved: false
             });
 
             saveTeachersToStorage();
             closeTeacherRegisterModal();
 
-            // WhatsApp-a Mesaj Yönləndirməsi
             const msg = `Müəllim Qeydiyyat Sorğusu:\nAd Soyad: ${name}\nTel: ${phone}\nFənn: ${subject}\nTələb olunan Şifrə: ${pass}`;
             const targetPhone = adminSettings.phone || "994558586707";
             const waUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
             
-            showModal("Sorğu Göndərildi", "Qeydiyyat sorğunuz qəbul edildi. Təsdiqlənmək üçün təsdiq mesajı WhatsApp-a yönləndirilir.", function(){
+            showModal("Sorğu Göndərildi", "Qeydiyyat sorğunuz qəbul edildi. Təsdiqlənmək üçün WhatsApp mesajı açılır...", function(){
                 window.open(waUrl, '_blank');
             }, true);
         }
@@ -1543,7 +1467,6 @@
             const targetExam = exams.find(e => e.id === examId);
             if (!targetExam) return;
 
-            // Əgər Super Admin (Türkan Əliyeva) kimi daxil olunubsa, birbaşa girir
             if (currentLoggedTeacher && currentLoggedTeacher.isSuperAdmin) {
                 currentStudentName = currentLoggedTeacher.name + " (Admin)";
                 startExam(examId);
@@ -1554,6 +1477,7 @@
             document.getElementById('student-fullname-input').value = '';
             document.getElementById('student-exam-pass-input').value = '';
             document.getElementById('student-pass-error').classList.add('hidden');
+            document.getElementById('student-receipt-file').value = '';
 
             const priceDisplay = document.getElementById('modal-exam-price-display');
             const priceVal = parseFloat(targetExam.price) || 0;
@@ -1564,8 +1488,10 @@
             const receiptBox = document.getElementById('receipt-upload-box');
             if (priceVal > 0) {
                 receiptBox.classList.remove('hidden');
+                document.getElementById('student-receipt-file').required = true;
             } else {
                 receiptBox.classList.add('hidden');
+                document.getElementById('student-receipt-file').required = false;
             }
 
             const passContainer = document.getElementById('student-pass-container');
@@ -1594,20 +1520,19 @@
                 return;
             }
 
-            // TƏKRAR GİRİŞ YOXLANILMASI (1 şəxs 1 dəfə girə bilsin - Parollu sınaqlar üçün)
             if (targetExam && targetExam.password) {
                 const isAlreadyTaken = (targetExam.results || []).some(r => r.name.toLowerCase() === fullName.toLowerCase());
                 const isAllowed = (targetExam.allowedUsers || []).includes(fullName.toLowerCase());
 
                 if (isAlreadyTaken && !isAllowed) {
-                    showModal("Giriş Məhdudlaşdırıldı", "Siz artıq bu sınaqda iştirak etmisiniz! Təkrar daxil olmaq üçün müəllimdən/adminden icazə almalısınız.", null, true);
+                    showModal("Giriş Məhdudlaşdırıldı", "Siz artıq bu sınaqda iştirak etmisiniz! Təkrar daxil olmaq üçün müəllimdən/admimdən icazə almalısınız.", null, true);
                     return;
                 }
             }
 
             const priceVal = parseFloat(targetExam ? targetExam.price : 0) || 0;
             if (priceVal > 0 && !receiptFile) {
-                alert("Lütfən ödəniş qəbzinizin şəklini daxil edin!");
+                alert("Lütfən ödəniş qəbzinizin şəklini yükləyin!");
                 return;
             }
 
@@ -1620,14 +1545,13 @@
 
             currentStudentName = fullName;
 
-            // Əgər ödənişidirsə WhatsApp-a qəbz bildirişi göndərir
             if (priceVal > 0 && receiptFile) {
                 const msg = `Yeni Ödəniş Çeki Yükləndi:\nŞagird: ${fullName}\nSınaq: ${targetExam.title}\nMəbləğ: ${priceVal} AZN`;
                 const targetPhone = adminSettings.phone || "994558586707";
                 const waUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
                 
                 closeStudentExamAuthModal();
-                showModal("Ödəniş Bildirişi", "Ödəniş məlumatınız qəbul olundu. WhatsApp bildirişi açılır...", function(){
+                showModal("Ödəniş Bildirişi", "Ödəniş qəbziniz qəbul olundu. Təsdiq üçün WhatsApp mesajı açılır...", function(){
                     window.open(waUrl, '_blank');
                     startExam(examId);
                 }, true);
@@ -1641,12 +1565,13 @@
             const targetExam = exams.find(e => e.id === examId);
             if (targetExam) {
                 if (!targetExam.allowedUsers) targetExam.allowedUsers = [];
-                if (!targetExam.allowedUsers.includes(studentName.toLowerCase())) {
-                    targetExam.allowedUsers.push(studentName.toLowerCase());
+                const cleanName = studentName.toLowerCase();
+                if (!targetExam.allowedUsers.includes(cleanName)) {
+                    targetExam.allowedUsers.push(cleanName);
                 }
                 saveExamsToStorage();
                 renderStudentResultsTable();
-                showModal("Uğurlu", `${studentName} üçün təkrar giriş icazəsi verildi!`, null, true);
+                showModal("Uğurlu", `${studentName} üçün təkrar giriş icazəsi verildi! İndi şagird sınağa daxil ola bilər.`, null, true);
             }
         }
 
@@ -1688,8 +1613,8 @@
                         <td class="p-3 text-slate-500">${res.date}</td>
                         <td class="p-3 text-center">
                             <button onclick="allowReEntry('${curExam.id}', '${escapeHtml(res.name)}')" 
-                                class="px-2.5 py-1 ${isAllowed ? 'bg-slate-200 text-slate-600' : 'bg-amber-500 hover:bg-amber-600 text-white'} font-bold text-[11px] rounded-lg transition">
-                                ${isAllowed ? 'İcazə Verilib' : 'Təkrar Girişə İcazə Ver'}
+                                class="px-2.5 py-1 ${isAllowed ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-500 hover:bg-amber-600 text-white'} font-bold text-[11px] rounded-lg transition">
+                                ${isAllowed ? '✓ İcazə Verilib' : 'Təkrar Girişə İcazə Ver'}
                             </button>
                         </td>
                     </tr>
