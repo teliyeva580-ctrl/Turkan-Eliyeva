@@ -160,7 +160,7 @@
                     </div>
                     <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight" id="admin-panel-welcome-title">Onlayn Sınaq Akademiyası - İdarəetmə Paneli</h2>
                     <p class="text-slate-300 text-xs sm:text-sm max-w-xl">
-                        Müəllimlər: Türkan Əliyeva & Əsma Abbasova. Öz sınaqlarınızı yaradın, sualları və ödənişləri tənzimləyin.
+                        Müəlliflər yalnız öz sınaqlarını yarada, qiymət və parol təyin edə bilərlər.
                     </p>
                 </div>
 
@@ -233,10 +233,10 @@
                 </div>
             </div>
 
-            <!-- Exam Selector Bar & Ödəniş Tənzimləmə Düyməsi -->
+            <!-- Exam Selector Bar & Ödəniş/Parol Düymələri -->
             <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
-                    <label class="text-xs font-bold text-slate-700 uppercase shrink-0">Cari Sınaq:</label>
+                    <label class="text-xs font-bold text-slate-700 uppercase shrink-0">Mənim Sınaqlarım:</label>
                     <select id="admin-exam-select" onchange="changeActiveAdminExam(this.value)" class="w-full sm:w-64 px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
                     </select>
                 </div>
@@ -260,13 +260,13 @@
                 </div>
             </div>
 
-            <!-- STUDENT RESULTS STATS TABLE SECTION (Şagird Giriş Təsdiqi və Təkrar Giriş) -->
+            <!-- STUDENT RESULTS STATS TABLE SECTION -->
             <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
                     <div>
                         <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
                             <i class="fa-solid fa-users text-indigo-600"></i>
-                            <span>Sınaq İştirakçıları Və Şagird Giriş Təsdiqləri</span>
+                            <span>Sınaq İştirakçıları Və Giriş Təsdiqləri</span>
                         </h3>
                         <p class="text-xs text-slate-500">Şagirdlərin sınağa giriş icazələrini və ödəniş təsdiqlərini buradan idarə edin.</p>
                     </div>
@@ -284,7 +284,7 @@
                                 <th class="p-3">Nəticə (%)</th>
                                 <th class="p-3">Düzgün / Səhv / Boş</th>
                                 <th class="p-3">Tarix və Saat</th>
-                                <th class="p-3 rounded-r-xl text-center">Giriş / Təkrar Giriş Təsdiqi</th>
+                                <th class="p-3 rounded-r-xl text-center">Giriş Təsdiqi</th>
                             </tr>
                         </thead>
                         <tbody id="student-results-table-body">
@@ -878,7 +878,7 @@
         </div>
     </div>
 
-    <!-- Exam Price Edit Modal (Müəllim Paneli Üçün Ödəniş Təyin Etmə) -->
+    <!-- Exam Price Edit Modal -->
     <div id="exam-price-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
             <div class="text-center space-y-2">
@@ -1195,7 +1195,7 @@
 
         function getFilteredExamsForCurrentTeacher() {
             if (!currentLoggedTeacher) return [];
-            // YALNIZ Admin və ya həmin müəllifin öz sınaqları göstərilir
+            // MÖHTƏŞƏM İCAZƏ NƏZARƏTİ: Adi müəllimlər YALNIZ öz sınaqlarını görür, Super Admin (Türkan Əliyeva) hamısını görür.
             if (currentLoggedTeacher.isSuperAdmin) return exams;
             return exams.filter(e => e.author === currentLoggedTeacher.name);
         }
@@ -1502,12 +1502,10 @@
             currentStudentName = fullName;
 
             if (priceVal > 0) {
-                // Şagird qəbzi WhatsApp vasitəsilə müəllimə göndərir
                 const msg = `Salam! Mən "${fullName}" olaraq "${targetExam.title}" sınağı üçün ${priceVal} AZN ödəniş etdim. Ödəniş qəbzini göndərirəm, zəhmət olmasa girişə icazə verin.`;
                 const targetPhone = adminSettings.phone || "994558586707";
                 const waUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
                 
-                // Avtomatik olaraq şagird adını allowedUsers-a əlavə edirik ki, admin təsdiq edən kimi daxil ola bilsin
                 if (!targetExam.allowedUsers) targetExam.allowedUsers = [];
                 const cleanName = fullName.toLowerCase();
                 if (!targetExam.allowedUsers.includes(cleanName)) {
@@ -1577,7 +1575,6 @@
             }).join('');
         }
 
-        // ÖDƏNİŞ TƏYİN ETMƏK ÜÇÜN FUNKSİYALAR
         function openExamPriceModal() {
             const curExam = getActiveAdminExam();
             if (!curExam) return;
