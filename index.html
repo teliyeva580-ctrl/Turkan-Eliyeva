@@ -112,7 +112,6 @@
                 </div>
             </div>
 
-            <!-- Header Controls & Timer -->
             <div class="flex items-center space-x-2 sm:space-x-3">
                 <button id="home-nav-btn" onclick="goToHome()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition border border-slate-700 flex items-center gap-1.5">
                     <i class="fa-solid fa-house text-indigo-400"></i>
@@ -153,7 +152,7 @@
 
     <main id="main-content-area" class="flex-grow max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 flex flex-col justify-start">
 
-        <!-- ================= STUDENT WELCOME LANDING VIEW ================= -->
+        <!-- STUDENT LANDING VIEW -->
         <div id="student-landing-view" class="space-y-6 animate-fadeIn">
             <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-12 text-white shadow-2xl border border-indigo-800/40 relative overflow-hidden text-center sm:text-left">
                 <div class="relative z-10 max-w-3xl space-y-4">
@@ -173,7 +172,7 @@
                     <div class="pt-2 flex flex-wrap items-center gap-3">
                         <button onclick="handleCreateExamClick()" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs sm:text-sm rounded-xl transition shadow-lg flex items-center justify-center gap-2">
                             <i class="fa-solid fa-folder-plus text-base"></i>
-                            <span>Sınaq Yarat / Müəllim Kimi Qeydiyyat</span>
+                            <span>Sınaq Yarat / Müəllim Qeydiyyatı</span>
                         </button>
 
                         <a href="https://wa.me/994558586707" target="_blank" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-lg flex items-center justify-center gap-2">
@@ -188,7 +187,6 @@
                 </div>
             </div>
 
-            <!-- Available Exams List Grid -->
             <div class="space-y-4 pt-4">
                 <div class="flex items-center justify-between">
                     <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -203,10 +201,10 @@
                 <div id="student-exams-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 </div>
             </div>
-        </div><!-- ================= TEACHER / ADMIN VIEW ================= -->
+        </div>
+
+        <!-- TEACHER / ADMIN VIEW -->
         <div id="admin-view" class="hidden space-y-6">
-            
-            <!-- Welcome Banner for Teachers -->
             <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-indigo-900/50 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="space-y-2 text-center md:text-left">
                     <div class="flex items-center justify-center md:justify-start gap-2">
@@ -218,7 +216,7 @@
                     </div>
                     <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight" id="admin-panel-welcome-title">Onlayn Sınaq Akademiyası - İdarəetmə Paneli</h2>
                     <p class="text-slate-300 text-xs sm:text-sm max-w-xl">
-                        Müəllimlər: Türkan Əliyeva & Əsma Abbasova. Öz sınaqlarınızı yaradın, sualları və dinləmə mətnlərini (audio) daxil edin və şagird nəticələrinizi izləyin.
+                        Müəllimlər: Türkan Əliyeva & Əsma Abbasova. Öz sınaqlarınızı yaradın, sualları daxil edin və şagird nəticələrinizi izləyin.
                     </p>
                 </div>
 
@@ -238,7 +236,7 @@
                 </div>
             </div>
 
-            <!-- SUPER ADMIN SETTINGS & CARD CONFIG (Türkan Əliyeva Xüsusi Tənzimləmələri) -->
+            <!-- SUPER ADMIN SETTINGS & CARD CONFIG -->
             <div id="super-admin-card-config" class="hidden bg-white rounded-3xl p-6 shadow-sm border border-amber-200/80 bg-amber-50/20 space-y-3">
                 <h3 class="font-extrabold text-slate-900 text-sm flex items-center gap-2 text-amber-800">
                     <i class="fa-solid fa-gears text-amber-600"></i>
@@ -261,7 +259,7 @@
                 </div>
             </div>
 
-            <!-- SUPER ADMIN DASHBOARD TABLE (Müəllimlər, Şifrələr, Qazanc və Təsdiq) -->
+            <!-- SUPER ADMIN DASHBOARD TABLE -->
             <div id="super-admin-dashboard" class="hidden bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 space-y-4">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
                     <div>
@@ -327,7 +325,7 @@
                             <i class="fa-solid fa-users text-indigo-600"></i>
                             <span>Sınaq İştirakçıları Və Giriş İcazələri</span>
                         </h3>
-                        <p class="text-xs text-slate-500">Bu sınağa girən şagirdlərin siyahısı, topladıqları ballar və təkrar giriş icazələri.</p>
+                        <p class="text-xs text-slate-500">Bu sınağa girən şagirdlərin siyahısı, topladıqları ballər və təkrar giriş icazələri.</p>
                     </div>
                     <span id="student-results-count-badge" class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-extrabold rounded-lg border border-indigo-100">
                         Cəmi İştirakçı: 0 Nəfər
@@ -350,9 +348,10 @@
                         </tbody>
                     </table>
                 </div>
-            </div><!-- Settings & Add Question Grid -->
+            </div>
+
+            <!-- Settings & Add Question Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
                 <!-- Left: Question Entry Form (2 cols) -->
                 <div class="lg:col-span-2 bg-white rounded-2xl p-5 sm:p-7 shadow-sm border border-slate-200 space-y-5">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -370,19 +369,18 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Fənnin Adı (Müəllim Özü Yazır)</label>
-                                <input type="text" id="input-category" placeholder="Məs: İnformatika, İngilis dili və s." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Fənnin Adı</label>
+                                <input type="text" id="input-category" placeholder="Məs: İnformatika, Riyaziyyat" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sual Tipi</label>
                                 <select id="input-q-type" onchange="toggleQuestionTypeFields(this.value)" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
                                     <option value="closed">Qapalı (Variantlı - A, B, C, D, E)</option>
-                                    <option value="open">Açıq Tipli (Yazılı / Ədəd Cavablı)</option>
+                                    <option value="open">Açıq Tipli (Yazılı Cavablı)</option>
                                 </select>
                             </div>
                         </div>
 
-                        <!-- ŞƏKİL VƏ AUDİO FAYLI YÜKLƏMƏ BÖLMƏSİ -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Şəkil Əlavə Et (Könüllü)</label>
@@ -405,7 +403,7 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sualın Mətni (Standart Mətn / Riyazi Simvollar)</label>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sualın Mətni</label>
                             <textarea id="input-text" rows="3" placeholder="Sualın mətnini daxil edin..." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
                         </div>
 
@@ -415,39 +413,39 @@
                                 <div class="flex items-center gap-2">
                                     <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">A</span>
                                     <input type="text" id="opt-A" placeholder="A variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                    <input type="radio" name="correct-opt" value="A" checked title="Düzgün cavab kimi qeyd et" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                    <input type="radio" name="correct-opt" value="A" checked title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">B</span>
                                     <input type="text" id="opt-B" placeholder="B variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                    <input type="radio" name="correct-opt" value="B" title="Düzgün cavab kimi qeyd et" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                    <input type="radio" name="correct-opt" value="B" title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">C</span>
                                     <input type="text" id="opt-C" placeholder="C variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                    <input type="radio" name="correct-opt" value="C" title="Düzgün cavab kimi qeyd et" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                    <input type="radio" name="correct-opt" value="C" title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">D</span>
                                     <input type="text" id="opt-D" placeholder="D variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                    <input type="radio" name="correct-opt" value="D" title="Düzgün cavab kimi qeyd et" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                    <input type="radio" name="correct-opt" value="D" title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">E</span>
                                     <input type="text" id="opt-E" placeholder="E variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                    <input type="radio" name="correct-opt" value="E" title="Düzgün cavab kimi qeyd et" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                    <input type="radio" name="correct-opt" value="E" title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
                                 </div>
                             </div>
                         </div>
 
                         <div id="open-correct-box" class="hidden">
                             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Açıq Sualın Düzgün Cavabı</label>
-                            <input type="text" id="input-open-correct" placeholder="Məs: 25 və ya Bakı" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <input type="text" id="input-open-correct" placeholder="Məs: 25" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         </div>
 
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Ətraflı İzah (Könüllü)</label>
-                            <textarea id="input-explanation" rows="2" placeholder="Şagird üçün nəticə səhifəsində görünəcək izahı yazın..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
+                            <textarea id="input-explanation" rows="2" placeholder="Şagird üçün izah..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
                         </div>
 
                         <div class="flex items-center justify-between pt-2">
@@ -467,7 +465,7 @@
                     </form>
                 </div>
 
-                <!-- Right: Config & Current Questions List (1 col) -->
+                <!-- Right: Config & Current Questions List -->
                 <div class="space-y-6">
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
                         <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
@@ -475,17 +473,17 @@
                         </h4>
 
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1">İmtahan Müddəti (Maksimum 180 Dəqiqə)</label>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">İmtahan Müddəti (Dəqiqə)</label>
                             <div class="flex items-center space-x-2">
                                 <input type="number" id="input-duration" min="1" max="180" value="180" onchange="updateActiveExamDuration(this.value)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                <span class="text-xs font-bold text-slate-500">Dəqiqə</span>
+                                <span class="text-xs font-bold text-slate-500">Dəq</span>
                             </div>
                         </div>
 
                         <div class="pt-3 border-t border-slate-100 space-y-2">
                             <label class="block text-xs font-semibold text-slate-600">Sınağa Giriş Parolu (Kilid)</label>
                             <div class="flex gap-2">
-                                <input type="text" id="input-exam-password" placeholder="Boş olsa parolsuz olar..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                <input type="text" id="input-exam-password" placeholder="Parol..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
                                 <button onclick="updateActiveExamPassword()" class="px-3 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl transition shrink-0">
                                     Tətbiq Et
                                 </button>
@@ -502,7 +500,7 @@
                             </div>
                         </div>
 
-                        <div class="pt-2 border-t border-slate-100 flex gap-2">
+                        <div class="pt-2 border-t border-slate-100">
                             <button onclick="clearCurrentExamQuestions()" class="w-full py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold rounded-xl transition text-center">
                                 Bu Sınağın Suallarını Sil
                             </button>
@@ -524,7 +522,7 @@
             </div>
         </div>
 
-        <!-- ================= EXAM VIEW ================= -->
+        <!-- EXAM VIEW -->
         <div id="exam-view" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6">
             <div class="lg:col-span-3 space-y-4 flex flex-col justify-between">
                 <div class="bg-white rounded-2xl p-5 sm:p-8 shadow-sm border border-slate-200/80 flex flex-col justify-between min-h-[460px] relative overflow-hidden">
@@ -553,7 +551,6 @@
                             </button>
                         </div>
 
-                        <!-- DINLƏMƏ MƏTNİ (AUDIO PLAYER) NÜMAYİŞİ -->
                         <div id="audio-container" class="hidden mb-4"></div>
 
                         <div id="question-text" class="text-slate-900 font-semibold text-base sm:text-lg leading-relaxed mb-6 space-y-2 plain-text-content">
@@ -621,7 +618,9 @@
                     </div>
                 </div>
             </div>
-        </div><!-- ================= RESULTS VIEW ================= -->
+        </div>
+
+        <!-- RESULTS VIEW -->
         <div id="results-view" class="hidden space-y-8 animate-fadeIn">
             <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-200/80 text-center relative overflow-hidden">
                 <div class="max-w-2xl mx-auto space-y-4">
@@ -736,7 +735,6 @@
 
     </main>
 
-    <!-- SAYTIN ƏN ALT HİSSƏSİ (FOOTER) - QURUCU VURĞUSU -->
     <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 mt-12">
         <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
             <p class="text-xs sm:text-sm font-semibold text-slate-300">
@@ -747,9 +745,7 @@
                 <span>Saytın qurucusu: <strong class="text-white font-black tracking-wide">Türkan Əliyeva</strong></span>
             </div>
         </div>
-    </footer>
-
-    <!-- Modals Section -->
+    </footer><!-- Modals Section -->
     <!-- Student Registration & Payment Modal -->
     <div id="student-exam-auth-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto custom-scrollbar">
@@ -774,7 +770,7 @@
                         <span id="modal-exam-price-display" class="text-sm font-black text-amber-700">0 AZN</span>
                     </div>
                     <div id="payment-card-details" class="text-[11px] text-amber-800 border-t border-amber-200/80 pt-2 space-y-1">
-                        <p class="font-semibold"><i class="fa-solid fa-building-columns me-1"></i> Mərkəzi Ödəniş Kartı (BirBank/Leobank/m10):</p>
+                        <p class="font-semibold"><i class="fa-solid fa-building-columns me-1"></i> Mərkəzi Ödəniş Kartı:</p>
                         <p id="display-admin-card-number" class="font-mono font-bold text-xs bg-white px-2 py-1 rounded border border-amber-300 select-all text-center">4127 2000 0000 0000</p>
                         <p class="italic text-[10px] text-amber-700">* Ödənişi etdikdən sonra qəbzin şəklini aşağıdan yükləyin.</p>
                     </div>
@@ -800,186 +796,267 @@
                 </div>
             </form>
         </div>
-    </div><!-- ================= RESULTS VIEW ================= -->
-        <div id="results-view" class="hidden space-y-8 animate-fadeIn">
-            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-200/80 text-center relative overflow-hidden">
-                <div class="max-w-2xl mx-auto space-y-4">
-                    <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-3xl flex items-center justify-center text-3xl mx-auto shadow-inner">
-                        <i class="fa-solid fa-award"></i>
-                    </div>
+    </div>
 
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Sınaq İmtahanı Başa Çatdı!</h2>
-                    <p id="student-name-result-display" class="text-indigo-600 font-bold text-base"></p>
-
-                    <div class="py-2">
-                        <div id="res-score-percent" class="text-5xl sm:text-6xl font-black text-indigo-600 tracking-tight">
-                            0%
-                        </div>
-                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mt-1">Ümumi Müvəffəqiyyət Faizi</p>
-                    </div>
-
-                    <div id="teacher-feedback-card" class="p-4 sm:p-5 rounded-2xl border bg-gradient-to-r from-indigo-50 via-amber-50 to-emerald-50 border-indigo-200/80 text-center space-y-1 shadow-sm">
-                        <div class="text-xs uppercase font-extrabold text-indigo-700 tracking-wider flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-comment-dots text-amber-500"></i>
-                            <span id="teacher-feedback-header">Müəllimdən Xüsusi Qeyd</span>
-                        </div>
-                        <p id="teacher-feedback-text" class="text-sm sm:text-base font-bold text-slate-800 leading-relaxed"></p>
-                    </div>
-
-                    <div class="flex flex-wrap justify-center gap-3 pt-2">
-                        <button onclick="switchToStudentLandingView()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition flex items-center gap-2">
-                            <i class="fa-solid fa-house"></i>
-                            <span>Ana Səhifə</span>
-                        </button>
-                        <button onclick="switchToAdminView()" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold rounded-xl border border-slate-200 transition flex items-center gap-2">
-                            <i class="fa-solid fa-pen"></i>
-                            <span>Müəllim Paneli</span>
-                        </button>
-                        <button onclick="startExam(currentExam ? currentExam.id : activeAdminExamId)" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition flex items-center gap-2">
-                            <i class="fa-solid fa-rotate-right"></i>
-                            <span>Sınağı Yenidən Başlat</span>
-                        </button>
-                    </div>
+    <!-- Teacher Registration Modal -->
+    <div id="teacher-register-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
+                    <i class="fa-solid fa-user-graduate"></i>
                 </div>
+                <h3 class="text-lg font-bold text-slate-900">Müəllim Qeydiyyatı</h3>
+                <p class="text-xs text-slate-500">Məlumatları doldurun. Təsdiq sorğusu avtomatik WhatsApp-a yönləndiriləcək.</p>
             </div>
-
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 text-center shadow-sm">
-                    <span class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Ümumi Sual</span>
-                    <span id="res-total" class="text-2xl sm:text-3xl font-black text-slate-800">0</span>
+            <form onsubmit="handleTeacherRegisterSubmit(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Adınız və Soyadınız *</label>
+                    <input type="text" id="reg-teacher-name" placeholder="Məs: Aysel Həsənova" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
-                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-emerald-200 bg-emerald-50/40 text-center shadow-sm">
-                    <span class="text-[10px] sm:text-[11px] font-bold text-emerald-600 uppercase tracking-wider block mb-1">Düzgün Cavab</span>
-                    <span id="res-correct" class="text-2xl sm:text-3xl font-black text-emerald-600">0</span>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Telefon Nömrəniz *</label>
+                    <input type="text" id="reg-teacher-phone" placeholder="994501234567" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
-                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-rose-200 bg-rose-50/40 text-center shadow-sm">
-                    <span class="text-[10px] sm:text-[11px] font-bold text-rose-600 uppercase tracking-wider block mb-1">Səhv Cavab</span>
-                    <span id="res-wrong" class="text-2xl sm:text-3xl font-black text-rose-600">0</span>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">İxtisas Fənniniz *</label>
+                    <input type="text" id="reg-teacher-subject" placeholder="Məs: İnformatika / Riyaziyyat" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
-                <div class="bg-white p-4 sm:p-5 rounded-2xl border border-amber-200 bg-amber-50/40 text-center shadow-sm">
-                    <span class="text-[10px] sm:text-[11px] font-bold text-amber-600 uppercase tracking-wider block mb-1">Boş Buraxılan</span>
-                    <span id="res-unanswered" class="text-2xl sm:text-3xl font-black text-amber-600">0</span>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Təyin Etmək İstədiyiniz Şifrə *</label>
+                    <input type="password" id="reg-teacher-pass" placeholder="Şifrənizi yazın..." required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
-            </div>
-
-            <div class="space-y-4">
-                <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-list-check text-indigo-600"></i>
-                    <span>Sualların Ətraflı Təhlili və İzahı</span>
-                </h3>
-                <div id="results-details-container" class="space-y-4">
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeTeacherRegisterModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
+                    <button type="submit" class="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-xl shadow-md transition">Qeydiyyatı Göndər</button>
                 </div>
-            </div>
+            </form>
         </div>
+    </div>
 
-        <!-- HIDDEN CONTAINER FOR PDF GENERATION -->
-        <div id="pdf-export-container" class="hidden p-8 bg-white text-slate-900 font-sans space-y-6">
-            <div class="flex items-center justify-between border-b-2 border-slate-900 pb-4">
-                <div class="flex items-center gap-3">
-                    <img src="image_15529a.jpg" onerror="this.onerror=null; this.src='353338.jpg';" class="w-16 h-16 rounded-xl object-cover">
+    <!-- Teacher Login Modal -->
+    <div id="admin-auth-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
+                    <i class="fa-solid fa-user-lock"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Müəllim Panelinə Giriş</h3>
+                <p class="text-xs text-slate-500">Müəllim adınızı seçin və şifrənizi daxil edin.</p>
+            </div>
+            <form onsubmit="verifyTeacherLogin(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Müəllim Adı</label>
+                    <select id="login-teacher-select" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Şəxsi Giriş Şifrəniz</label>
+                    <input type="password" id="teacher-password-input" placeholder="Şifrənizi yazın..." required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <p id="admin-auth-error" class="text-xs text-rose-500 mt-1.5 hidden font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <span>Şifrə yanlışdır və ya hesabınız hələ təsdiqlənməyib!</span>
+                    </p>
+                </div>
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeAdminAuthModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
+                    <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md transition">Daxil Ol</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Super Admin: Add New Teacher Modal -->
+    <div id="add-teacher-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Yeni Müəllim Əlavə Et</h3>
+                <p class="text-xs text-slate-500">Müəllim məlumatlarını və şifrəsini yazın.</p>
+            </div>
+            <form onsubmit="handleAddNewTeacherSubmit(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Müəllimin Adı və Soyadı</label>
+                    <input type="text" id="new-teacher-name-input" placeholder="Məs: Nərmin Əliyeva" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Telefon Nömrəsi</label>
+                    <input type="text" id="new-teacher-phone-input" placeholder="994501234567" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">İxtisas Fənni</label>
+                    <input type="text" id="new-teacher-subject-input" placeholder="Məs: Riyaziyyat" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Giriş Şifrəsi</label>
+                    <input type="text" id="new-teacher-pass-input" placeholder="Məs: nermin2026" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeAddTeacherModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
+                    <button type="submit" class="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl shadow-md transition">Əlavə Et</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create New Exam Modal -->
+    <div id="create-exam-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto custom-scrollbar">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
+                    <i class="fa-solid fa-folder-plus"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Yeni Sınaq Yaradın</h3>
+                <p class="text-xs text-slate-500">Sınağın adını, qiymətini və tənzimləmələrini daxil edin.</p>
+            </div>
+            <form onsubmit="handleCreateExamSubmit(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Sınaq İmtahanının Adı</label>
+                    <input type="text" id="new-exam-title-input" placeholder="Məs: Sınaq №1" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <h1 class="text-xl font-black uppercase tracking-tight">Onlayn Sınaq Akademiyası</h1>
-                        <p class="text-sm font-bold text-indigo-700">Türkan Əliyeva & Əsma Abbasova</p>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Qiyməti (AZN)</label>
+                        <input type="number" id="new-exam-price-input" min="0" step="0.5" value="5" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-indigo-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     </div>
-                </div>
-                <div class="text-right space-y-1">
-                    <h2 id="pdf-exam-title" class="text-lg font-extrabold text-slate-800">Sınaq İmtahanı</h2>
-                    <p id="pdf-exam-info" class="text-xs font-semibold text-slate-500">Müddət: 180 Dəqiqə</p>
-                </div>
-            </div>
-            <div id="pdf-questions-list" class="space-y-6">
-            </div>
-        </div>
-
-        <div class="mt-8 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center space-x-4">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-brand-500 text-white flex items-center justify-center text-xl shrink-0 shadow-md">
-                    <i class="fa-solid fa-headset"></i>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Müddət (Dəqiqə)</label>
+                        <input type="number" id="new-exam-duration-input" min="1" max="180" value="180" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
                 </div>
                 <div>
-                    <h4 class="font-bold text-slate-900 text-base">Dərslərimizə Qatılın!</h4>
-                    <p class="text-xs text-slate-500">Türkan Əliyeva və Əsma Abbasova ilə dərslərə və sınaqlara yazılmaq üçün əlaqə saxlayın:</p>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Giriş Parolu (Könüllü)</label>
+                    <input type="text" id="new-exam-password-input" placeholder="Boş saxlaya bilərsiniz..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 </div>
-            </div>
-            <div class="flex flex-wrap items-center justify-center gap-3 w-full md:w-auto">
-                <a href="https://wa.me/994558586707" target="_blank" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-2xl transition shadow-md flex items-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-base"></i>
-                    <span>+994 55 858 67 07</span>
-                </a>
-                <a href="https://www.instagram.com/informatika_riyaziyyat_dersi?stkn=MXJxbHRxM2hnbmUxZQ==" target="_blank" class="px-5 py-3 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-90 text-white text-xs font-bold rounded-2xl transition shadow-md flex items-center gap-2">
-                    <i class="fa-brands fa-instagram text-base"></i>
-                    <span>@informatika_riyaziyyat_dersi</span>
-                </a>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- SAYTIN ƏN ALT HİSSƏSİ (FOOTER) - QURUCU VURĞUSU -->
-    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
-            <p class="text-xs sm:text-sm font-semibold text-slate-300">
-                &copy; 2026 Onlayn Sınaq Akademiyası. Bütün hüquqlar qorunur.
-            </p>
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-950/80 rounded-full border border-indigo-700/60 text-indigo-300 text-xs font-extrabold shadow-inner">
-                <i class="fa-solid fa-code text-amber-400"></i>
-                <span>Saytın qurucusu: <strong class="text-white font-black tracking-wide">Türkan Əliyeva</strong></span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modals Section -->
-    <!-- Student Registration & Payment Modal -->
-    <div id="student-exam-auth-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto custom-scrollbar">
-            <div class="text-center space-y-2">
-                <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
-                    <i class="fa-solid fa-credit-card"></i>
-                </div>
-                <h3 class="text-lg font-bold text-slate-900">Sınağa Giriş və Ödəniş</h3>
-                <p class="text-xs text-slate-500">Sınağa daxil olmaq üçün qeydiyyatdan keçin və ödəniş çəkini daxil edin.</p>
-            </div>
-            <form onsubmit="verifyStudentRegistration(event)" class="space-y-3">
-                <input type="hidden" id="target-exam-id" value="">
-                
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Adınız və Soyadınız *</label>
-                    <input type="text" id="student-fullname-input" placeholder="Məs: Əli Məmmədov" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-
-                <div id="payment-info-box" class="p-3.5 bg-amber-50 rounded-xl border border-amber-200 space-y-2">
-                    <div class="flex justify-between items-center text-xs font-bold text-amber-900">
-                        <span>Sınağın Qiyməti:</span>
-                        <span id="modal-exam-price-display" class="text-sm font-black text-amber-700">0 AZN</span>
-                    </div>
-                    <div id="payment-card-details" class="text-[11px] text-amber-800 border-t border-amber-200/80 pt-2 space-y-1">
-                        <p class="font-semibold"><i class="fa-solid fa-building-columns me-1"></i> Mərkəzi Ödəniş Kartı (BirBank/Leobank/m10):</p>
-                        <p id="display-admin-card-number" class="font-mono font-bold text-xs bg-white px-2 py-1 rounded border border-amber-300 select-all text-center">4127 2000 0000 0000</p>
-                        <p class="italic text-[10px] text-amber-700">* Ödənişi etdikdən sonra qəbzin şəklini aşağıdan yükləyin.</p>
-                    </div>
-                </div>
-
-                <div id="receipt-upload-box">
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Ödəniş Çeki / Qəbz Şəkli *</label>
-                    <input type="file" id="student-receipt-file" accept="image/*" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                </div>
-
-                <div id="student-pass-container" class="hidden">
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Sınaq Parolu (Varsa)</label>
-                    <input type="password" id="student-exam-pass-input" placeholder="Parolu daxil edin..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    <p id="student-pass-error" class="text-xs text-rose-500 mt-1.5 hidden font-semibold flex items-center gap-1">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        <span>Parol yanlışdır!</span>
-                    </p>
-                </div>
-
                 <div class="flex justify-end space-x-2 pt-2">
-                    <button type="button" onclick="closeStudentExamAuthModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
-                    <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md transition">Təsdiqlə və Başla</button>
+                    <button type="button" onclick="closeCreateExamModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
+                    <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md transition">Sınaq Yarat</button>
                 </div>
             </form>
         </div>
-    </div><!-- Main Logic Script -->
+    </div>
+
+    <!-- Custom Modal -->
+    <div id="custom-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100">
+            <div>
+                <h3 id="modal-title" class="text-lg font-bold text-slate-900">Məlumat</h3>
+                <p id="modal-message" class="text-sm text-slate-500 mt-1">Məlumat mesajı</p>
+            </div>
+            <div class="flex justify-end space-x-3 pt-2">
+                <button id="modal-cancel-btn" onclick="closeModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold rounded-xl transition">Ləğv Et</button>
+                <button id="modal-confirm-btn" onclick="confirmModalAction()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-semibold rounded-xl transition">Təsdiqlə</button>
+            </div>
+        </div>
+    </div><!-- Firebase Cloud Sync Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const appId = 'turkan-aliyeve-sinaq-portal';
+
+        let firebaseConfig = {
+            apiKey: "AIzaSyBtLmshnpR0x-BgTYzAOg9d9ZAe8j8xmdA",
+            authDomain: "turkan-eliyeva.firebaseapp.com",
+            projectId: "turkan-eliyeva",
+            storageBucket: "turkan-eliyeva.firebasestorage.app",
+            messagingSenderId: "977296861370",
+            appId: "1:977296861370:web:b7c35cc0c1elaa7a387a83",
+            measurementId: "G-WVGEKCV6E2"
+        };
+
+        if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+            try { 
+                const parsed = JSON.parse(__firebase_config); 
+                if (parsed && parsed.apiKey) firebaseConfig = parsed;
+            } catch(e) {}
+        }
+
+        let db = null;
+        let auth = null;
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            window.dbInstance = db;
+            window.appIdInstance = appId;
+        } catch(e) {
+            console.log("Firebase Init fallback:", e);
+        }
+
+        async function initCloudSync() {
+            if (!auth || !db) return;
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'exams_data', 'all_exams');
+
+                onSnapshot(docRef, (snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.data();
+                        if (data && Array.isArray(data.examsList) && data.examsList.length > 0) {
+                            window.exams = data.examsList;
+                            localStorage.setItem('turkan_exams', JSON.stringify(window.exams));
+                            if (window.renderStudentExamsGrid) window.renderStudentExamsGrid();
+                            if (window.renderAdminExamSelector) window.renderAdminExamSelector();
+                            if (window.renderAdminQuestionsList) window.renderAdminQuestionsList();
+                            if (window.renderStudentResultsTable) window.renderStudentResultsTable();
+                            if (window.renderSuperAdminDashboard) window.renderSuperAdminDashboard();
+                        }
+                    }
+                }, (err) => console.log("Cloud sync status:", err));
+
+                const snap = await getDoc(docRef);
+                if (snap.exists()) {
+                    const data = snap.data();
+                    if (data && Array.isArray(data.examsList) && data.examsList.length > 0) {
+                        window.exams = data.examsList;
+                        localStorage.setItem('turkan_exams', JSON.stringify(window.exams));
+                        if (window.renderStudentExamsGrid) window.renderStudentExamsGrid();
+                        if (window.renderAdminExamSelector) window.renderAdminExamSelector();
+                        if (window.renderAdminQuestionsList) window.renderAdminQuestionsList();
+                        if (window.renderStudentResultsTable) window.renderStudentResultsTable();
+                        if (window.renderSuperAdminDashboard) window.renderSuperAdminDashboard();
+                    }
+                } else {
+                    if (window.exams && window.exams.length > 0) {
+                        await setDoc(docRef, { examsList: window.exams, lastUpdated: Date.now() });
+                    }
+                }
+
+            } catch (err) {
+                console.log("Firebase sync fallback:", err);
+            }
+        }
+
+        initCloudSync();
+
+        window.syncExamsToCloud = async function(examsList) {
+            if (!db) return;
+            try {
+                if (!auth.currentUser) await signInAnonymously(auth);
+                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'exams_data', 'all_exams');
+                await setDoc(docRef, { examsList: examsList, lastUpdated: Date.now() }, { merge: true });
+                
+                const statusMsg = document.getElementById('save-status-msg');
+                if (statusMsg) {
+                    statusMsg.classList.remove('hidden');
+                    setTimeout(() => statusMsg.classList.add('hidden'), 3000);
+                }
+            } catch(e) {
+                console.error("Cloud save failed:", e);
+            }
+        };
+    </script>
+
+    <!-- Main Logic Script -->
     <script>
         let overlayElem = document.getElementById('secure-screen-overlay');
         let isProtected = true;
@@ -1030,7 +1107,6 @@
         let teachers = JSON.parse(localStorage.getItem('turkan_teachers_list')) || defaultTeachers;
         let currentLoggedTeacher = JSON.parse(localStorage.getItem('turkan_logged_teacher')) || null;
 
-        // ADMIN SETTINGS (Kart və WhatsApp)
         let defaultAdminSettings = {
             card: "4127 2000 0000 0000",
             phone: "994558586707"
@@ -1050,7 +1126,7 @@
 
             localStorage.setItem('turkan_admin_settings', JSON.stringify(adminSettings));
             updateAdminCardDisplay();
-            showModal("Uğurlu", "Kart və WhatsApp nömrəsi tənzimləmələri yeniləndi!", null, true);
+            showModal("Uğurlu", "Tənzimləmələr yadda saxlandı!", null, true);
         }
 
         function updateAdminCardDisplay() {
@@ -1120,16 +1196,8 @@
 
             const pdfList = document.getElementById('pdf-questions-list');
             pdfList.innerHTML = curExam.questions.map((q, idx) => {
-                let imgHtml = '';
-                if (q.imageUrl) {
-                    imgHtml = `<div class="my-2"><img src="${q.imageUrl}" class="max-h-48 rounded border border-slate-200"></div>`;
-                }
-
-                let audioNote = '';
-                if (q.audioUrl) {
-                    audioNote = `<div class="my-1 text-xs font-bold text-amber-700">🎵 [Dinləmə mətni mövcuddur]</div>`;
-                }
-
+                let imgHtml = q.imageUrl ? `<div class="my-2"><img src="${q.imageUrl}" class="max-h-48 rounded border border-slate-200"></div>` : '';
+                let audioNote = q.audioUrl ? `<div class="my-1 text-xs font-bold text-amber-700">🎵 [Dinləmə mətni mövcuddur]</div>` : '';
                 let optionsHtml = '';
                 if (q.type === 'closed') {
                     optionsHtml = `
@@ -1146,12 +1214,10 @@
                 }
 
                 return `
-                    <div class="p-4 border border-slate-200 rounded-lg space-y-1 page-break-inside-avoid">
+                    <div class="p-4 border border-slate-200 rounded-lg space-y-1">
                         <div class="text-xs font-bold text-indigo-700">Sual ${idx + 1} (${escapeHtml(q.category || '')})</div>
                         <div class="text-sm font-semibold leading-relaxed plain-text-content">${escapeHtml(q.text)}</div>
-                        ${imgHtml}
-                        ${audioNote}
-                        ${optionsHtml}
+                        ${imgHtml} ${audioNote} ${optionsHtml}
                     </div>
                 `;
             }).join('');
@@ -1160,11 +1226,11 @@
             element.classList.remove('hidden');
 
             const opt = {
-                margin:       0.4,
-                filename:     `${curExam.title}_Sinaq.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+                margin: 0.4,
+                filename: `${curExam.title}_Sinaq.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
             };
 
             html2pdf().set(opt).from(element).save().then(() => {
@@ -1179,9 +1245,7 @@
 
         function getFilteredExamsForCurrentTeacher() {
             if (!currentLoggedTeacher) return [];
-            if (currentLoggedTeacher.isSuperAdmin) {
-                return exams;
-            }
+            if (currentLoggedTeacher.isSuperAdmin) return exams;
             return exams.filter(e => e.author === currentLoggedTeacher.name);
         }
 
@@ -1200,7 +1264,6 @@
         function renderAdminExamSelector() {
             const selectEl = document.getElementById('admin-exam-select');
             if (!selectEl) return;
-
             const myExams = getFilteredExamsForCurrentTeacher();
 
             if (myExams.length === 0) {
@@ -1279,7 +1342,6 @@
                         </tr>
                     `;
                 }).join('');
-
             } else {
                 dashBox.classList.add('hidden');
                 if(cardBox) cardBox.classList.add('hidden');
@@ -1292,7 +1354,7 @@
                 t.isApproved = true;
                 saveTeachersToStorage();
                 renderSuperAdminDashboard();
-                showModal("Uğurlu", `${tName} müəllim hesabı təsdiqləndi!`, null, true);
+                showModal("Uğurlu", `${tName} müəllim hesabı təsdiqləndi! Artıq daxil ola bilər.`, null, true);
             }
         }
 
@@ -1323,10 +1385,10 @@
             const subject = document.getElementById('reg-teacher-subject').value.trim();
             const pass = document.getElementById('reg-teacher-pass').value.trim();
 
-            if (!name || !pass || !phone) return;
+            if (!name || !pass || !phone || !subject) return;
 
             if (teachers.some(t => t.name.toLowerCase() === name.toLowerCase())) {
-                showModal("Xəbərdarlıq", "Bu adda müəllim artıq qeydiyyatdan keçib.", null, true);
+                showModal("Xəbərdarlıq", "Bu adda müəllim artıq mövcuddur.", null, true);
                 return;
             }
 
@@ -1342,11 +1404,11 @@
             saveTeachersToStorage();
             closeTeacherRegisterModal();
 
-            const msg = `Müəllim Qeydiyyat Sorğusu:\nAd Soyad: ${name}\nTel: ${phone}\nFənn: ${subject}\nTələb olunan Şifrə: ${pass}`;
+            const msg = `Yeni Müəllim Qeydiyyat Sorğusu:\nAd Soyad: ${name}\nTelefon: ${phone}\nİxtisas: ${subject}\nŞifrə: ${pass}`;
             const targetPhone = adminSettings.phone || "994558586707";
             const waUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
             
-            showModal("Sorğu Göndərildi", "Qeydiyyat sorğunuz qəbul edildi. Təsdiqlənmək üçün WhatsApp mesajı açılır...", function(){
+            showModal("Sorğu Göndərildi", "Qeydiyyat sorğunuz qəbul olundu. Təsdiq üçün WhatsApp mesajı açılır...", function(){
                 window.open(waUrl, '_blank');
             }, true);
         }
@@ -1373,7 +1435,7 @@
             if (!name || !pass) return;
 
             if (teachers.some(t => t.name.toLowerCase() === name.toLowerCase())) {
-                showModal("Xəbərdarlıq", "Bu adda müəllim artıq mövcuddur.", null, true);
+                showModal("Xəbərdarlıq", "Bu adda müəllim mövcuddur.", null, true);
                 return;
             }
 
@@ -1381,7 +1443,7 @@
             saveTeachersToStorage();
             closeAddTeacherModal();
             renderSuperAdminDashboard();
-            showModal("Uğurlu", `${name} müəllim hesabı yaradıldı və təsdiqləndi!`, null, true);
+            showModal("Uğurlu", `${name} müəllim hesabı yaradıldı!`, null, true);
         }
 
         function deleteTeacher(tName) {
@@ -1400,7 +1462,7 @@
             if (badgeEl) badgeEl.textContent = `${exams.length} Sınaq`;
 
             if (exams.length === 0) {
-                gridEl.innerHTML = `<div class="col-span-full bg-white rounded-2xl p-8 text-center border border-slate-200"><p class="text-xs text-slate-400">Hələ sınaq yoxdur.</p></div>`;
+                gridEl.innerHTML = `<div class="col-span-full bg-white rounded-2xl p-8 text-center border border-slate-200"><p class="text-xs text-slate-400">Hələ ki sınaq yoxdur.</p></div>`;
                 return;
             }
 
@@ -1429,10 +1491,7 @@
                                 ${escapeHtml(exam.title)}
                             </h4>
 
-                            ${subjectsText ? `
-                            <div class="text-xs font-bold text-indigo-600 bg-indigo-50/50 p-2 rounded-xl border border-indigo-100">
-                                Fənlər: ${escapeHtml(subjectsText)}
-                            </div>` : ''}
+                            ${subjectsText ? `<div class="text-xs font-bold text-indigo-600 bg-indigo-50/50 p-2 rounded-xl border border-indigo-100">Fənlər: ${escapeHtml(subjectsText)}</div>` : ''}
 
                             <div class="flex items-center justify-between gap-2 flex-wrap">
                                 <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-lg border border-purple-100">
@@ -1481,9 +1540,7 @@
 
             const priceDisplay = document.getElementById('modal-exam-price-display');
             const priceVal = parseFloat(targetExam.price) || 0;
-            if (priceDisplay) {
-                priceDisplay.textContent = priceVal > 0 ? `${priceVal} AZN` : 'Ödənişsiz';
-            }
+            if (priceDisplay) priceDisplay.textContent = priceVal > 0 ? `${priceVal} AZN` : 'Ödənişsiz';
 
             const receiptBox = document.getElementById('receipt-upload-box');
             if (priceVal > 0) {
@@ -1525,28 +1582,26 @@
                 const isAllowed = (targetExam.allowedUsers || []).includes(fullName.toLowerCase());
 
                 if (isAlreadyTaken && !isAllowed) {
-                    showModal("Giriş Məhdudlaşdırıldı", "Siz artıq bu sınaqda iştirak etmisiniz! Təkrar daxil olmaq üçün müəllimdən/admimdən icazə almalısınız.", null, true);
+                    showModal("Giriş Məhdudlaşdırıldı", "Siz artıq bu sınaqda iştirak etmisiniz! Təkrar giriş üçün müəllimdən icazə almalısınız.", null, true);
                     return;
                 }
             }
 
             const priceVal = parseFloat(targetExam ? targetExam.price : 0) || 0;
             if (priceVal > 0 && !receiptFile) {
-                alert("Lütfən ödəniş qəbzinizin şəklini yükləyin!");
+                alert("Lütfən ödəniş çeki şəklini yükləyin!");
                 return;
             }
 
-            if (targetExam && targetExam.password) {
-                if (inputPass !== targetExam.password) {
-                    document.getElementById('student-pass-error').classList.remove('hidden');
-                    return;
-                }
+            if (targetExam && targetExam.password && inputPass !== targetExam.password) {
+                document.getElementById('student-pass-error').classList.remove('hidden');
+                return;
             }
 
             currentStudentName = fullName;
 
             if (priceVal > 0 && receiptFile) {
-                const msg = `Yeni Ödəniş Çeki Yükləndi:\nŞagird: ${fullName}\nSınaq: ${targetExam.title}\nMəbləğ: ${priceVal} AZN`;
+                const msg = `Yeni Ödəniş Çeki:\nŞagird: ${fullName}\nSınaq: ${targetExam.title}\nMəbləğ: ${priceVal} AZN`;
                 const targetPhone = adminSettings.phone || "994558586707";
                 const waUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
                 
@@ -1566,12 +1621,10 @@
             if (targetExam) {
                 if (!targetExam.allowedUsers) targetExam.allowedUsers = [];
                 const cleanName = studentName.toLowerCase();
-                if (!targetExam.allowedUsers.includes(cleanName)) {
-                    targetExam.allowedUsers.push(cleanName);
-                }
+                if (!targetExam.allowedUsers.includes(cleanName)) targetExam.allowedUsers.push(cleanName);
                 saveExamsToStorage();
                 renderStudentResultsTable();
-                showModal("Uğurlu", `${studentName} üçün təkrar giriş icazəsi verildi! İndi şagird sınağa daxil ola bilər.`, null, true);
+                showModal("Uğurlu", `${studentName} üçün təkrar giriş icazəsi verildi!`, null, true);
             }
         }
 
@@ -1590,11 +1643,7 @@
             badge.textContent = `Cəmi İştirakçı: ${results.length} Nəfər`;
 
             if (results.length === 0) {
-                tableBody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="p-4 text-center text-slate-400 italic">Hələ ki heç bir şagird bu sınaqda iştirak etməyib.</td>
-                    </tr>
-                `;
+                tableBody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400 italic">Hələ ki heç bir şagird yoxdur.</td></tr>`;
                 return;
             }
 
@@ -1605,11 +1654,7 @@
                         <td class="p-3 font-bold text-slate-400">${idx + 1}</td>
                         <td class="p-3 font-extrabold text-slate-800">${escapeHtml(res.name)}</td>
                         <td class="p-3 font-black ${res.score >= 50 ? 'text-emerald-600' : 'text-rose-600'}">${res.score}%</td>
-                        <td class="p-3 font-semibold">
-                            <span class="text-emerald-600">${res.correct} Düz</span> / 
-                            <span class="text-rose-600">${res.wrong} Səhv</span> / 
-                            <span class="text-amber-600">${res.unanswered} Boş</span>
-                        </td>
+                        <td class="p-3 font-semibold"><span class="text-emerald-600">${res.correct} Düz</span> / <span class="text-rose-600">${res.wrong} Səhv</span> / <span class="text-amber-600">${res.unanswered} Boş</span></td>
                         <td class="p-3 text-slate-500">${res.date}</td>
                         <td class="p-3 text-center">
                             <button onclick="allowReEntry('${curExam.id}', '${escapeHtml(res.name)}')" 
@@ -1637,7 +1682,7 @@
             if (!listEl) return;
 
             if (questionsList.length === 0) {
-                listEl.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-4">Bu sınaq üçün daxil edilmiş sual yoxdur.</p>`;
+                listEl.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-4">Bu sınaqda sual yoxdur.</p>`;
                 return;
             }
 
@@ -1647,8 +1692,6 @@
                         ${q.category ? `<span class="font-bold text-indigo-600 me-1">[${escapeHtml(q.category)}]</span>` : ''}
                         <span class="font-bold text-slate-800 me-1">Sual ${idx + 1}:</span>
                         <span class="text-slate-600 truncate">${escapeHtml(q.text.substring(0, 30))}${q.text.length > 30 ? '...' : ''}</span>
-                        ${q.audioUrl ? '<span class="ms-1 px-1.5 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-bold rounded"><i class="fa-solid fa-music"></i> Audio</span>' : ''}
-                        ${q.type === 'open' ? '<span class="ms-1 px-1.5 py-0.5 bg-indigo-100 text-indigo-800 text-[10px] font-bold rounded">Açıq</span>' : ''}
                     </div>
                     <div class="flex items-center space-x-1 shrink-0">
                         <button onclick="editQuestion('${q.id}')" class="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition"><i class="fa-solid fa-pen"></i></button>
@@ -1676,21 +1719,15 @@
             if (!curExam) return;
 
             const editId = document.getElementById('edit-q-id').value;
-            const categoryInput = document.getElementById('input-category');
-            const category = categoryInput ? categoryInput.value.trim() : '';
+            const category = document.getElementById('input-category').value.trim();
             const qType = document.getElementById('input-q-type').value;
             const imageUrl = document.getElementById('input-image-url').value;
             const audioUrl = document.getElementById('input-audio-url').value;
             const text = document.getElementById('input-text').value.trim();
             const explanation = document.getElementById('input-explanation').value.trim();
 
-            if (!text) {
-                showModal("Xəbərdarlıq", "Lütfən sualın mətnini daxil edin.", null, true);
-                return;
-            }
-
-            if (!category) {
-                showModal("Xəbərdarlıq", "Lütfən fənn adını daxil edin.", null, true);
+            if (!text || !category) {
+                showModal("Xəbərdarlıq", "Fənn adı və sual mətni daxil edilməlidir.", null, true);
                 return;
             }
 
@@ -1700,7 +1737,7 @@
             if (qType === 'open') {
                 correctOpt = document.getElementById('input-open-correct').value.trim();
                 if (!correctOpt) {
-                    showModal("Xəbərdarlıq", "Lütfən açıq sualın düzgün cavabını daxil edin.", null, true);
+                    showModal("Xəbərdarlıq", "Açıq sualın düzgün cavabını yazın.", null, true);
                     return;
                 }
             } else {
@@ -1711,50 +1748,22 @@
                     D: document.getElementById('opt-D').value.trim(),
                     E: document.getElementById('opt-E').value.trim()
                 };
-
                 const selectedRadio = document.querySelector('input[name="correct-opt"]:checked');
-                if (!selectedRadio) {
-                    showModal("Xəbərdarlıq", "Lütfən düzgün variantı seçin.", null, true);
-                    return;
-                }
+                if (!selectedRadio) return;
                 correctOpt = selectedRadio.value;
             }
 
             if (!curExam.questions) curExam.questions = [];
-
             if (!curExam.subjects) curExam.subjects = [];
-            if (category && !curExam.subjects.includes(category)) {
-                curExam.subjects.push(category);
-            }
+            if (category && !curExam.subjects.includes(category)) curExam.subjects.push(category);
 
             if (editId) {
                 const idx = curExam.questions.findIndex(q => q.id === editId);
                 if (idx !== -1) {
-                    curExam.questions[idx] = {
-                        id: editId,
-                        type: qType,
-                        category: category,
-                        imageUrl,
-                        audioUrl,
-                        text,
-                        options,
-                        correct: correctOpt,
-                        explanation
-                    };
+                    curExam.questions[idx] = { id: editId, type: qType, category, imageUrl, audioUrl, text, options, correct: correctOpt, explanation };
                 }
             } else {
-                const newObj = {
-                    id: 'q_' + Date.now(),
-                    type: qType,
-                    category: category,
-                    imageUrl,
-                    audioUrl,
-                    text,
-                    options,
-                    correct: correctOpt,
-                    explanation
-                };
-                curExam.questions.push(newObj);
+                curExam.questions.push({ id: 'q_' + Date.now(), type: qType, category, imageUrl, audioUrl, text, options, correct: correctOpt, explanation });
             }
 
             saveExamsToStorage();
@@ -1762,37 +1771,26 @@
             renderAdminQuestionsList();
             renderAdminExamSelector();
             renderStudentExamsGrid();
-            showModal("Uğurlu", `Sual "${category}" fənni üzrə saxlanıldı!`, null, true);
+            showModal("Uğurlu", "Sual yadda saxlanıldı!", null, true);
         }
 
         function handleImageUpload(e) {
             const file = e.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
             reader.onload = function(evt) {
                 const img = new Image();
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
-                    let width = img.width;
-                    let height = img.height;
+                    let width = img.width, height = img.height;
                     const maxDim = 800;
-
                     if (width > maxDim || height > maxDim) {
-                        if (width > height) {
-                            height = Math.round((height * maxDim) / width);
-                            width = maxDim;
-                        } else {
-                            width = Math.round((width * maxDim) / height);
-                            height = maxDim;
-                        }
+                        if (width > height) { height = Math.round((height * maxDim) / width); width = maxDim; }
+                        else { width = Math.round((width * maxDim) / height); height = maxDim; }
                     }
-
-                    canvas.width = width;
-                    canvas.height = height;
+                    canvas.width = width; canvas.height = height;
                     ctx.drawImage(img, 0, 0, width, height);
-
                     const compressedUrl = canvas.toDataURL('image/jpeg', 0.7);
                     document.getElementById('input-image-url').value = compressedUrl;
                     document.getElementById('image-preview').src = compressedUrl;
@@ -1813,18 +1811,14 @@
         function handleAudioUpload(e) {
             const file = e.target.files[0];
             if (!file) return;
-
             if (file.size > 5 * 1024 * 1024) {
-                showModal("Xəbərdarlıq", "Səs faylının həcmi 5 MB-dan çox olmamalıdır.", null, true);
-                document.getElementById('input-audio-file').value = '';
+                showModal("Xəbərdarlıq", "Audio həcmi 5MB-dan çox ola bilməz.", null, true);
                 return;
             }
-
             const reader = new FileReader();
             reader.onload = function(evt) {
-                const audioDataUrl = evt.target.result;
-                document.getElementById('input-audio-url').value = audioDataUrl;
-                document.getElementById('audio-preview').src = audioDataUrl;
+                document.getElementById('input-audio-url').value = evt.target.result;
+                document.getElementById('audio-preview').src = evt.target.result;
                 document.getElementById('audio-preview-container').classList.remove('hidden');
             };
             reader.readAsDataURL(file);
@@ -1864,17 +1858,13 @@
                 document.getElementById('input-image-url').value = q.imageUrl;
                 document.getElementById('image-preview').src = q.imageUrl;
                 document.getElementById('image-preview-container').classList.remove('hidden');
-            } else {
-                removeQuestionImage();
-            }
+            } else { removeQuestionImage(); }
 
             if (q.audioUrl) {
                 document.getElementById('input-audio-url').value = q.audioUrl;
                 document.getElementById('audio-preview').src = q.audioUrl;
                 document.getElementById('audio-preview-container').classList.remove('hidden');
-            } else {
-                removeQuestionAudio();
-            }
+            } else { removeQuestionAudio(); }
 
             document.getElementById('input-text').value = q.text || '';
             if (qType === 'open') {
@@ -1899,10 +1889,7 @@
                 const curExam = getActiveAdminExam();
                 if (!curExam) return;
                 curExam.questions = curExam.questions.filter(q => q.id !== qId);
-                
-                const remainingSubjects = [...new Set(curExam.questions.map(q => q.category).filter(Boolean))];
-                curExam.subjects = remainingSubjects;
-
+                curExam.subjects = [...new Set(curExam.questions.map(q => q.category).filter(Boolean))];
                 saveExamsToStorage();
                 renderAdminQuestionsList();
                 renderAdminExamSelector();
@@ -1913,7 +1900,7 @@
         function startExam(examId) {
             const targetExam = exams.find(e => e.id === examId);
             if (!targetExam || !targetExam.questions || targetExam.questions.length === 0) {
-                showModal("Xəbərdarlıq", "Bu sınaqda hələ ki heç bir sual yoxdur.", null, true);
+                showModal("Xəbərdarlıq", "Bu sınaqda sual yoxdur.", null, true);
                 return;
             }
 
@@ -1922,7 +1909,6 @@
             currentQuestionIdx = 0;
             studentAnswers = {};
             flaggedQuestions.clear();
-
             timeRemaining = (currentExam.duration || 180) * 60;
 
             document.getElementById('student-landing-view').classList.add('hidden');
@@ -1934,7 +1920,6 @@
             document.getElementById('header-timer-section').classList.add('flex');
             document.getElementById('finish-exam-btn').classList.remove('hidden');
             document.getElementById('header-sub-title').textContent = currentExam.title;
-
             document.getElementById('q-author-name').textContent = currentExam.author || 'Türkan Əliyeva';
 
             startTimer();
@@ -1948,7 +1933,6 @@
             timerInterval = setInterval(() => {
                 timeRemaining--;
                 updateTimerDisplay();
-
                 if (timeRemaining <= 0) {
                     clearInterval(timerInterval);
                     finishExam(true);
@@ -1957,28 +1941,11 @@
         }
 
         function updateTimerDisplay() {
-            const hours = Math.floor(timeRemaining / 3600);
-            const minutes = Math.floor((timeRemaining % 3600) / 60);
+            const minutes = Math.floor(timeRemaining / 60);
             const seconds = timeRemaining % 60;
-            
-            let display = "";
-            if (hours > 0) {
-                display = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            } else {
-                display = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            }
-
+            const display = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             const timerEl = document.getElementById('timer-display');
-            if (timerEl) {
-                timerEl.textContent = display;
-                if (timeRemaining <= 300) {
-                    timerEl.classList.remove('text-emerald-400');
-                    timerEl.classList.add('text-rose-400');
-                } else {
-                    timerEl.classList.remove('text-rose-400');
-                    timerEl.classList.add('text-emerald-400');
-                }
-            }
+            if (timerEl) timerEl.textContent = display;
         }
 
         function renderCurrentQuestion() {
@@ -1986,40 +1953,25 @@
             const q = questions[currentQuestionIdx];
 
             document.getElementById('q-number-badge').textContent = `Sual ${currentQuestionIdx + 1} / ${questions.length}`;
-            
             const catTag = document.getElementById('q-category-tag');
             if (q.category) {
                 catTag.textContent = `Fənn: ${q.category}` + (q.type === 'open' ? ' • Açıq Sual' : '');
                 catTag.classList.remove('hidden');
-            } else {
-                catTag.classList.add('hidden');
-            }
+            } else { catTag.classList.add('hidden'); }
 
             const audioBox = document.getElementById('audio-container');
             if (q.audioUrl) {
                 audioBox.innerHTML = `
                     <div class="p-3.5 bg-amber-50 rounded-2xl border border-amber-200 space-y-1.5">
-                        <div class="text-xs font-bold text-amber-800 flex items-center gap-2">
-                            <i class="fa-solid fa-volume-high text-amber-600 animate-pulse"></i>
-                            <span>Dinləmə Mətni (Səsli Fayl):</span>
-                        </div>
-                        <audio controls class="w-full h-9">
-                            <source src="${q.audioUrl}">
-                        </audio>
+                        <div class="text-xs font-bold text-amber-800"><i class="fa-solid fa-volume-high me-1"></i> Dinləmə Mətni:</div>
+                        <audio controls class="w-full h-9"><source src="${q.audioUrl}"></audio>
                     </div>
                 `;
                 audioBox.classList.remove('hidden');
-            } else {
-                audioBox.classList.add('hidden');
-            }
+            } else { audioBox.classList.add('hidden'); }
 
             const textEl = document.getElementById('question-text');
-            
-            let imgHtml = '';
-            if (q.imageUrl) {
-                imgHtml = `<div class="my-4 text-center"><img src="${q.imageUrl}" alt="Sual Şəkli" class="max-h-72 rounded-2xl shadow-sm border border-slate-200 inline-block object-contain pointer-events-none"></div>`;
-            }
-
+            let imgHtml = q.imageUrl ? `<div class="my-4 text-center"><img src="${q.imageUrl}" class="max-h-72 rounded-2xl shadow-sm border border-slate-200 inline-block object-contain pointer-events-none"></div>` : '';
             textEl.innerHTML = escapeHtml(q.text) + imgHtml;
 
             const optionsContainer = document.getElementById('options-container');
@@ -2040,25 +1992,10 @@
                     const isSelected = userSelected === key;
                     return `
                         <div onclick="selectOption('${q.id}', '${key}')" 
-                            class="p-4 rounded-xl border-2 cursor-pointer transition flex items-center justify-between group ${
-                                isSelected 
-                                    ? 'border-indigo-600 bg-indigo-50/60 shadow-sm' 
-                                    : 'border-slate-200 hover:border-slate-300 bg-white'
-                            }">
+                            class="p-4 rounded-xl border-2 cursor-pointer transition flex items-center justify-between group ${isSelected ? 'border-indigo-600 bg-indigo-50/60 shadow-sm' : 'border-slate-200 hover:border-slate-300 bg-white'}">
                             <div class="flex items-center space-x-3">
-                                <span class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition ${
-                                    isSelected 
-                                        ? 'bg-indigo-600 text-white shadow' 
-                                        : 'bg-slate-100 text-slate-600 group-hover:bg-slate-200'
-                                }">
-                                    ${key}
-                                </span>
+                                <span class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600'}">${key}</span>
                                 <span class="text-xs sm:text-sm font-medium text-slate-800 plain-text-content">${escapeHtml(q.options ? q.options[key] : '')}</span>
-                            </div>
-                            <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                                isSelected ? 'border-indigo-600 bg-indigo-600' : 'border-slate-300'
-                            }">
-                                ${isSelected ? '<i class="fa-solid fa-check text-[10px] text-white"></i>' : ''}
                             </div>
                         </div>
                     `;
@@ -2066,9 +2003,7 @@
             }
 
             updateFlagButtonState();
-
             document.getElementById('prev-btn').disabled = currentQuestionIdx === 0;
-            document.getElementById('prev-btn').classList.toggle('opacity-50', currentQuestionIdx === 0);
 
             const isLast = currentQuestionIdx === questions.length - 1;
             const nextBtn = document.getElementById('next-btn');
@@ -2091,11 +2026,8 @@
 
         function selectOpenOption(qId, val) {
             val = val.trim();
-            if (val) {
-                studentAnswers[qId] = val;
-            } else {
-                delete studentAnswers[qId];
-            }
+            if (val) studentAnswers[qId] = val;
+            else delete studentAnswers[qId];
             updateAnsweredCounter();
             renderQuestionGrid();
         }
@@ -2103,13 +2035,8 @@
         function toggleFlagCurrentQuestion() {
             if (!questions || questions.length === 0) return;
             const qId = questions[currentQuestionIdx].id;
-
-            if (flaggedQuestions.has(qId)) {
-                flaggedQuestions.delete(qId);
-            } else {
-                flaggedQuestions.add(qId);
-            }
-
+            if (flaggedQuestions.has(qId)) flaggedQuestions.delete(qId);
+            else flaggedQuestions.add(qId);
             updateFlagButtonState();
             renderQuestionGrid();
         }
@@ -2118,25 +2045,14 @@
             if (!questions || questions.length === 0) return;
             const qId = questions[currentQuestionIdx].id;
             const isFlagged = flaggedQuestions.has(qId);
-
-            const flagIcon = document.getElementById('flag-icon');
-            const flagText = document.getElementById('flag-text');
-
-            if (isFlagged) {
-                flagIcon.className = 'fa-solid fa-bookmark text-amber-500 text-sm';
-                flagText.textContent = 'Bayraqlanıb';
-            } else {
-                flagIcon.className = 'fa-regular fa-bookmark text-sm';
-                flagText.textContent = 'Yadda saxla';
-            }
+            document.getElementById('flag-icon').className = isFlagged ? 'fa-solid fa-bookmark text-amber-500 text-sm' : 'fa-regular fa-bookmark text-sm';
+            document.getElementById('flag-text').textContent = isFlagged ? 'Bayraqlanıb' : 'Yadda saxla';
         }
 
         function updateAnsweredCounter() {
             const count = Object.keys(studentAnswers).length;
             const counterEl = document.getElementById('answered-counter');
-            if (counterEl) {
-                counterEl.textContent = `${count} Cavablanıb`;
-            }
+            if (counterEl) counterEl.textContent = `${count} Cavablanıb`;
         }
 
         function renderQuestionGrid() {
@@ -2149,21 +2065,11 @@
                 const isFlagged = flaggedQuestions.has(q.id);
 
                 let btnStyle = 'bg-slate-100 text-slate-700 hover:bg-slate-200 border-slate-200';
+                if (isCurrent) btnStyle = 'bg-indigo-600 text-white font-black shadow-md border-indigo-700';
+                else if (isAnswered) btnStyle = 'bg-emerald-500 text-white font-bold border-emerald-600';
+                else if (isFlagged) btnStyle = 'bg-amber-400 text-slate-900 font-bold border-amber-500';
 
-                if (isCurrent) {
-                    btnStyle = 'bg-indigo-600 text-white font-black shadow-md border-indigo-700';
-                } else if (isAnswered) {
-                    btnStyle = 'bg-emerald-500 text-white font-bold border-emerald-600';
-                } else if (isFlagged) {
-                    btnStyle = 'bg-amber-400 text-slate-900 font-bold border-amber-500';
-                }
-
-                return `
-                    <button onclick="jumpToQuestion(${idx})" 
-                        class="w-full h-10 rounded-xl text-xs flex items-center justify-center transition border ${btnStyle}">
-                        ${idx + 1}
-                    </button>
-                `;
+                return `<button onclick="jumpToQuestion(${idx})" class="w-full h-10 rounded-xl text-xs flex items-center justify-center transition border ${btnStyle}">${idx + 1}</button>`;
             }).join('');
         }
 
@@ -2181,40 +2087,21 @@
         }
 
         function confirmFinishExam() {
-            showModal(
-                "Sınağı Bitir",
-                "Sınağı bitirmək istədiyinizdən əminsiniz? Cavablarınız təhlil ediləcək.",
-                function() {
-                    finishExam(false);
-                },
-                false,
-                "Təsdiqlə",
-                "Ləğv Et"
-            );
+            showModal("Sınağı Bitir", "Sınağı bitirmək istədiyinizdən əminsiniz?", () => finishExam(false), false, "Təsdiqlə", "Ləğv Et");
         }
 
         function finishExam(isTimeout = false) {
             if (timerInterval) clearInterval(timerInterval);
 
-            let correctCount = 0;
-            let wrongCount = 0;
-            let unansweredCount = 0;
-
+            let correctCount = 0, wrongCount = 0, unansweredCount = 0;
             questions.forEach(q => {
                 const ans = studentAnswers[q.id];
-                if (ans === undefined || String(ans).trim() === '') {
-                    unansweredCount++;
-                } else if (q.type === 'open') {
-                    if (String(ans).trim().toLowerCase() === String(q.correct).trim().toLowerCase()) {
-                        correctCount++;
-                    } else {
-                        wrongCount++;
-                    }
-                } else if (ans === q.correct) {
-                    correctCount++;
-                } else {
-                    wrongCount++;
-                }
+                if (ans === undefined || String(ans).trim() === '') unansweredCount++;
+                else if (q.type === 'open') {
+                    if (String(ans).trim().toLowerCase() === String(q.correct).trim().toLowerCase()) correctCount++;
+                    else wrongCount++;
+                } else if (ans === q.correct) correctCount++;
+                else wrongCount++;
             });
 
             const scorePercent = questions.length > 0 ? Math.round((correctCount / questions.length) * 100) : 0;
@@ -2232,7 +2119,6 @@
                     unanswered: unansweredCount,
                     date: formattedDate
                 });
-
                 saveExamsToStorage();
             }
 
@@ -2249,139 +2135,38 @@
             const authorName = currentExam ? (currentExam.author || 'Türkan Əliyeva') : 'Türkan Əliyeva';
             document.getElementById('teacher-feedback-header').textContent = `${authorName} Müəllimdən Xüsusi Qeyd`;
 
-            let feedbackMsg = "";
-            if (scorePercent >= 90) {
-                feedbackMsg = `Halaldı sənə! Səni yüksək yerlərdə görəcəyimə əminəm! 🌟 - ${authorName}`;
-            } else if (scorePercent >= 50) {
-                feedbackMsg = `Üzərində çox çalış, mən sənə inanıram, sənin potensialın var! 💪 - ${authorName}`;
-            } else if (scorePercent >= 20) {
-                feedbackMsg = `Mən sənə inanıram axı, belə adi səhvliklərin səni ruhdan salmasına icazə vermə! ❤️ - ${authorName}`;
-            } else {
-                feedbackMsg = `Çox çalış, bu nəticəni sənə yaraşdırmıram! 📚 - ${authorName}`;
-            }
-
-            const feedbackEl = document.getElementById('teacher-feedback-text');
-            if (feedbackEl) {
-                feedbackEl.textContent = feedbackMsg;
-            }
+            let feedbackMsg = scorePercent >= 90 ? `Halaldı sənə! Səni yüksək yerlərdə görəcəyimə əminəm! 🌟 - ${authorName}` :
+                              scorePercent >= 50 ? `Üzərində çox çalış, mən sənə inanıram! 💪 - ${authorName}` :
+                              `Çox çalış, bu nəticəni sənə yaraşdırmıram! 📚 - ${authorName}`;
+            document.getElementById('teacher-feedback-text').textContent = feedbackMsg;
 
             renderDetailedResults();
-
-            if (isTimeout) {
-                showModal("Vaxt Bitti!", "Müəyyən olunmuş sınaq müddəti başa çatdı. Nəticələriniz avtomatik hesablandı.", null, true);
-            }
+            if (isTimeout) showModal("Vaxt Bitti!", "Sınaq müddəti başa çatdı.", null, true);
         }
 
         function renderDetailedResults() {
             const container = document.getElementById('results-details-container');
-
             container.innerHTML = questions.map((q, idx) => {
                 const userAns = studentAnswers[q.id];
                 const isUnanswered = userAns === undefined || String(userAns).trim() === '';
-                
-                let isCorrect = false;
-                if (!isUnanswered) {
-                    if (q.type === 'open') {
-                        isCorrect = String(userAns).trim().toLowerCase() === String(q.correct).trim().toLowerCase();
-                    } else {
-                        isCorrect = userAns === q.correct;
-                    }
-                }
+                let isCorrect = !isUnanswered && (q.type === 'open' ? String(userAns).trim().toLowerCase() === String(q.correct).trim().toLowerCase() : userAns === q.correct);
 
-                let statusBadge = '';
-                let borderClass = '';
+                let statusBadge = isUnanswered ? `<span class="px-2.5 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-lg">Cavabsız</span>` :
+                                  isCorrect ? `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-lg">Düzgün</span>` :
+                                  `<span class="px-2.5 py-1 bg-rose-100 text-rose-700 text-xs font-bold rounded-lg">Səhv</span>`;
+                let borderClass = isUnanswered ? 'border-amber-200/80 bg-amber-50/20' : isCorrect ? 'border-emerald-200/80 bg-emerald-50/20' : 'border-rose-200/80 bg-rose-50/20';
 
-                if (isUnanswered) {
-                    statusBadge = `<span class="px-2.5 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-lg"><i class="fa-solid fa-minus me-1"></i> Cavabsız</span>`;
-                    borderClass = 'border-amber-200/80 bg-amber-50/20';
-                } else if (isCorrect) {
-                    statusBadge = `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-lg"><i class="fa-solid fa-check me-1"></i> Düzgün</span>`;
-                    borderClass = 'border-emerald-200/80 bg-emerald-50/20';
-                } else {
-                    statusBadge = `<span class="px-2.5 py-1 bg-rose-100 text-rose-700 text-xs font-bold rounded-lg"><i class="fa-solid fa-xmark me-1"></i> Səhv</span>`;
-                    borderClass = 'border-rose-200/80 bg-rose-50/20';
-                }
-
-                let imgHtml = '';
-                if (q.imageUrl) {
-                    imgHtml = `<div class="my-3 text-center"><img src="${q.imageUrl}" alt="Sual Şəkli" class="max-h-56 rounded-xl border border-slate-200 inline-block object-contain pointer-events-none"></div>`;
-                }
-
-                let audioHtml = '';
-                if (q.audioUrl) {
-                    audioHtml = `
-                        <div class="my-2 p-3 bg-amber-50 rounded-xl border border-amber-200 space-y-1">
-                            <span class="text-xs font-bold text-amber-800"><i class="fa-solid fa-music me-1"></i> Dinləmə Mətni:</span>
-                            <audio controls class="w-full h-8"><source src="${q.audioUrl}"></audio>
-                        </div>
-                    `;
-                }
-
-                let optionsDisplayHtml = '';
-                if (q.type === 'open') {
-                    optionsDisplayHtml = `
-                        <div class="p-4 rounded-xl bg-white border border-slate-200 space-y-2 text-xs">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-slate-500">Sizin cavabınız:</span>
-                                <span class="font-black ${isCorrect ? 'text-emerald-600' : 'text-rose-600'}">${escapeHtml(userAns || 'Cavablandırılmayıb')}</span>
-                            </div>
-                            <div class="flex items-center justify-between pt-2 border-t border-slate-100">
-                                <span class="font-bold text-slate-500">Düzgün cavab:</span>
-                                <span class="font-black text-emerald-600">${escapeHtml(q.correct)}</span>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    optionsDisplayHtml = `
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 text-xs">
-                            ${['A', 'B', 'C', 'D', 'E'].map(key => {
-                                const isUserChoice = userAns === key;
-                                const isCorrectOpt = q.correct === key;
-
-                                let itemStyle = 'bg-white border-slate-200 text-slate-600';
-                                if (isCorrectOpt) {
-                                    itemStyle = 'bg-emerald-100/80 border-emerald-300 text-emerald-900 font-bold';
-                                } else if (isUserChoice && !isCorrectOpt) {
-                                    itemStyle = 'bg-rose-100/80 border-rose-300 text-rose-900 font-bold';
-                                }
-
-                                return `
-                                    <div class="p-3 rounded-xl border ${itemStyle} flex items-center justify-between">
-                                        <span class="plain-text-content"><strong>${key})</strong>${escapeHtml(q.options ? q.options[key] : '')}</span>
-                                        ${isCorrectOpt ? '<i class="fa-solid fa-circle-check text-emerald-600 text-sm"></i>' : ''}
-                                        ${isUserChoice && !isCorrectOpt ? '<i class="fa-solid fa-circle-xmark text-rose-600 text-sm"></i>' : ''}
-                                    </div>
-                                `;
-                            }).join('')}
-                        </div>
-                    `;
-                }
+                let imgHtml = q.imageUrl ? `<div class="my-3 text-center"><img src="${q.imageUrl}" class="max-h-56 rounded-xl border border-slate-200 inline-block object-contain pointer-events-none"></div>` : '';
+                let audioHtml = q.audioUrl ? `<div class="my-2 p-3 bg-amber-50 rounded-xl border border-amber-200"><audio controls class="w-full h-8"><source src="${q.audioUrl}"></audio></div>` : '';
 
                 return `
-                    <div class="p-5 sm:p-6 rounded-2xl border ${borderClass} space-y-4">
+                    <div class="p-5 rounded-2xl border ${borderClass} space-y-4">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                            <span class="font-bold text-xs text-slate-500 uppercase tracking-wider">Sual ${idx + 1} ${q.category ? `• ${escapeHtml(q.category)}` : ''}${q.type === 'open' ? ' • Açıq Sual' : ''}</span>
+                            <span class="font-bold text-xs text-slate-500 uppercase">Sual ${idx + 1} ${q.category ? `• ${escapeHtml(q.category)}` : ''}</span>
                             ${statusBadge}
                         </div>
-
-                        <div class="text-sm sm:text-base font-semibold text-slate-900 leading-relaxed plain-text-content">
-                            ${escapeHtml(q.text)}
-                            ${imgHtml}
-                            ${audioHtml}
-                        </div>
-
-                        ${optionsDisplayHtml}
-
-                        ${q.explanation ? `
-                            <div class="mt-3 p-4 bg-white rounded-xl border border-slate-200/80 text-xs text-slate-700 space-y-1">
-                                <div class="font-bold text-indigo-600 flex items-center gap-1.5 mb-1">
-                                    <i class="fa-solid fa-lightbulb"></i> Ətraflı İzah:
-                                </div>
-                                <div class="leading-relaxed plain-text-content">
-                                    ${escapeHtml(q.explanation)}
-                                </div>
-                            </div>
-                        ` : ''}
+                        <div class="text-sm font-semibold text-slate-900 leading-relaxed plain-text-content">${escapeHtml(q.text)}${imgHtml}${audioHtml}</div>
+                        ${q.explanation ? `<div class="p-3 bg-white rounded-xl border text-xs text-slate-700 font-medium"><strong>İzah:</strong> ${escapeHtml(q.explanation)}</div>` : ''}
                     </div>
                 `;
             }).join('');
@@ -2389,37 +2174,19 @@
 
         function goToHome() {
             if (currentExam) {
-                showModal(
-                    "Sınaqdan Çıxış",
-                    "Sınaqdan çıxmaq istəyirsiniz? Qeyd edək ki, sınaq nəticəniz ləğv ediləcək.",
-                    function() {
-                        confirmGoToHome();
-                    },
-                    false,
-                    "Bəli",
-                    "Xeyr"
-                );
-            } else {
-                confirmGoToHome();
-            }
+                showModal("Sınaqdan Çıxış", "Sınaqdan çıxmaq istədiyinizdən əminsiniz? Nəticəniz ləğv ediləcək.", confirmGoToHome, false, "Bəli", "Xeyr");
+            } else { confirmGoToHome(); }
         }
 
         function confirmGoToHome() {
             if (timerInterval) clearInterval(timerInterval);
-            currentExam = null;
-            questions = [];
-            studentAnswers = {};
-            flaggedQuestions.clear();
-
+            currentExam = null; questions = []; studentAnswers = {}; flaggedQuestions.clear();
             document.getElementById('header-timer-section').classList.add('hidden');
             document.getElementById('finish-exam-btn').classList.add('hidden');
-
             document.getElementById('student-landing-view').classList.remove('hidden');
             document.getElementById('admin-view').classList.add('hidden');
             document.getElementById('exam-view').classList.add('hidden');
             document.getElementById('results-view').classList.add('hidden');
-
-            document.getElementById('header-sub-title').textContent = "Müəllimlər: Türkan Əliyeva & Əsma Abbasova";
             renderStudentExamsGrid();
         }
 
@@ -2439,7 +2206,6 @@
             e.preventDefault();
             const selectedName = document.getElementById('login-teacher-select').value;
             const inputPass = document.getElementById('teacher-password-input').value.trim();
-
             const teacherObj = teachers.find(t => t.name === selectedName);
 
             if (teacherObj && teacherObj.pass === inputPass) {
@@ -2449,7 +2215,6 @@
                 }
                 currentLoggedTeacher = teacherObj;
                 localStorage.setItem('turkan_logged_teacher', JSON.stringify(currentLoggedTeacher));
-
                 document.getElementById('admin-auth-modal').classList.add('hidden');
                 showTeacherPanel();
             } else {
@@ -2459,7 +2224,6 @@
 
         function showTeacherPanel() {
             if (!currentLoggedTeacher) return;
-
             if (timerInterval) clearInterval(timerInterval);
             currentExam = null;
 
@@ -2467,7 +2231,6 @@
             document.getElementById('exam-view').classList.add('hidden');
             document.getElementById('results-view').classList.add('hidden');
             document.getElementById('admin-view').classList.remove('hidden');
-
             document.getElementById('header-timer-section').classList.add('hidden');
             document.getElementById('finish-exam-btn').classList.add('hidden');
 
@@ -2477,13 +2240,8 @@
             badge.classList.add('flex');
             document.getElementById('teacher-panel-btn').classList.add('hidden');
 
-            document.getElementById('admin-panel-welcome-title').textContent = `${currentLoggedTeacher.name} — Müəllim Paneli`;
-            document.getElementById('header-sub-title').textContent = `${currentLoggedTeacher.name} (Şəxsi Kabinet)`;
-
             const myExams = getFilteredExamsForCurrentTeacher();
-            if (myExams.length > 0) {
-                activeAdminExamId = myExams[0].id;
-            }
+            if (myExams.length > 0) activeAdminExamId = myExams[0].id;
 
             renderAdminExamSelector();
             renderAdminQuestionsList();
@@ -2495,12 +2253,10 @@
         function logoutTeacher() {
             currentLoggedTeacher = null;
             localStorage.removeItem('turkan_logged_teacher');
-
             document.getElementById('logged-teacher-badge').classList.add('hidden');
             document.getElementById('teacher-panel-btn').classList.remove('hidden');
-
             confirmGoToHome();
-            showModal("Çıxış Olundu", "Hesabınızdan uğurla çıxdınız.", null, true);
+            showModal("Çıxış Olundu", "Hesabdan çıxış edildi.", null, true);
         }
 
         function closeAdminAuthModal() {
@@ -2509,31 +2265,20 @@
 
         function changeAdminPassword() {
             if (!currentLoggedTeacher) return;
-
             const newPass = document.getElementById('new-admin-pass').value.trim();
-            if (!newPass) {
-                showModal("Xəbərdarlıq", "Lütfən yeni şifrəni yazın.", null, true);
-                return;
-            }
-
+            if (!newPass) return;
             currentLoggedTeacher.pass = newPass;
             const idx = teachers.findIndex(t => t.name === currentLoggedTeacher.name);
-            if (idx !== -1) {
-                teachers[idx].pass = newPass;
-            }
-
+            if (idx !== -1) teachers[idx].pass = newPass;
             saveTeachersToStorage();
             localStorage.setItem('turkan_logged_teacher', JSON.stringify(currentLoggedTeacher));
             document.getElementById('new-admin-pass').value = '';
             renderSuperAdminDashboard();
-            showModal("Uğurlu", "Şəxsi şifrəniz uğurla yeniləndi!", null, true);
+            showModal("Uğurlu", "Şifrəniz yeniləndi!", null, true);
         }
 
         function openCreateExamModal() {
             document.getElementById('new-exam-title-input').value = '';
-            document.getElementById('new-exam-price-input').value = 5;
-            document.getElementById('new-exam-duration-input').value = 180;
-            document.getElementById('new-exam-password-input').value = '';
             document.getElementById('create-exam-modal').classList.remove('hidden');
         }
 
@@ -2552,76 +2297,44 @@
 
             const newExam = {
                 id: 'exam_' + Date.now(),
-                title: title,
-                author: currentLoggedTeacher.name,
-                price: price,
-                subjects: [],
-                duration: Math.min(180, Math.max(1, duration)),
-                password: password,
-                questions: [],
-                results: [],
-                allowedUsers: []
+                title, author: currentLoggedTeacher.name, price, subjects: [], duration: Math.min(180, Math.max(1, duration)), password, questions: [], results: [], allowedUsers: []
             };
 
             exams.push(newExam);
             activeAdminExamId = newExam.id;
-
             saveExamsToStorage();
             closeCreateExamModal();
-
             renderAdminExamSelector();
             renderAdminQuestionsList();
             renderStudentExamsGrid();
-            renderStudentResultsTable();
             renderSuperAdminDashboard();
-
-            showModal("Uğurlu", "Yeni sınaq paketi uğurla yaradıldı!", null, true);
+            showModal("Uğurlu", "Yeni sınaq yaradıldı!", null, true);
         }
 
         function editActiveExamDetails() {
             const curExam = getActiveAdminExam();
             if (!curExam) return;
-
-            const newTitle = prompt("Sınağın yeni adını yazın:", curExam.title);
-            if (newTitle !== null && newTitle.trim()) {
-                curExam.title = newTitle.trim();
-            }
-
-            const newPrice = prompt("Sınağın qiymətini yazın (AZN):", curExam.price || 0);
-            if (newPrice !== null) {
-                curExam.price = parseFloat(newPrice) || 0;
-            }
-
-            const newPass = prompt("Sınağın giriş parolunu daxil edin (Parolu silmək üçün boş buraxın):", curExam.password || '');
-            if (newPass !== null) {
-                curExam.password = newPass.trim();
-            }
-
+            const newTitle = prompt("Yeni ad:", curExam.title);
+            if (newTitle) curExam.title = newTitle.trim();
             saveExamsToStorage();
             renderAdminExamSelector();
             renderStudentExamsGrid();
-            renderSuperAdminDashboard();
-            showModal("Uğurlu", "Sınaq tənzimləmələri yeniləndi!", null, true);
         }
 
         function updateActiveExamPassword() {
             const curExam = getActiveAdminExam();
             if (!curExam) return;
-
-            const passVal = document.getElementById('input-exam-password').value.trim();
-            curExam.password = passVal;
-
+            curExam.password = document.getElementById('input-exam-password').value.trim();
             saveExamsToStorage();
             renderAdminExamSelector();
             renderStudentExamsGrid();
-            showModal("Uğurlu", passVal ? "Sınağa kilit/parol tətbiq edildi!" : "Sınağın parolu ləğv edildi (Açıq sınaq)!", null, true);
+            showModal("Uğurlu", "Parol yeniləndi!", null, true);
         }
 
         function deleteActiveExam() {
             const curExam = getActiveAdminExam();
             if (!curExam) return;
-
-            showModal("Sınağı Sil", `"${curExam.title}" sınağını silmək istədiyinizdən əminsiniz?`, function() {
+            showModal("Sınağı Sil", "Bu sınağı silmək istədiyinizdən əminsiniz?", () => {
                 exams = exams.filter(e => e.id !== curExam.id);
                 const remaining = getFilteredExamsForCurrentTeacher();
                 activeAdminExamId = remaining[0] ? remaining[0].id : '';
@@ -2629,7 +2342,6 @@
                 renderAdminExamSelector();
                 renderAdminQuestionsList();
                 renderStudentExamsGrid();
-                renderStudentResultsTable();
                 renderSuperAdminDashboard();
             });
         }
@@ -2645,40 +2357,24 @@
         function clearCurrentExamQuestions() {
             const curExam = getActiveAdminExam();
             if (!curExam) return;
-
-            showModal("Sualları Sil", `"${curExam.title}" sınağındakı bütün sualları silmək istədiyinizdən əminsiniz?`, function() {
+            showModal("Sualları Sil", "Bütün sualları silmək istədiyinizdən əminsiniz?", () => {
                 curExam.questions = [];
                 curExam.subjects = [];
                 saveExamsToStorage();
                 renderAdminQuestionsList();
-                renderAdminExamSelector();
                 renderStudentExamsGrid();
             });
         }
 
-        function switchToStudentLandingView() {
-            confirmGoToHome();
-        }
+        function switchToStudentLandingView() { confirmGoToHome(); }
 
         function showModal(title, message, onConfirm = null, alertOnly = false, confirmText = "Təsdiqlə", cancelText = "Ləğv Et") {
             document.getElementById('modal-title').textContent = title;
             document.getElementById('modal-message').textContent = message;
             pendingConfirmAction = onConfirm;
-
-            const confirmBtn = document.getElementById('modal-confirm-btn');
             const cancelBtn = document.getElementById('modal-cancel-btn');
-
-            if (confirmBtn) confirmBtn.textContent = confirmText;
-            if (cancelBtn) cancelBtn.textContent = cancelText;
-
-            if (alertOnly) {
-                cancelBtn.classList.add('hidden');
-            } else {
-                cancelBtn.classList.remove('hidden');
-            }
-
-            const modal = document.getElementById('custom-modal');
-            modal.classList.remove('hidden');
+            if (alertOnly) cancelBtn.classList.add('hidden'); else cancelBtn.classList.remove('hidden');
+            document.getElementById('custom-modal').classList.remove('hidden');
         }
 
         function closeModal() {
@@ -2687,9 +2383,7 @@
         }
 
         function confirmModalAction() {
-            if (pendingConfirmAction) {
-                pendingConfirmAction();
-            }
+            if (pendingConfirmAction) pendingConfirmAction();
             closeModal();
         }
 
@@ -2704,8 +2398,7 @@
             if (currentLoggedTeacher) {
                 const badge = document.getElementById('logged-teacher-badge');
                 document.getElementById('logged-teacher-name').textContent = currentLoggedTeacher.name;
-                badge.classList.remove('hidden');
-                badge.classList.add('flex');
+                badge.classList.remove('hidden'); badge.classList.add('flex');
                 document.getElementById('teacher-panel-btn').classList.add('hidden');
             }
         };
