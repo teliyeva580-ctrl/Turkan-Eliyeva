@@ -152,7 +152,7 @@
                     </div>
 
                     <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-                        Rəsmi Sınaq İmtahanlarına Xoş Gəlmisiniz!
+                        Rəsmi Sınaq İmtahanlarına Xoş Gelmisiniz!
                     </h2>
 
                     <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -204,7 +204,7 @@
                     </div>
                     <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Onlayn Sınaq Akademiyası - İdarəetmə</h2>
                     <p class="text-slate-300 text-xs sm:text-sm max-w-xl">
-                        Müəllim paneli üzərindən sınaqları idarə edin, fənləri sərbəst yazın, PDF kimi endirin və şagird nəticələrini izləyin.
+                        Müəllim paneli üzərindən sınaqları idarə edin, fənləri və dinləmə mətnlərini (audio) daxil edin, PDF kimi endirin və şagird nəticələrini izləyin.
                     </p>
                 </div>
 
@@ -302,10 +302,10 @@
                     <form id="question-form" onsubmit="handleQuestionFormSubmit(event)" class="space-y-4">
                         <input type="hidden" id="edit-q-id" value="">
 
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Fənnin Adı (Müəllim Özü Yazır)</label>
-                                <input type="text" id="input-category" placeholder="Məs: İnformatika, Riyaziyyat və s." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                <input type="text" id="input-category" placeholder="Məs: İnformatika, İngilis dili və s." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sual Tipi</label>
@@ -314,6 +314,10 @@
                                     <option value="open">Açıq Tipli (Yazılı / Ədəd Cavablı)</option>
                                 </select>
                             </div>
+                        </div>
+
+                        <!-- ŞƏKİL VƏ AUDİO FAYLI YÜKLƏMƏ BÖLMƏSİ -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                             <div>
                                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Şəkil Əlavə Et (Könüllü)</label>
                                 <input type="file" id="input-image-file" accept="image/*" onchange="handleImageUpload(event)" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
@@ -323,8 +327,16 @@
                                     <button type="button" onclick="removeQuestionImage()" class="absolute -top-2 -right-2 bg-rose-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shadow"><i class="fa-solid fa-xmark"></i></button>
                                 </div>
                             </div>
+                            <div>
+                                <label class="block text-xs font-bold text-amber-700 uppercase tracking-wider mb-1.5"><i class="fa-solid fa-music me-1"></i> Dinləmə Mətni (MP3 Audio - Könüllü)</label>
+                                <input type="file" id="input-audio-file" accept="audio/*" onchange="handleAudioUpload(event)" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100">
+                                <input type="hidden" id="input-audio-url" value="">
+                                <div id="audio-preview-container" class="hidden mt-2">
+                                    <audio id="audio-preview" controls class="w-full h-8"></audio>
+                                    <button type="button" onclick="removeQuestionAudio()" class="text-[10px] text-rose-600 font-bold hover:underline mt-1">Səs Faylını Sil</button>
+                                </div>
+                            </div>
                         </div>
-
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sualın Mətni (Standart Mətn / Riyazi Simvollar)</label>
                             <textarea id="input-text" rows="3" placeholder="Sualın mətnini daxil edin..." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
@@ -462,7 +474,8 @@
                 </div>
             </div>
         </div>
-<!-- ================= EXAM VIEW ================= -->
+
+        <!-- ================= EXAM VIEW ================= -->
         <div id="exam-view" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6">
             <div class="lg:col-span-3 space-y-4 flex flex-col justify-between">
                 <div class="bg-white rounded-2xl p-5 sm:p-8 shadow-sm border border-slate-200/80 flex flex-col justify-between min-h-[460px] relative overflow-hidden">
@@ -490,6 +503,9 @@
                                 <span id="flag-text">Yadda saxla</span>
                             </button>
                         </div>
+
+                        <!-- DINLƏMƏ MƏTNİ (AUDIO PLAYER) NÜMAYİŞİ -->
+                        <div id="audio-container" class="hidden mb-4"></div>
 
                         <div id="question-text" class="text-slate-900 font-semibold text-base sm:text-lg leading-relaxed mb-6 space-y-2 plain-text-content">
                         </div>
@@ -556,9 +572,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- ================= RESULTS VIEW ================= -->
+        </div><!-- ================= RESULTS VIEW ================= -->
         <div id="results-view" class="hidden space-y-8 animate-fadeIn">
             <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-slate-200/80 text-center relative overflow-hidden">
                 <div class="max-w-2xl mx-auto space-y-4">
@@ -707,7 +721,9 @@
                 </div>
             </form>
         </div>
-    </div><!-- Admin Auth Password Modal -->
+    </div>
+
+    <!-- Admin Auth Password Modal -->
     <div id="admin-auth-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
             <div class="text-center space-y-2">
@@ -735,9 +751,7 @@
                 </div>
             </form>
         </div>
-    </div>
-
-    <!-- Admin Recovery Modal -->
+    </div><!-- Admin Recovery Modal -->
     <div id="admin-recovery-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100">
             <div class="text-center space-y-2">
@@ -776,7 +790,7 @@
                     <i class="fa-solid fa-folder-plus"></i>
                 </div>
                 <h3 class="text-lg font-bold text-slate-900">Yeni Sınaq Yaradın</h3>
-                <p class="text-xs text-slate-500">Sınağın adını daxil edin. Fənləri sualları daxil edərkən sərbəst yazacaqsınız.</p>
+                <p class="text-xs text-slate-500">Sınağın adını daxil edin. Fənləri və dinləmə mətnlərini sualları daxil edərkən sərbəst yazacaqsınız.</p>
             </div>
             <form onsubmit="handleCreateExamSubmit(event)" class="space-y-3">
                 <div>
@@ -1055,6 +1069,11 @@
                     imgHtml = `<div class="my-2"><img src="${q.imageUrl}" class="max-h-48 rounded border border-slate-200"></div>`;
                 }
 
+                let audioNote = '';
+                if (q.audioUrl) {
+                    audioNote = `<div class="my-1 text-xs font-bold text-amber-700">🎵 [Bu sualda dinləmə fənni üzrə audio fayl mövcuddur]</div>`;
+                }
+
                 let optionsHtml = '';
                 if (q.type === 'closed') {
                     optionsHtml = `
@@ -1075,6 +1094,7 @@
                         <div class="text-xs font-bold text-indigo-700">Sual ${idx + 1} (${escapeHtml(q.category || '')})</div>
                         <div class="text-sm font-semibold leading-relaxed plain-text-content">${escapeHtml(q.text)}</div>
                         ${imgHtml}
+                        ${audioNote}
                         ${optionsHtml}
                     </div>
                 `;
@@ -1094,8 +1114,7 @@
             html2pdf().set(opt).from(element).save().then(() => {
                 element.classList.add('hidden');
             });
-        }
-        function getAdminPass() {
+        }function getAdminPass() {
             return localStorage.getItem('turkan_admin_pass') || 'turkan2025';
         }
 
@@ -1323,8 +1342,9 @@
                     <div class="truncate flex-grow">
                         ${q.category ? `<span class="font-bold text-indigo-600 me-1">[${escapeHtml(q.category)}]</span>` : ''}
                         <span class="font-bold text-slate-800 me-1">Sual ${idx + 1}:</span>
-                        <span class="text-slate-600 truncate">${escapeHtml(q.text.substring(0, 35))}${q.text.length > 35 ? '...' : ''}</span>
-                        ${q.type === 'open' ? '<span class="ms-1 px-1.5 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-bold rounded">Açıq</span>' : ''}
+                        <span class="text-slate-600 truncate">${escapeHtml(q.text.substring(0, 30))}${q.text.length > 30 ? '...' : ''}</span>
+                        ${q.audioUrl ? '<span class="ms-1 px-1.5 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-bold rounded"><i class="fa-solid fa-music"></i> Audio</span>' : ''}
+                        ${q.type === 'open' ? '<span class="ms-1 px-1.5 py-0.5 bg-indigo-100 text-indigo-800 text-[10px] font-bold rounded">Açıq</span>' : ''}
                     </div>
                     <div class="flex items-center space-x-1 shrink-0">
                         <button onclick="editQuestion('${q.id}')" class="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition"><i class="fa-solid fa-pen"></i></button>
@@ -1346,7 +1366,6 @@
             }
         }
 
-        // MÜƏLLİM ÖZ YAZDIĞI FƏNNİ DƏQİQ MƏNİMSƏDİR VƏ SİYAŞIYA ƏLAVƏ EDİR
         function handleQuestionFormSubmit(e) {
             e.preventDefault();
             const curExam = getActiveAdminExam();
@@ -1359,6 +1378,7 @@
             
             const qType = document.getElementById('input-q-type').value;
             const imageUrl = document.getElementById('input-image-url').value;
+            const audioUrl = document.getElementById('input-audio-url').value;
             const text = document.getElementById('input-text').value.trim();
             const explanation = document.getElementById('input-explanation').value.trim();
 
@@ -1413,6 +1433,7 @@
                         type: qType,
                         category: category,
                         imageUrl,
+                        audioUrl,
                         text,
                         options,
                         correct: correctOpt,
@@ -1425,6 +1446,7 @@
                     type: qType,
                     category: category,
                     imageUrl,
+                    audioUrl,
                     text,
                     options,
                     correct: correctOpt,
@@ -1488,12 +1510,40 @@
             document.getElementById('image-preview-container').classList.add('hidden');
         }
 
+        function handleAudioUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (file.size > 5 * 1024 * 1024) {
+                showModal("Xəbərdarlıq", "Səs faylının həcmi 5 MB-dan çox olmamalıdır.", null, true);
+                document.getElementById('input-audio-file').value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const audioDataUrl = evt.target.result;
+                document.getElementById('input-audio-url').value = audioDataUrl;
+                document.getElementById('audio-preview').src = audioDataUrl;
+                document.getElementById('audio-preview-container').classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeQuestionAudio() {
+            document.getElementById('input-audio-file').value = '';
+            document.getElementById('input-audio-url').value = '';
+            document.getElementById('audio-preview').src = '';
+            document.getElementById('audio-preview-container').classList.add('hidden');
+        }
+
         function resetQuestionForm() {
             document.getElementById('question-form').reset();
             document.getElementById('edit-q-id').value = '';
             document.getElementById('input-q-type').value = 'closed';
             toggleQuestionTypeFields('closed');
             removeQuestionImage();
+            removeQuestionAudio();
             document.getElementById('form-title').textContent = 'Yeni Sual Əlavə Et';
             document.getElementById('save-q-btn').innerHTML = `<i class="fa-solid fa-floppy-disk"></i> <span>Sualı Yadda Saxla</span>`;
         }
@@ -1516,6 +1566,14 @@
                 document.getElementById('image-preview-container').classList.remove('hidden');
             } else {
                 removeQuestionImage();
+            }
+
+            if (q.audioUrl) {
+                document.getElementById('input-audio-url').value = q.audioUrl;
+                document.getElementById('audio-preview').src = q.audioUrl;
+                document.getElementById('audio-preview-container').classList.remove('hidden');
+            } else {
+                removeQuestionAudio();
             }
 
             document.getElementById('input-text').value = q.text || '';
@@ -1635,6 +1693,24 @@
                 catTag.classList.remove('hidden');
             } else {
                 catTag.classList.add('hidden');
+            }
+
+            const audioBox = document.getElementById('audio-container');
+            if (q.audioUrl) {
+                audioBox.innerHTML = `
+                    <div class="p-3.5 bg-amber-50 rounded-2xl border border-amber-200 space-y-1.5">
+                        <div class="text-xs font-bold text-amber-800 flex items-center gap-2">
+                            <i class="fa-solid fa-volume-high text-amber-600 animate-pulse"></i>
+                            <span>Dinləmə Mətni (Səsli Fayl):</span>
+                        </div>
+                        <audio controls class="w-full h-9">
+                            <source src="${q.audioUrl}">
+                        </audio>
+                    </div>
+                `;
+                audioBox.classList.remove('hidden');
+            } else {
+                audioBox.classList.add('hidden');
             }
 
             const textEl = document.getElementById('question-text');
@@ -1931,6 +2007,16 @@
                     imgHtml = `<div class="my-3 text-center"><img src="${q.imageUrl}" alt="Sual Şəkli" class="max-h-56 rounded-xl border border-slate-200 inline-block object-contain pointer-events-none"></div>`;
                 }
 
+                let audioHtml = '';
+                if (q.audioUrl) {
+                    audioHtml = `
+                        <div class="my-2 p-3 bg-amber-50 rounded-xl border border-amber-200 space-y-1">
+                            <span class="text-xs font-bold text-amber-800"><i class="fa-solid fa-music me-1"></i> Dinləmə Mətni:</span>
+                            <audio controls class="w-full h-8"><source src="${q.audioUrl}"></audio>
+                        </div>
+                    `;
+                }
+
                 let optionsDisplayHtml = '';
                 if (q.type === 'open') {
                     optionsDisplayHtml = `
@@ -1981,6 +2067,7 @@
                         <div class="text-sm sm:text-base font-semibold text-slate-900 leading-relaxed plain-text-content">
                             ${escapeHtml(q.text)}
                             ${imgHtml}
+                            ${audioHtml}
                         </div>
 
                         ${optionsDisplayHtml}
