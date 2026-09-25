@@ -160,7 +160,7 @@
                     </div>
                     <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight" id="admin-panel-welcome-title">Onlayn Sınaq Akademiyası - İdarəetmə Paneli</h2>
                     <p class="text-slate-300 text-xs sm:text-sm max-w-xl">
-                        Aşağıdakı bölmə seçici düymələrdən istifadə edərək idarəetməni rahatlıqla həyata keçirə bilərsiniz.
+                        Aşağıdakı bölmə seçimlərindən istifadə edərək idarəetməni həyata keçirə bilərsiniz.
                     </p>
                 </div>
 
@@ -176,24 +176,24 @@
                 </div>
             </div>
 
-            <!-- ADMIN TAB SWITCHER BUTTONS -->
-            <div id="admin-tab-nav" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white p-3 rounded-2xl border border-slate-200 shadow-sm">
-                <button onclick="switchAdminTab('teachers')" id="tab-btn-teachers" class="px-4 py-3 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 bg-indigo-600 text-white shadow">
+            <!-- ADMIN TAB NAVIGATION BUTTONS -->
+            <div id="super-admin-tabs-nav" class="hidden flex flex-wrap items-center gap-3 bg-white p-3 rounded-2xl shadow-sm border border-slate-200">
+                <button onclick="switchAdminTab('teachers')" id="tab-btn-teachers" class="flex-1 min-w-[180px] py-3 px-4 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 bg-indigo-600 text-white shadow-md">
                     <i class="fa-solid fa-user-shield"></i>
                     <span>Müəllimlərə Nəzarət Paneli</span>
                 </button>
-                <button onclick="switchAdminTab('exams')" id="tab-btn-exams" class="px-4 py-3 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200">
+                <button onclick="switchAdminTab('exams')" id="tab-btn-exams" class="flex-1 min-w-[180px] py-3 px-4 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700">
                     <i class="fa-solid fa-folder-plus"></i>
                     <span>Sınaqlar və Suallar Paneli</span>
                 </button>
-                <button onclick="switchAdminTab('results')" id="tab-btn-results" class="px-4 py-3 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200">
+                <button onclick="switchAdminTab('results')" id="tab-btn-results" class="flex-1 min-w-[180px] py-3 px-4 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700">
                     <i class="fa-solid fa-users-rectangle"></i>
                     <span>Şagird Nəticələri Paneli</span>
                 </button>
             </div>
 
-            <!-- TAB 1: SUPER ADMIN & TEACHERS CONTROL -->
-            <div id="admin-tab-teachers-content" class="space-y-6">
+            <!-- TAB 1: MÜƏLLİMLƏRƏ NƏZARƏT PANELİ -->
+            <div id="admin-tab-teachers" class="space-y-6">
                 <div id="super-admin-card-config" class="hidden bg-white rounded-3xl p-6 shadow-sm border border-amber-200/80 bg-amber-50/20 space-y-3">
                     <h3 class="font-extrabold text-slate-900 text-sm flex items-center gap-2 text-amber-800">
                         <i class="fa-solid fa-gears text-amber-600"></i>
@@ -232,9 +232,9 @@
                         <div>
                             <h3 class="font-extrabold text-slate-900 text-lg flex items-center gap-2">
                                 <i class="fa-solid fa-user-shield text-amber-500"></i>
-                                <span>Müəllimlərə Nəzarət Paneli — Təsdiqlər və 40% Qazanc</span>
+                                <span>Müəllimlərə Nəzarət Paneli — Müəllimlər, Təsdiqlər və 40% Qazanc</span>
                             </h3>
-                            <p class="text-xs text-slate-500">Saytın qurucusu Türkan Əliyeva üçün xüsusi müəllim nəzarət cədvəli.</p>
+                            <p class="text-xs text-slate-500">Saytın qurucusu Türkan Əliyeva üçün xüsusi nəzarət cədvəli.</p>
                         </div>
                         <button onclick="openAddTeacherModal()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl shadow transition flex items-center gap-2">
                             <i class="fa-solid fa-user-plus"></i>
@@ -263,19 +263,20 @@
                 </div>
             </div>
 
-            <!-- TAB 2: EXAMS & QUESTIONS MANAGEMENT -->
-            <div id="admin-tab-exams-content" class="hidden space-y-6">
+            <!-- TAB 2: SINAQLAR VƏ SUALLAR PANELİ -->
+            <div id="admin-tab-exams" class="hidden space-y-6">
                 <div class="bg-slate-100/80 rounded-3xl p-6 border-2 border-indigo-100 space-y-6">
                     <div class="flex items-center gap-3 border-b border-indigo-200 pb-3">
                         <div class="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-lg shadow">
                             <i class="fa-solid fa-folder-plus"></i>
                         </div>
                         <div>
-                            <h3 class="text-base sm:text-lg font-extrabold text-slate-900">Sınaqların Yaradılması və Sualların Əlavə Edilməsi</h3>
+                            <h3 class="text-base sm:text-lg font-extrabold text-slate-900">Sınaqlar və Suallar Paneli</h3>
                             <p class="text-xs text-slate-500">Buradan yeni sınaqlar yarada, qiymət təyin edə və sualları daxil edə bilərsiniz.</p>
                         </div>
                     </div>
 
+                    <!-- Exam Selector Bar & Ödəniş/Parol Düymələri -->
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
                         <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
                             <label class="text-xs font-bold text-slate-700 uppercase shrink-0">Mənim Sınaqlarım:</label>
@@ -302,7 +303,9 @@
                         </div>
                     </div>
 
+                    <!-- Settings & Add Question Grid -->
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Left: Question Entry Form (2 cols) -->
                         <div class="lg:col-span-2 bg-white rounded-2xl p-5 sm:p-7 shadow-sm border border-slate-200 space-y-5">
                             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                                 <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
@@ -415,6 +418,7 @@
                             </form>
                         </div>
 
+                        <!-- Right: Config & Current Questions List -->
                         <div class="space-y-6">
                             <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
                                 <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
@@ -472,8 +476,8 @@
                 </div>
             </div>
 
-            <!-- TAB 3: STUDENT RESULTS PANEL -->
-            <div id="admin-tab-results-content" class="hidden space-y-6">
+            <!-- TAB 3: ŞAGİRD NƏTİCƏLƏRİ PANELİ -->
+            <div id="admin-tab-results" class="hidden space-y-6">
                 <div class="bg-slate-100/80 rounded-3xl p-6 border-2 border-emerald-100 space-y-4">
                     <div class="flex items-center justify-between border-b border-emerald-200 pb-3 flex-wrap gap-2">
                         <div class="flex items-center gap-3">
@@ -481,7 +485,7 @@
                                 <i class="fa-solid fa-users-rectangle"></i>
                             </div>
                             <div>
-                                <h3 class="text-base sm:text-lg font-extrabold text-slate-900">Şagird Nəticələri və İştirakçıların İzlənməsi</h3>
+                                <h3 class="text-base sm:text-lg font-extrabold text-slate-900">Şagird Nəticələri Paneli</h3>
                                 <p class="text-xs text-slate-500">Şagirdlərin sınaq nəticələrinə baxa, girişlərini təsdiq edə və ya siyahıdan silə bilərsiniz.</p>
                             </div>
                         </div>
@@ -1147,7 +1151,7 @@
         let defaultAdminSettings = {
             card: "4127 2000 0000 0000",
             phone: "994558586707",
-            isTeacherRegistrationOpen: true
+            isTeacherRegistrationOpen: false
         };
         window.adminSettings = JSON.parse(localStorage.getItem('turkan_admin_settings')) || defaultAdminSettings;
         let adminSettings = window.adminSettings;
@@ -1233,9 +1237,9 @@
         }
 
         function switchAdminTab(tabName) {
-            const tabTeachers = document.getElementById('admin-tab-teachers-content');
-            const tabExams = document.getElementById('admin-tab-exams-content');
-            const tabResults = document.getElementById('admin-tab-results-content');
+            const tabTeachers = document.getElementById('admin-tab-teachers');
+            const tabExams = document.getElementById('admin-tab-exams');
+            const tabResults = document.getElementById('admin-tab-results');
 
             const btnTeachers = document.getElementById('tab-btn-teachers');
             const btnExams = document.getElementById('tab-btn-exams');
@@ -1245,19 +1249,23 @@
             tabExams.classList.add('hidden');
             tabResults.classList.add('hidden');
 
-            btnTeachers.className = "px-4 py-3 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200";
-            btnExams.className = "px-4 py-3 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200";
-            btnResults.className = "px-4 py-3 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200";
+            btnTeachers.className = "flex-1 min-w-[180px] py-3 px-4 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700";
+            btnExams.className = "flex-1 min-w-[180px] py-3 px-4 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700";
+            btnResults.className = "flex-1 min-w-[180px] py-3 px-4 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700";
 
             if (tabName === 'teachers') {
                 tabTeachers.classList.remove('hidden');
-                btnTeachers.className = "px-4 py-3 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 bg-indigo-600 text-white shadow";
+                btnTeachers.className = "flex-1 min-w-[180px] py-3 px-4 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 bg-indigo-600 text-white shadow-md";
+                renderSuperAdminDashboard();
             } else if (tabName === 'exams') {
                 tabExams.classList.remove('hidden');
-                btnExams.className = "px-4 py-3 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 bg-indigo-600 text-white shadow";
+                btnExams.className = "flex-1 min-w-[180px] py-3 px-4 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 bg-indigo-600 text-white shadow-md";
+                renderAdminExamSelector();
+                renderAdminQuestionsList();
             } else if (tabName === 'results') {
                 tabResults.classList.remove('hidden');
-                btnResults.className = "px-4 py-3 rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 bg-indigo-600 text-white shadow";
+                btnResults.className = "flex-1 min-w-[180px] py-3 px-4 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 bg-indigo-600 text-white shadow-md";
+                renderStudentResultsTable();
             }
         }
 
@@ -1364,12 +1372,10 @@
         function renderSuperAdminDashboard() {
             const dashBox = document.getElementById('super-admin-dashboard');
             const cardBox = document.getElementById('super-admin-card-config');
-            const tabNav = document.getElementById('admin-tab-nav');
             const tbody = document.getElementById('teachers-stats-table-body');
             if (!dashBox || !tbody) return;
 
             if (currentLoggedTeacher && currentLoggedTeacher.isSuperAdmin) {
-                if(tabNav) tabNav.classList.remove('hidden');
                 dashBox.classList.remove('hidden');
                 if(cardBox) cardBox.classList.remove('hidden');
 
@@ -1405,7 +1411,7 @@
                                 <div><strong class="text-rose-600">Çıxış:</strong> ${escapeHtml(t.lastLogout || 'Yoxdur')}</div>
                             </td>
                             <td class="p-3.5 font-bold">
-                                ${isApproved ? '<span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-[10px]">Təsdiqlənib</span>' : '<span class="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full text-[10px]">Hələ aktiv deyil</span>'}
+                                ${isApproved ? '<span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-[10px]">Təsdiqlənib</span>' : '<span class="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full text-[10px]">Təsdiq gözləyir</span>'}
                             </td>
                             <td class="p-3.5 font-bold text-slate-700">${tExamsCount} Sınaq / ${tStudentsCount} Şagird</td>
                             <td class="p-3.5 font-black text-emerald-600 bg-emerald-50/60">${adminCommission} AZN</td>
@@ -1425,7 +1431,6 @@
                     `;
                 }).join('');
             } else {
-                if(tabNav) tabNav.classList.add('hidden');
                 dashBox.classList.add('hidden');
                 if(cardBox) cardBox.classList.add('hidden');
             }
@@ -1451,7 +1456,7 @@
 
         function openTeacherRegisterModal() {
             if (adminSettings.isTeacherRegistrationOpen === false) {
-                showModal("Qeydiyyat Bağlıdır", "Hal-hazırda müəllimlər qeydiyyata alınmır, daha sonra təkrar cəhd edərsiniz.", null, true);
+                showModal("Qeydiyyat Bağlıdır", "Hal-hazırda müəllim qeydiyyatı bağlıdır! Sayt qurucusu (Türkan Əliyeva) qeydiyyatı açmadığı müddətcə kənar şəxslər qeydiyyatdan keçə bilməz.", null, true);
                 return;
             }
             document.getElementById('reg-teacher-name').value = '';
@@ -1469,7 +1474,7 @@
             e.preventDefault();
             if (adminSettings.isTeacherRegistrationOpen === false) {
                 closeTeacherRegisterModal();
-                showModal("Qeydiyyat Bağlıdır", "Hal-hazırda müəllimlər qeydiyyata alınmır, daha sonra təkrar cəhd edərsiniz.", null, true);
+                showModal("Qeydiyyat Bağlıdır", "Hal-hazırda müəllim qeydiyyatı bağlıdır!", null, true);
                 return;
             }
 
@@ -1490,7 +1495,7 @@
             closeTeacherRegisterModal();
             renderSuperAdminDashboard();
 
-            showModal("Uğurlu Qeydiyyat", "Qeydiyyatınız uğurla tamamlandı! Hesabınız Türkan Əliyevanın idarə panelinə düşdü. O təsdiq edən kimi daxil ola bilərsiniz.", null, true);
+            showModal("Uğurlu Qeydiyyat", "Qeydiyyat müraciətiniz göndərildi! Türkan Əliyevanın idarə panelində adınız, şifrəniz və nömrəniz göründükdən sonra təsdiq ediləcək.", null, true);
         }
 
         function openAddTeacherModal() {
@@ -2396,10 +2401,20 @@
             
             document.getElementById('teacher-panel-btn').innerHTML = `<i class="fa-solid fa-gauge text-amber-400"></i><span class="hidden sm:inline">Panelim</span>`;
 
+            if (currentLoggedTeacher.isSuperAdmin) {
+                document.getElementById('super-admin-tabs-nav').classList.remove('hidden');
+                document.getElementById('super-admin-tabs-nav').classList.add('flex');
+                switchAdminTab('teachers');
+            } else {
+                document.getElementById('super-admin-tabs-nav').classList.add('hidden');
+                document.getElementById('admin-tab-teachers').classList.add('hidden');
+                document.getElementById('admin-tab-exams').classList.remove('hidden');
+                document.getElementById('admin-tab-results').classList.remove('hidden');
+            }
+
             const myExams = getFilteredExamsForCurrentTeacher();
             if (myExams.length > 0) activeAdminExamId = myExams[0].id;
 
-            switchAdminTab('teachers');
             renderAdminExamSelector();
             renderAdminQuestionsList();
             renderStudentResultsTable();
