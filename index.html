@@ -1014,11 +1014,11 @@
                     if (snapshot.exists()) {
                         const data = snapshot.data();
                         if (data) {
-                            if (Array.isArray(data.examsList) && data.examsList.length > 0) {
+                            if (Array.isArray(data.examsList)) {
                                 window.exams = data.examsList;
                                 localStorage.setItem('turkan_exams', JSON.stringify(window.exams));
                             }
-                            if (Array.isArray(data.teachersList) && data.teachersList.length > 0) {
+                            if (Array.isArray(data.teachersList)) {
                                 window.teachers = data.teachersList;
                                 localStorage.setItem('turkan_teachers_list', JSON.stringify(window.teachers));
                             }
@@ -1040,11 +1040,11 @@
                 if (snap.exists()) {
                     const data = snap.data();
                     if (data) {
-                        if (Array.isArray(data.examsList) && data.examsList.length > 0) {
+                        if (Array.isArray(data.examsList)) {
                             window.exams = data.examsList;
                             localStorage.setItem('turkan_exams', JSON.stringify(window.exams));
                         }
-                        if (Array.isArray(data.teachersList) && data.teachersList.length > 0) {
+                        if (Array.isArray(data.teachersList)) {
                             window.teachers = data.teachersList;
                             localStorage.setItem('turkan_teachers_list', JSON.stringify(window.teachers));
                         }
@@ -1076,7 +1076,7 @@
                     teachersList: window.teachers, 
                     adminSettings: window.adminSettings, 
                     lastUpdated: Date.now() 
-                }, { merge: true });
+                }, { merge: false });
                 
                 const statusMsg = document.getElementById('save-status-msg');
                 if (statusMsg) {
