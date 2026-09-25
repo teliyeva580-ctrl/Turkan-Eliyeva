@@ -204,7 +204,7 @@
                     <div>
                         <h3 class="font-extrabold text-slate-900 text-lg flex items-center gap-2">
                             <i class="fa-solid fa-user-shield text-amber-500"></i>
-                            <span>Baş İdarəçi Paneli — Müəllimlər, Şifrələr, Təsdiqlər və 40% Qazanc</span>
+                            <span>Baş İdarəçi Paneli — Müəllimlər, Giriş-Çıxış Vaxtları, Şifrələr və 40% Qazanc</span>
                         </h3>
                         <p class="text-xs text-slate-500">Saytın qurucusu Türkan Əliyeva üçün xüsusi nəzarət cədvəli.</p>
                     </div>
@@ -221,6 +221,7 @@
                                 <th class="p-3.5 rounded-l-xl">Müəllimin Adı və Tel</th>
                                 <th class="p-3.5">İxtisas Fənni</th>
                                 <th class="p-3.5">Giriş Şifrəsi</th>
+                                <th class="p-3.5">Son Giriş / Çıxış Vaxtı</th>
                                 <th class="p-3.5">Status</th>
                                 <th class="p-3.5">Sınaq / Şagird</th>
                                 <th class="p-3.5 text-emerald-400 font-black">40% Qazancınız</th>
@@ -254,7 +255,7 @@
                         <i class="fa-solid fa-pen"></i>
                         <span class="hidden sm:inline">Sınaq Adı</span>
                     </button>
-                    <button onclick="deleteActiveExam()" class="px-3 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold rounded-xl transition border border-rose-200 flex items-center gap-1.5">
+                    <button onclick="deleteActiveExam()" class="px-3.5 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold rounded-xl transition border border-rose-200 flex items-center gap-1.5">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </div>
@@ -696,8 +697,8 @@
                 <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl mx-auto">
                     <i class="fa-solid fa-credit-card"></i>
                 </div>
-                <h3 class="text-lg font-bold text-slate-900">Sınağa Giriş və Ödəniş</h3>
-                <p class="text-xs text-slate-500">Ödəniş qəbzini WhatsApp vasitəsilə göndərin və dərhal giriş təsdiqi alın.</p>
+                <h3 class="text-lg font-bold text-slate-900">Sınağa Giriş</h3>
+                <p id="modal-subtitle-text" class="text-xs text-slate-500">Məlumatları dolduraraq sınağa başlaya bilərsiniz.</p>
             </div>
             <form onsubmit="verifyStudentRegistration(event)" class="space-y-3">
                 <input type="hidden" id="target-exam-id" value="">
@@ -731,8 +732,8 @@
                 <div class="flex justify-end space-x-2 pt-2">
                     <button type="button" onclick="closeStudentExamAuthModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Ləğv Et</button>
                     <button type="submit" id="student-auth-submit-btn" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md transition flex items-center gap-1.5">
-                        <i class="fa-brands fa-whatsapp"></i>
-                        <span>Qəbzi WhatsApp ilə Göndər və Giriş İstə</span>
+                        <i id="student-btn-icon" class="fa-brands fa-whatsapp"></i>
+                        <span id="student-btn-text">Qəbzi WhatsApp ilə Göndər və Giriş İstə</span>
                     </button>
                 </div>
             </form>
@@ -1063,8 +1064,8 @@
         });
 
         let defaultTeachers = [
-            { name: "Türkan Əliyeva", pass: "turkan2026", phone: "994558586707", subject: "İnformatika / Riyaziyyat", isSuperAdmin: true, isApproved: true },
-            { name: "Əsma Abbasova", pass: "esma2026", phone: "", subject: "Fənn Müəllimi", isSuperAdmin: false, isApproved: true }
+            { name: "Türkan Əliyeva", pass: "turkan2026", phone: "994558586707", subject: "İnformatika / Riyaziyyat", isSuperAdmin: true, isApproved: true, lastLogin: "Yoxdur", lastLogout: "Yoxdur" },
+            { name: "Əsma Abbasova", pass: "esma2026", phone: "", subject: "Fənn Müəllimi", isSuperAdmin: false, isApproved: true, lastLogin: "Yoxdur", lastLogout: "Yoxdur" }
         ];
 
         let teachers = JSON.parse(localStorage.getItem('turkan_teachers_list')) || defaultTeachers;
@@ -1195,7 +1196,6 @@
 
         function getFilteredExamsForCurrentTeacher() {
             if (!currentLoggedTeacher) return [];
-            // MÖHTƏŞƏM İCAZƏ NƏZARƏTİ: Adi müəllimlər YALNIZ öz sınaqlarını görür, Super Admin (Türkan Əliyeva) hamısını görür.
             if (currentLoggedTeacher.isSuperAdmin) return exams;
             return exams.filter(e => e.author === currentLoggedTeacher.name);
         }
@@ -1272,6 +1272,10 @@
                             </td>
                             <td class="p-3.5 font-bold text-slate-600">${escapeHtml(t.subject || 'Qeyd olunmayıb')}</td>
                             <td class="p-3.5 font-mono text-emerald-600 font-bold bg-emerald-50/50 rounded-lg">${escapeHtml(t.pass)}</td>
+                            <td class="p-3.5 text-xs text-slate-600">
+                                <div><strong class="text-indigo-600">Giriş:</strong> ${escapeHtml(t.lastLogin || 'Yoxdur')}</div>
+                                <div><strong class="text-rose-600">Çıxış:</strong> ${escapeHtml(t.lastLogout || 'Yoxdur')}</div>
+                            </td>
                             <td class="p-3.5 font-bold">
                                 ${isApproved ? '<span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-[10px]">Təsdiqlənib</span>' : '<span class="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full text-[10px]">Gözləmədə</span>'}
                             </td>
@@ -1342,7 +1346,7 @@
                 return;
             }
 
-            teachers.push({ name, phone, subject, pass, isSuperAdmin: false, isApproved: false });
+            teachers.push({ name, phone, subject, pass, isSuperAdmin: false, isApproved: false, lastLogin: "Yoxdur", lastLogout: "Yoxdur" });
             saveTeachersToStorage();
             closeTeacherRegisterModal();
 
@@ -1373,7 +1377,7 @@
             const pass = document.getElementById('new-teacher-pass-input').value.trim();
 
             if (!name || !pass) return;
-            teachers.push({ name, phone, subject, pass, isSuperAdmin: false, isApproved: true });
+            teachers.push({ name, phone, subject, pass, isSuperAdmin: false, isApproved: true, lastLogin: "Yoxdur", lastLogout: "Yoxdur" });
             saveTeachersToStorage();
             closeAddTeacherModal();
             renderSuperAdminDashboard();
@@ -1405,7 +1409,6 @@
                 const isLocked = !!exam.password;
                 const authorName = exam.author || 'Türkan Əliyeva';
                 const examPrice = parseFloat(exam.price) || 0;
-                const participantsCount = (exam.results || []).length;
                 const subjectsText = (exam.subjects && exam.subjects.length > 0) ? exam.subjects.join(' • ') : '';
 
                 return `
@@ -1467,6 +1470,24 @@
             const priceVal = parseFloat(targetExam.price) || 0;
             if (priceDisplay) priceDisplay.textContent = priceVal > 0 ? `${priceVal} AZN` : 'Ödənişsiz';
 
+            const paymentBox = document.getElementById('payment-info-box');
+            const btnText = document.getElementById('student-btn-text');
+            const btnIcon = document.getElementById('student-btn-icon');
+            const subtitleText = document.getElementById('modal-subtitle-text');
+
+            if (priceVal > 0) {
+                paymentBox.classList.remove('hidden');
+                subtitleText.textContent = "Ödəniş qəbzini WhatsApp vasitəsilə göndərin və dərhal giriş təsdiqi alın.";
+                btnText.textContent = "Qəbzi WhatsApp ilə Göndər və Giriş İstə";
+                btnIcon.className = "fa-brands fa-whatsapp";
+                updateAdminCardDisplay();
+            } else {
+                paymentBox.classList.add('hidden');
+                subtitleText.textContent = "Sınaq ödənişsizdir. Ad və soyadınızı yazaraq birbaşa başlaya bilərsiniz.";
+                btnText.textContent = "Sınağa Başla";
+                btnIcon.className = "fa-solid fa-arrow-right";
+            }
+
             const passContainer = document.getElementById('student-pass-container');
             if (targetExam.password) {
                 passContainer.classList.remove('hidden');
@@ -1476,7 +1497,6 @@
                 document.getElementById('student-exam-pass-input').required = false;
             }
 
-            updateAdminCardDisplay();
             document.getElementById('student-exam-auth-modal').classList.remove('hidden');
         }
 
@@ -1519,6 +1539,12 @@
                     startExam(examId);
                 }, true);
             } else {
+                if (!targetExam.allowedUsers) targetExam.allowedUsers = [];
+                const cleanName = fullName.toLowerCase();
+                if (!targetExam.allowedUsers.includes(cleanName)) {
+                    targetExam.allowedUsers.push(cleanName);
+                    saveExamsToStorage();
+                }
                 closeStudentExamAuthModal();
                 startExam(examId);
             }
@@ -2068,8 +2094,8 @@
             document.getElementById('teacher-feedback-header').textContent = `${authorName} Müəllimdən Xüsusi Qeyd`;
 
             let feedbackMsg = scorePercent >= 90 ? `Halaldı sənə! Səni yüksək yerlərdə görəcəyimə əminəm! 🌟 - ${authorName}` :
-                              scorePercent >= 50 ? `Üzərində çox çalış, mən sənə inanıram! 💪 - ${authorName}` :
-                              `Çox çalış, bu nəticəni sənə yaraşdırmıram! 📚 - ${authorName}`;
+                            scorePercent >= 50 ? `Üzərində çox çalış, mən sənə inanıram! 💪 - ${authorName}` :
+                            `Çox çalış, bu nəticəni sənə yaraşdırmıram! 📚 - ${authorName}`;
             document.getElementById('teacher-feedback-text').textContent = feedbackMsg;
 
             renderDetailedResults();
@@ -2084,8 +2110,8 @@
                 let isCorrect = !isUnanswered && (q.type === 'open' ? String(userAns).trim().toLowerCase() === String(q.correct).trim().toLowerCase() : userAns === q.correct);
 
                 let statusBadge = isUnanswered ? `<span class="px-2.5 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-lg">Cavabsız</span>` :
-                                  isCorrect ? `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-lg">Düzgün</span>` :
-                                  `<span class="px-2.5 py-1 bg-rose-100 text-rose-700 text-xs font-bold rounded-lg">Səhv</span>`;
+                                isCorrect ? `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-lg">Düzgün</span>` :
+                                `<span class="px-2.5 py-1 bg-rose-100 text-rose-700 text-xs font-bold rounded-lg">Səhv</span>`;
                 let borderClass = isUnanswered ? 'border-amber-200/80 bg-amber-50/20' : isCorrect ? 'border-emerald-200/80 bg-emerald-50/20' : 'border-rose-200/80 bg-rose-50/20';
 
                 let imgHtml = q.imageUrl ? `<div class="my-3 text-center"><img src="${q.imageUrl}" class="max-h-56 rounded-xl border border-slate-200 inline-block object-contain pointer-events-none"></div>` : '';
@@ -2134,6 +2160,11 @@
             }
         }
 
+        function getCurrentFormattedTime() {
+            const now = new Date();
+            return `${now.getDate().toString().padStart(2, '0')}.${(now.getMonth()+1).toString().padStart(2, '0')}.${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        }
+
         function verifyTeacherLogin(e) {
             e.preventDefault();
             const selectedName = document.getElementById('login-teacher-select').value;
@@ -2145,6 +2176,9 @@
                     showModal("Giriş Qadağandır", "Hesabınız hələ baş idarəçi (Türkan Əliyeva) tərəfindən təsdiqlənməyib.", null, true);
                     return;
                 }
+                teacherObj.lastLogin = getCurrentFormattedTime();
+                saveTeachersToStorage();
+
                 currentLoggedTeacher = teacherObj;
                 localStorage.setItem('turkan_logged_teacher', JSON.stringify(currentLoggedTeacher));
                 document.getElementById('admin-auth-modal').classList.add('hidden');
@@ -2183,6 +2217,13 @@
         }
 
         function logoutTeacher() {
+            if (currentLoggedTeacher) {
+                const tObj = teachers.find(t => t.name === currentLoggedTeacher.name);
+                if (tObj) {
+                    tObj.lastLogout = getCurrentFormattedTime();
+                    saveTeachersToStorage();
+                }
+            }
             currentLoggedTeacher = null;
             localStorage.removeItem('turkan_logged_teacher');
             document.getElementById('logged-teacher-badge').classList.add('hidden');
