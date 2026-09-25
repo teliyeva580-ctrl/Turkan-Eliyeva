@@ -1143,7 +1143,7 @@
         let defaultAdminSettings = {
             card: "4127 2000 0000 0000",
             phone: "994558586707",
-            isTeacherRegistrationOpen: false
+            isTeacherRegistrationOpen: true
         };
         window.adminSettings = JSON.parse(localStorage.getItem('turkan_admin_settings')) || defaultAdminSettings;
         let adminSettings = window.adminSettings;
@@ -1321,7 +1321,7 @@
         }
 
         function getFilteredExamsForCurrentTeacher() {
-            if (!currentLoggedTeacher) return [];
+            if (!currentLoggedTeacher) return exams;
             if (currentLoggedTeacher.isSuperAdmin) return exams;
             return exams.filter(e => e.author === currentLoggedTeacher.name);
         }
@@ -1448,7 +1448,7 @@
 
         function openTeacherRegisterModal() {
             if (adminSettings.isTeacherRegistrationOpen === false) {
-                showModal("Qeydiyyat Bağlıdır", "Daha sonra yeniden cehd edersiz heleki aktiv deyil", null, true);
+                showModal("Qeydiyyat Bağlıdır", "Daha sonra yenidən cəhd edərsiniz, hələ ki aktiv deyil.", null, true);
                 return;
             }
             document.getElementById('reg-teacher-name').value = '';
@@ -1466,7 +1466,7 @@
             e.preventDefault();
             if (adminSettings.isTeacherRegistrationOpen === false) {
                 closeTeacherRegisterModal();
-                showModal("Qeydiyyat Bağlıdır", "Daha sonra yeniden cehd edersiz heleki aktiv deyil", null, true);
+                showModal("Qeydiyyat Bağlıdır", "Daha sonra yenidən cəhd edərsiniz, hələ ki aktiv deyil.", null, true);
                 return;
             }
 
@@ -1487,7 +1487,7 @@
             closeTeacherRegisterModal();
             renderSuperAdminDashboard();
 
-            showModal("Uğurlu", "Qeydiyyat müraciətiniz göndərildi!", null, true);
+            showModal("Uğurlu", "Qeydiyyat müraciətiniz göndərildi! Admin təsdiqindən sonra daxil ola biləcəksiniz.", null, true);
         }
 
         function openAddTeacherModal() {
