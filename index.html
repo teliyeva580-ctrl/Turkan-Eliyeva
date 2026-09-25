@@ -148,7 +148,7 @@
         </div>
 
         <!-- TEACHER / ADMIN VIEW -->
-        <div id="admin-view" class="hidden space-y-6">
+        <div id="admin-view" class="hidden space-y-8">
             <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-indigo-900/50 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="space-y-2 text-center md:text-left">
                     <div class="flex items-center justify-center md:justify-start gap-2">
@@ -160,7 +160,7 @@
                     </div>
                     <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight" id="admin-panel-welcome-title">Onlayn Sınaq Akademiyası - İdarəetmə Paneli</h2>
                     <p class="text-slate-300 text-xs sm:text-sm max-w-xl">
-                        Müəlliflər yalnız öz sınaqlarını yarada, qiymət və parol təyin edə bilərlər.
+                        Aşağıda birinci bölmədə sınaqlarınızı yarada və suallar əlavə edə bilərsiniz. İkinci bölmədə isə şagirdlərin nəticələrini izləyə bilərsiniz.
                     </p>
                 </div>
 
@@ -180,7 +180,7 @@
             <div id="super-admin-card-config" class="hidden bg-white rounded-3xl p-6 shadow-sm border border-amber-200/80 bg-amber-50/20 space-y-3">
                 <h3 class="font-extrabold text-slate-900 text-sm flex items-center gap-2 text-amber-800">
                     <i class="fa-solid fa-gears text-amber-600"></i>
-                    <span>Mərkəzi Ödəniş Kartı Və WhatsApp Əlaqə Nömrəsini Yenilə (Yalnız Türkan Əliyeva)</span>
+                    <span>Mərkəzi Ödəniş Kartı, WhatsApp və Müəllim Qeydiyyatı İdarəetməsi (Yalnız Türkan Əliyeva)</span>
                 </h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
@@ -192,6 +192,17 @@
                         <input type="text" id="setting-admin-phone" placeholder="994558586707" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold font-mono">
                     </div>
                 </div>
+                
+                <div class="flex items-center justify-between pt-2 border-t border-amber-200/60 flex-wrap gap-2">
+                    <div>
+                        <span class="text-xs font-extrabold text-slate-800 block">Müəllim Qeydiyyat Modulu:</span>
+                        <span class="text-[11px] text-slate-500">Müəllimlərin saytdan qeydiyyatdan keçməsini açıb-bağlaya bilərsiniz.</span>
+                    </div>
+                    <button onclick="toggleTeacherRegistrationStatus()" id="teacher-reg-toggle-btn" class="px-4 py-2 text-xs font-bold rounded-xl shadow transition">
+                        Yüklənir...
+                    </button>
+                </div>
+
                 <div class="flex justify-end pt-1">
                     <button onclick="saveAdminSettings()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl shadow transition">
                         Tənzimləmələri Yadda Saxla
@@ -234,233 +245,251 @@
                 </div>
             </div>
 
-            <!-- Exam Selector Bar & Ödəniş/Parol Düymələri -->
-            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
-                    <label class="text-xs font-bold text-slate-700 uppercase shrink-0">Mənim Sınaqlarım:</label>
-                    <select id="admin-exam-select" onchange="changeActiveAdminExam(this.value)" class="w-full sm:w-64 px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                    </select>
+            <!-- ================= BÖLMƏ 1: SINAQ YARATMA VƏ SUAL İDARƏETMƏSİ ================= -->
+            <div class="bg-slate-100/80 rounded-3xl p-6 border-2 border-indigo-100 space-y-6">
+                <div class="flex items-center gap-3 border-b border-indigo-200 pb-3">
+                    <div class="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-lg shadow">
+                        <i class="fa-solid fa-folder-plus"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-extrabold text-slate-900">Bölmə 1: Sınaqların Yaradılması və Sualların Əlavə Edilməsi</h3>
+                        <p class="text-xs text-slate-500">Buradan yeni sınaqlar yarada, qiymət təyin edə və sualları daxil edə bilərsiniz.</p>
+                    </div>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
-                    <button onclick="openExamPriceModal()" class="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition shadow-md flex items-center gap-1.5">
-                        <i class="fa-solid fa-wallet"></i>
-                        <span>Ödəniş Təyin Et</span>
-                    </button>
-                    <button onclick="handleCreateExamClick()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition shadow-md flex items-center gap-2">
-                        <i class="fa-solid fa-plus"></i>
-                        <span>Yeni Sınaq Yarat</span>
-                    </button>
-                    <button onclick="editActiveExamDetails()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition border border-slate-200 flex items-center gap-1.5">
-                        <i class="fa-solid fa-pen"></i>
-                        <span class="hidden sm:inline">Sınaq Adı</span>
-                    </button>
-                    <button onclick="deleteActiveExam()" class="px-3.5 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold rounded-xl transition border border-rose-200 flex items-center gap-1.5">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
+                <!-- Exam Selector Bar & Ödəniş/Parol Düymələri -->
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+                        <label class="text-xs font-bold text-slate-700 uppercase shrink-0">Mənim Sınaqlarım:</label>
+                        <select id="admin-exam-select" onchange="changeActiveAdminExam(this.value)" class="w-full sm:w-64 px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                        </select>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
+                        <button onclick="openExamPriceModal()" class="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition shadow-md flex items-center gap-1.5">
+                            <i class="fa-solid fa-wallet"></i>
+                            <span>Ödəniş Təyin Et</span>
+                        </button>
+                        <button onclick="handleCreateExamClick()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition shadow-md flex items-center gap-2">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Yeni Sınaq Yarat</span>
+                        </button>
+                        <button onclick="editActiveExamDetails()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition border border-slate-200 flex items-center gap-1.5">
+                            <i class="fa-solid fa-pen"></i>
+                            <span class="hidden sm:inline">Sınaq Adı</span>
+                        </button>
+                        <button onclick="deleteActiveExam()" class="px-3.5 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold rounded-xl transition border border-rose-200 flex items-center gap-1.5">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Settings & Add Question Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Left: Question Entry Form (2 cols) -->
+                    <div class="lg:col-span-2 bg-white rounded-2xl p-5 sm:p-7 shadow-sm border border-slate-200 space-y-5">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+                                <i class="fa-solid fa-circle-plus text-indigo-600"></i>
+                                <span id="form-title">Yeni Sual Əlavə Et</span>
+                            </h3>
+                            <span id="question-count-badge" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg">
+                                Cəmi: 0 Sual
+                            </span>
+                        </div>
+
+                        <form id="question-form" onsubmit="handleQuestionFormSubmit(event)" class="space-y-4">
+                            <input type="hidden" id="edit-q-id" value="">
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Fənnin Adı</label>
+                                    <input type="text" id="input-category" placeholder="Məs: İnformatika, Riyaziyyat" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sual Tipi</label>
+                                    <select id="input-q-type" onchange="toggleQuestionTypeFields(this.value)" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                        <option value="closed">Qapalı (Variantlı - A, B, C, D, E)</option>
+                                        <option value="open">Açıq Tipli (Yazılı Cavablı)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Şəkil Əlavə Et (Könüllü)</label>
+                                    <input type="file" id="input-image-file" accept="image/*" onchange="handleImageUpload(event)" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                                    <input type="hidden" id="input-image-url" value="">
+                                    <div id="image-preview-container" class="hidden mt-2 relative inline-block">
+                                        <img id="image-preview" src="" alt="Önizləmə" class="h-16 rounded-lg border border-slate-200 object-cover">
+                                        <button type="button" onclick="removeQuestionImage()" class="absolute -top-2 -right-2 bg-rose-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shadow"><i class="fa-solid fa-xmark"></i></button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-amber-700 uppercase tracking-wider mb-1.5"><i class="fa-solid fa-music me-1"></i> Dinləmə Mətni (MP3 Audio - Könüllü)</label>
+                                    <input type="file" id="input-audio-file" accept="audio/*" onchange="handleAudioUpload(event)" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100">
+                                    <input type="hidden" id="input-audio-url" value="">
+                                    <div id="audio-preview-container" class="hidden mt-2">
+                                        <audio id="audio-preview" controls class="w-full h-8"></audio>
+                                        <button type="button" onclick="removeQuestionAudio()" class="text-[10px] text-rose-600 font-bold hover:underline mt-1">Səs Faylını Sil</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sualın Mətni</label>
+                                <textarea id="input-text" rows="3" placeholder="Sualın mətnini daxil edin..." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
+                            </div>
+
+                            <div id="closed-options-box">
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Variantlar və Düzgün Cavab</label>
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">A</span>
+                                        <input type="text" id="opt-A" placeholder="A variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                        <input type="radio" name="correct-opt" value="A" checked title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">B</span>
+                                        <input type="text" id="opt-B" placeholder="B variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                        <input type="radio" name="correct-opt" value="B" title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">C</span>
+                                        <input type="text" id="opt-C" placeholder="C variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                        <input type="radio" name="correct-opt" value="C" title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">D</span>
+                                        <input type="text" id="opt-D" placeholder="D variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                        <input type="radio" name="correct-opt" value="D" title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">E</span>
+                                        <input type="text" id="opt-E" placeholder="E variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                        <input type="radio" name="correct-opt" value="E" title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="open-correct-box" class="hidden">
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Açıq Sualın Düzgün Cavabı</label>
+                                <input type="text" id="input-open-correct" placeholder="Məs: 25" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Ətraflı İzah (Könüllü)</label>
+                                <textarea id="input-explanation" rows="2" placeholder="Şagird üçün izah..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2">
+                                <button type="button" onclick="resetQuestionForm()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold rounded-xl transition">
+                                    Təmizlə
+                                </button>
+                                <div class="flex items-center gap-2">
+                                    <span id="save-status-msg" class="text-xs font-bold text-emerald-600 hidden animate-pulse">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i> Buluda yazıldı!
+                                    </span>
+                                    <button type="submit" id="save-q-btn" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm rounded-xl transition shadow-md shadow-indigo-600/20 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-floppy-disk"></i>
+                                        <span>Sualı Yadda Saxla</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Right: Config & Current Questions List -->
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+                            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-sliders text-indigo-600"></i> Cari Sınaq Tənzimləmələri
+                            </h4>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">İmtahan Müddəti (Dəqiqə)</label>
+                                <div class="flex items-center space-x-2">
+                                    <input type="number" id="input-duration" min="1" max="180" value="180" onchange="updateActiveExamDuration(this.value)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                    <span class="text-xs font-bold text-slate-500">Dəq</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-3 border-t border-slate-100 space-y-2">
+                                <label class="block text-xs font-semibold text-slate-600">Sınağa Giriş Parolu (Kilid)</label>
+                                <div class="flex gap-2">
+                                    <input type="text" id="input-exam-password" placeholder="Parol..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                    <button onclick="updateActiveExamPassword()" class="px-3 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl transition shrink-0">
+                                        Tətbiq Et
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="pt-3 border-t border-slate-100 space-y-2">
+                                <label class="block text-xs font-semibold text-slate-600">Öz Giriş Şifrəni Dəyiş</label>
+                                <div class="flex gap-2">
+                                    <input type="password" id="new-admin-pass" placeholder="Yeni şifrə..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
+                                    <button onclick="changeAdminPassword()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition shrink-0">
+                                        Yadda Saxla
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-100">
+                                <button onclick="clearCurrentExamQuestions()" class="w-full py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold rounded-xl transition text-center">
+                                    Bu Sınağın Suallarını Sil
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-3">
+                            <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                                <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-list-numbered text-indigo-600"></i> Bu Sınağın Sualları
+                                </h4>
+                                <span id="saved-q-count" class="text-xs font-extrabold text-slate-500">0</span>
+                            </div>
+
+                            <div id="admin-questions-list" class="space-y-2 max-h-[380px] overflow-y-auto pr-1 custom-scrollbar">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- STUDENT RESULTS STATS TABLE SECTION -->
-            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
-                    <div>
-                        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
-                            <i class="fa-solid fa-users text-indigo-600"></i>
-                            <span>Sınaq İştirakçıları Və Giriş Təsdiqləri</span>
-                        </h3>
-                        <p class="text-xs text-slate-500">Şagirdlərin sınağa giriş icazələrini və ödəniş təsdiqlərini buradan idarə edin.</p>
+            <!-- ================= BÖLMƏ 2: ŞAGİRD NƏTİCƏLƏRİ VƏ İZLƏMƏ PANELİ ================= -->
+            <div class="bg-slate-100/80 rounded-3xl p-6 border-2 border-emerald-100 space-y-4">
+                <div class="flex items-center justify-between border-b border-emerald-200 pb-3 flex-wrap gap-2">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-lg shadow">
+                            <i class="fa-solid fa-users-rectangle"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base sm:text-lg font-extrabold text-slate-900">Bölmə 2: Şagird Nəticələri və İştirakçıların İzlənməsi</h3>
+                            <p class="text-xs text-slate-500">Şagirdlərin sınaq nəticələrinə baxa, girişlərini təsdiq edə və ya siyahıdan silə bilərsiniz.</p>
+                        </div>
                     </div>
-                    <span id="student-results-count-badge" class="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-extrabold rounded-lg border border-indigo-100">
+                    <span id="student-results-count-badge" class="px-3 py-1.5 bg-emerald-100 text-emerald-800 text-xs font-extrabold rounded-xl border border-emerald-200">
                         Cəmi İştirakçı: 0 Nəfər
                     </span>
                 </div>
 
-                <div class="overflow-x-auto custom-scrollbar">
-                    <table class="w-full text-left text-xs text-slate-600 border-collapse">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-800 font-bold border-b border-slate-200">
-                                <th class="p-3 rounded-l-xl">#</th>
-                                <th class="p-3">Şagirdin Adı və Soyadı</th>
-                                <th class="p-3">Nəticə (%)</th>
-                                <th class="p-3">Düzgün / Səhv / Boş</th>
-                                <th class="p-3">Tarix və Saat</th>
-                                <th class="p-3 rounded-r-xl text-center">Giriş Təsdiqi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="student-results-table-body">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Settings & Add Question Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Left: Question Entry Form (2 cols) -->
-                <div class="lg:col-span-2 bg-white rounded-2xl p-5 sm:p-7 shadow-sm border border-slate-200 space-y-5">
-                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                        <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
-                            <i class="fa-solid fa-circle-plus text-indigo-600"></i>
-                            <span id="form-title">Yeni Sual Əlavə Et</span>
-                        </h3>
-                        <span id="question-count-badge" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg">
-                            Cəmi: 0 Sual
-                        </span>
-                    </div>
-
-                    <form id="question-form" onsubmit="handleQuestionFormSubmit(event)" class="space-y-4">
-                        <input type="hidden" id="edit-q-id" value="">
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Fənnin Adı</label>
-                                <input type="text" id="input-category" placeholder="Məs: İnformatika, Riyaziyyat" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sual Tipi</label>
-                                <select id="input-q-type" onchange="toggleQuestionTypeFields(this.value)" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                    <option value="closed">Qapalı (Variantlı - A, B, C, D, E)</option>
-                                    <option value="open">Açıq Tipli (Yazılı Cavablı)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Şəkil Əlavə Et (Könüllü)</label>
-                                <input type="file" id="input-image-file" accept="image/*" onchange="handleImageUpload(event)" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                                <input type="hidden" id="input-image-url" value="">
-                                <div id="image-preview-container" class="hidden mt-2 relative inline-block">
-                                    <img id="image-preview" src="" alt="Önizləmə" class="h-16 rounded-lg border border-slate-200 object-cover">
-                                    <button type="button" onclick="removeQuestionImage()" class="absolute -top-2 -right-2 bg-rose-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] shadow"><i class="fa-solid fa-xmark"></i></button>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-amber-700 uppercase tracking-wider mb-1.5"><i class="fa-solid fa-music me-1"></i> Dinləmə Mətni (MP3 Audio - Könüllü)</label>
-                                <input type="file" id="input-audio-file" accept="audio/*" onchange="handleAudioUpload(event)" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100">
-                                <input type="hidden" id="input-audio-url" value="">
-                                <div id="audio-preview-container" class="hidden mt-2">
-                                    <audio id="audio-preview" controls class="w-full h-8"></audio>
-                                    <button type="button" onclick="removeQuestionAudio()" class="text-[10px] text-rose-600 font-bold hover:underline mt-1">Səs Faylını Sil</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Sualın Mətni</label>
-                            <textarea id="input-text" rows="3" placeholder="Sualın mətnini daxil edin..." required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
-                        </div>
-
-                        <div id="closed-options-box">
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Variantlar və Düzgün Cavab</label>
-                            <div class="space-y-2">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">A</span>
-                                    <input type="text" id="opt-A" placeholder="A variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                    <input type="radio" name="correct-opt" value="A" checked title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">B</span>
-                                    <input type="text" id="opt-B" placeholder="B variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                    <input type="radio" name="correct-opt" value="B" title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">C</span>
-                                    <input type="text" id="opt-C" placeholder="C variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                    <input type="radio" name="correct-opt" value="C" title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">D</span>
-                                    <input type="text" id="opt-D" placeholder="D variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                    <input type="radio" name="correct-opt" value="D" title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center text-xs font-bold">E</span>
-                                    <input type="text" id="opt-E" placeholder="E variantı" class="flex-grow px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                    <input type="radio" name="correct-opt" value="E" title="Düzgün cavab" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500 cursor-pointer">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="open-correct-box" class="hidden">
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Açıq Sualın Düzgün Cavabı</label>
-                            <input type="text" id="input-open-correct" placeholder="Məs: 25" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Ətraflı İzah (Könüllü)</label>
-                            <textarea id="input-explanation" rows="2" placeholder="Şagird üçün izah..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 custom-scrollbar"></textarea>
-                        </div>
-
-                        <div class="flex items-center justify-between pt-2">
-                            <button type="button" onclick="resetQuestionForm()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold rounded-xl transition">
-                                Təmizlə
-                            </button>
-                            <div class="flex items-center gap-2">
-                                <span id="save-status-msg" class="text-xs font-bold text-emerald-600 hidden animate-pulse">
-                                    <i class="fa-solid fa-cloud-arrow-up"></i> Buluda yazıldı!
-                                </span>
-                                <button type="submit" id="save-q-btn" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm rounded-xl transition shadow-md shadow-indigo-600/20 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-floppy-disk"></i>
-                                    <span>Sualı Yadda Saxla</span>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Right: Config & Current Questions List -->
-                <div class="space-y-6">
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
-                        <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-sliders text-indigo-600"></i> Cari Sınaq Tənzimləmələri
-                        </h4>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1">İmtahan Müddəti (Dəqiqə)</label>
-                            <div class="flex items-center space-x-2">
-                                <input type="number" id="input-duration" min="1" max="180" value="180" onchange="updateActiveExamDuration(this.value)" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                <span class="text-xs font-bold text-slate-500">Dəq</span>
-                            </div>
-                        </div>
-
-                        <div class="pt-3 border-t border-slate-100 space-y-2">
-                            <label class="block text-xs font-semibold text-slate-600">Sınağa Giriş Parolu (Kilid)</label>
-                            <div class="flex gap-2">
-                                <input type="text" id="input-exam-password" placeholder="Parol..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                <button onclick="updateActiveExamPassword()" class="px-3 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl transition shrink-0">
-                                    Tətbiq Et
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="pt-3 border-t border-slate-100 space-y-2">
-                            <label class="block text-xs font-semibold text-slate-600">Öz Giriş Şifrəni Dəyiş</label>
-                            <div class="flex gap-2">
-                                <input type="password" id="new-admin-pass" placeholder="Yeni şifrə..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-indigo-500">
-                                <button onclick="changeAdminPassword()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition shrink-0">
-                                    Yadda Saxla
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="pt-2 border-t border-slate-100">
-                            <button onclick="clearCurrentExamQuestions()" class="w-full py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold rounded-xl transition text-center">
-                                Bu Sınağın Suallarını Sil
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-3">
-                        <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-                            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-solid fa-list-numbered text-indigo-600"></i> Bu Sınağın Sualları
-                            </h4>
-                            <span id="saved-q-count" class="text-xs font-extrabold text-slate-500">0</span>
-                        </div>
-
-                        <div id="admin-questions-list" class="space-y-2 max-h-[380px] overflow-y-auto pr-1 custom-scrollbar">
-                        </div>
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left text-xs text-slate-600 border-collapse">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800 font-bold border-b border-slate-200">
+                                    <th class="p-3 rounded-l-xl">#</th>
+                                    <th class="p-3">Şagirdin Adı və Soyadı</th>
+                                    <th class="p-3">Nəticə (%)</th>
+                                    <th class="p-3">Düzgün / Səhv / Boş</th>
+                                    <th class="p-3">Tarix və Saat</th>
+                                    <th class="p-3 text-center">Giriş Təsdiqi</th>
+                                    <th class="p-3 rounded-r-xl text-center">Əməliyyat</th>
+                                </tr>
+                            </thead>
+                            <tbody id="student-results-table-body">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -1077,7 +1106,8 @@
 
         let defaultAdminSettings = {
             card: "4127 2000 0000 0000",
-            phone: "994558586707"
+            phone: "994558586707",
+            isTeacherRegistrationOpen: true
         };
         let adminSettings = JSON.parse(localStorage.getItem('turkan_admin_settings')) || defaultAdminSettings;
 
@@ -1095,6 +1125,13 @@
             showModal("Uğurlu", "Tənzimləmələr yadda saxlandı!", null, true);
         }
 
+        function toggleTeacherRegistrationStatus() {
+            adminSettings.isTeacherRegistrationOpen = !adminSettings.isTeacherRegistrationOpen;
+            localStorage.setItem('turkan_admin_settings', JSON.stringify(adminSettings));
+            updateAdminCardDisplay();
+            showModal("Uğurlu", `Müəllim qeydiyyatı artıq ${adminSettings.isTeacherRegistrationOpen ? 'açıqdır' : 'bağlıdır'}.`, null, true);
+        }
+
         function updateAdminCardDisplay() {
             const displayEl = document.getElementById('display-admin-card-number');
             if(displayEl) displayEl.textContent = adminSettings.card || "4127 2000 0000 0000";
@@ -1102,6 +1139,17 @@
             const inputPhone = document.getElementById('setting-admin-phone');
             if(inputCard) inputCard.value = adminSettings.card;
             if(inputPhone) inputPhone.value = adminSettings.phone;
+
+            const regToggleBtn = document.getElementById('teacher-reg-toggle-btn');
+            if(regToggleBtn) {
+                if(adminSettings.isTeacherRegistrationOpen) {
+                    regToggleBtn.className = "px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow transition";
+                    regToggleBtn.innerHTML = `<i class="fa-solid fa-lock-open me-1"></i> Qeydiyyat Açıqdır (Bağla)`;
+                } else {
+                    regToggleBtn.className = "px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow transition";
+                    regToggleBtn.innerHTML = `<i class="fa-solid fa-lock me-1"></i> Qeydiyyat Bağlıdır (Aç)`;
+                }
+            }
         }
 
         let defaultExams = [
@@ -1325,6 +1373,10 @@
         }
 
         function openTeacherRegisterModal() {
+            if (adminSettings.isTeacherRegistrationOpen === false) {
+                showModal("Qeydiyyat Bağlıdır", "Hal-hazırda müəllimlər qeydiyyata alınmır, daha sonra təkrar cəhd edərsiniz.", null, true);
+                return;
+            }
             document.getElementById('reg-teacher-name').value = '';
             document.getElementById('reg-teacher-phone').value = '';
             document.getElementById('reg-teacher-subject').value = '';
@@ -1338,6 +1390,12 @@
 
         function handleTeacherRegisterSubmit(e) {
             e.preventDefault();
+            if (adminSettings.isTeacherRegistrationOpen === false) {
+                closeTeacherRegisterModal();
+                showModal("Qeydiyyat Bağlıdır", "Hal-hazırda müəllimlər qeydiyyata alınmır, daha sonra təkrar cəhd edərsiniz.", null, true);
+                return;
+            }
+
             const name = document.getElementById('reg-teacher-name').value.trim();
             const phone = document.getElementById('reg-teacher-phone').value.trim();
             const subject = document.getElementById('reg-teacher-subject').value.trim();
@@ -1561,6 +1619,47 @@
             }
         }
 
+        function deleteStudentResult(examId, studentIndex) {
+            const targetExam = exams.find(e => e.id === examId);
+            if (targetExam && targetExam.results && targetExam.results[studentIndex]) {
+                const sName = targetExam.results[studentIndex].name;
+                showModal("Şagirdi Sil", `"${sName}" adlı şagirdin nəticəsini silmək istədiyinizdən əminsiniz?`, () => {
+                    targetExam.results.splice(studentIndex, 1);
+                    saveExamsToStorage();
+                    renderStudentResultsTable();
+                    renderSuperAdminDashboard();
+                });
+            }
+        }
+
+        function viewStudentDetailResult(examId, studentIndex) {
+            const targetExam = exams.find(e => e.id === examId);
+            if (targetExam && targetExam.results && targetExam.results[studentIndex]) {
+                const res = targetExam.results[studentIndex];
+                currentStudentName = res.name + " (Müəllim İzləməsi)";
+                questions = targetExam.questions || [];
+                currentExam = targetExam;
+                
+                document.getElementById('student-landing-view').classList.add('hidden');
+                document.getElementById('admin-view').classList.add('hidden');
+                document.getElementById('exam-view').classList.add('hidden');
+                document.getElementById('results-view').classList.remove('hidden');
+
+                document.getElementById('student-name-result-display').textContent = `Şagird: ${res.name} (Tarix: ${res.date})`;
+                document.getElementById('res-score-percent').textContent = `${res.score}%`;
+                document.getElementById('res-total').textContent = questions.length;
+                document.getElementById('res-correct').textContent = res.correct;
+                document.getElementById('res-wrong').textContent = res.wrong;
+                document.getElementById('res-unanswered').textContent = res.unanswered;
+
+                const authorName = targetExam.author || 'Türkan Əliyeva';
+                document.getElementById('teacher-feedback-header').textContent = `${authorName} Müəllimdən Xüsusi Qeyd`;
+                document.getElementById('teacher-feedback-text').textContent = `Bu şagirdin sınaq nəticəsi müəllim tərəfindən izlənilir.`;
+
+                renderDetailedResults();
+            }
+        }
+
         function closeStudentExamAuthModal() {
             document.getElementById('student-exam-auth-modal').classList.add('hidden');
         }
@@ -1576,7 +1675,7 @@
             badge.textContent = `Cəmi İştirakçı: ${results.length} Nəfər`;
 
             if (results.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400 italic">Hələ ki şagird yoxdur.</td></tr>`;
+                tableBody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400 italic">Hələ ki şagird yoxdur.</td></tr>`;
                 return;
             }
 
@@ -1585,15 +1684,21 @@
                 return `
                     <tr class="border-b border-slate-100 hover:bg-slate-50">
                         <td class="p-3 font-bold text-slate-400">${idx + 1}</td>
-                        <td class="p-3 font-extrabold text-slate-800">${escapeHtml(res.name)}</td>
+                        <td class="p-3 font-extrabold text-slate-800">
+                            <span onclick="viewStudentDetailResult('${curExam.id}', ${idx})" class="cursor-pointer text-indigo-600 hover:underline" title="Detallı nəticəyə bax">${escapeHtml(res.name)}</span>
+                        </td>
                         <td class="p-3 font-black ${res.score >= 50 ? 'text-emerald-600' : 'text-rose-600'}">${res.score}%</td>
                         <td class="p-3 font-semibold"><span class="text-emerald-600">${res.correct} Düz</span> / <span class="text-rose-600">${res.wrong} Səhv</span> / <span class="text-amber-600">${res.unanswered} Boş</span></td>
                         <td class="p-3 text-slate-500">${res.date}</td>
                         <td class="p-3 text-center">
                             <button onclick="allowStudentEntry('${curExam.id}', '${escapeHtml(res.name)}')" 
                                 class="px-2.5 py-1 ${isAllowed ? 'bg-emerald-100 text-emerald-800' : 'bg-emerald-600 hover:bg-emerald-700 text-white'} font-bold text-[11px] rounded-lg transition">
-                                ${isAllowed ? '✓ Giriş Təsdiqlənib' : 'Girişi Təsdiq Et'}
+                                ${isAllowed ? '✓ Təsdiqlənib' : 'Girişi Təsdiq Et'}
                             </button>
+                        </td>
+                        <td class="p-3 text-center flex items-center justify-center gap-1.5">
+                            <button onclick="viewStudentDetailResult('${curExam.id}', ${idx})" class="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-lg text-xs font-bold transition" title="Nəticəyə Bax"><i class="fa-solid fa-eye"></i></button>
+                            <button onclick="deleteStudentResult('${curExam.id}', ${idx})" class="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-xs font-bold transition" title="Sil"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
@@ -2160,7 +2265,6 @@
                 showTeacherPanel();
             } else {
                 const selectEl = document.getElementById('login-teacher-select');
-                // Yalnız təsdiqlənmiş müəllimlər və ya bütün müəllimlər göstərilir ki, giriş edə bilsinlər
                 selectEl.innerHTML = teachers.map(t => `<option value="${escapeHtml(t.name)}">${escapeHtml(t.name)} ${t.isSuperAdmin ? '(Super Admin)' : (t.isApproved ? '' : ' (Təsdiq gözləyir)')}</option>`).join('');
                 document.getElementById('teacher-password-input').value = '';
                 document.getElementById('admin-auth-error').classList.add('hidden');
@@ -2213,7 +2317,6 @@
             badge.classList.remove('hidden');
             badge.classList.add('flex');
             
-            // Müəllim paneli düyməsini həmişə əlçatan saxlayaq və ya dəyişək
             document.getElementById('teacher-panel-btn').innerHTML = `<i class="fa-solid fa-gauge text-amber-400"></i><span class="hidden sm:inline">Panelim</span>`;
 
             const myExams = getFilteredExamsForCurrentTeacher();
